@@ -2,25 +2,37 @@
 
 [![Build Status](https://travis-ci.org/mvs-singapore/mvs-sms.svg?branch=master)](https://travis-ci.org/mvs-singapore/mvs-sms)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Development Installation
 
-Things you may want to cover:
+### Option A: Install on Cloud9
 
-* Ruby version
+- Update Ruby to 2.4.1
 
-* System dependencies
+  ```
+  rvm install 2.4.1
+  rvm --default use 2.4.1
+  ```
 
-* Configuration
+- Install Rails 5
 
-* Database creation
+  ```
+  gem install rails
+  ```
 
-* Database initialization
+- Check out this repository to your Cloud9 IDE workspace.
+- Replace `workspace` folder with this folder.
 
-* How to run the test suite
+### Option B: Install Ruby & Rails on your local machine
 
-* Services (job queues, cache servers, search engines, etc.)
+- Here's the guide to doing it on MacOS: https://github.com/CoderKungfu/polyglot-starter-kit/tree/master/ruby
 
-* Deployment instructions
 
-* ...
+## Contributors
+
+- Michael Cheng
+- Lian Tong Wei
+- Pearly Ong
+- Marta Stanke
+- Anukrity Jain
+- Gia Phua
+- Emily Ong
