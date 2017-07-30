@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/mvs-singapore/mvs-sms.svg?branch=master)](https://travis-ci.org/mvs-singapore/mvs-sms)
 
+[![Issue Count](https://codeclimate.com/github/mvs-singapore/mvs-sms/badges/issue_count.svg)](https://codeclimate.com/github/mvs-singapore/mvs-sms)
+
 ## Development Installation
 
 ### Option A: Install on Cloud9
