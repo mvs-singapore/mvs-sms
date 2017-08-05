@@ -54,4 +54,11 @@ group :development, :test do
   gem 'dotenv-rails'
 end
 
+group :test do
+  gem 'capybara'
+  gem 'capybara-selenium'
+  gem 'chromedriver-helper'
+  gem 'database_cleaner'
+end
+
 gem 'devise'
