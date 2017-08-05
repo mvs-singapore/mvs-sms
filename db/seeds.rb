@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+User.where(email: 'sms-admin@mvs.edu.sg').first_or_create do |user|
+  user.password = 'password1234'
+
+  puts "Default admin account created."
+end
+
+puts "Done seeding."
