@@ -28,11 +28,12 @@ RSpec.describe User, type: :model do
     end
   end
 
-  # describe 'hello' do
-  #     it 'has valid email' do
-  #         user = User.new(email: "michael@example.com", password: "hello123")
+  describe '.generate_random_password' do
+    it 'creates a random password' do
+      password = User.generate_random_password
 
-  #         expect(user).to be_valid
-  #     end
-  # end
+      expect(password).to_not be_nil
+      expect(password.size).to eq(10)
+    end
+  end
 end

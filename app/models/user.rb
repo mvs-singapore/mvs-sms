@@ -8,4 +8,8 @@ class User < ApplicationRecord
 
   validates :role, presence: true, inclusion: { in: USER_ROLES,
                 message: "%{value} is not a valid role" }
+
+  def self.generate_random_password
+    SecureRandom.hex(5)
+  end
 end
