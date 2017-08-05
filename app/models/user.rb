@@ -3,4 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable :registerable
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  USER_ROLES = %w(super_admin teacher principal vice_principal clerk case_worker)
+
+  validates :role, presence: true, inclusion: { in: USER_ROLES,
+                message: "%{value} is not a valid role" }
 end
