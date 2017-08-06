@@ -8,6 +8,7 @@
 
 User.where(email: 'sms-admin@mvs.edu.sg').first_or_create do |user|
   user.password = 'password1234'
+  user.role = 'super_admin'
 
   puts "Default admin account created."
 end
