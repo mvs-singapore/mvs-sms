@@ -11,8 +11,7 @@ RSpec.describe User, type: :model do
       end
 
       it 'must have valid role name' do
-        user.role = 'some_clown'
-        expect(user).to_not be_valid
+        expect{ user.role = 'some_clown' }.to raise_error(ArgumentError)
       end
     end
 
