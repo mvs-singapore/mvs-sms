@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'manage user accounts', type: :feature do
-  let!(:super_user) { User.create(email: 'admin@example.com', password: 'password', role: 'super_admin') }
+  let!(:super_user) { User.create(email: 'admin@example.com', password: 'password', name: 'Super Admin', role: 'super_admin') }
 
   it 'signs me in' do
     visit '/users/sign_in'
