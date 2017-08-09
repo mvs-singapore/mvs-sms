@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   enum role: [ :super_admin, :teacher, :principal, :vice_principal, :clerk, :case_worker ]
 
+  validates :name, presence: true, length: { maximum: 255 }
   validates :role, presence: true, inclusion: { in: roles.keys,
                 message: "%{value} is not a valid role" }
 

@@ -2,11 +2,16 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'validations' do
-    let(:user) { User.new(email: "michael@example.com", password: "hello123") }
+    let(:user) { User.new(email: "michael@example.com", password: "hello123", role: 'teacher', name: "Awesome Guy") }
 
     context 'invalid' do
       it 'must not be empty' do
         user.role = ''
+        expect(user).to_not be_valid
+      end
+
+      it 'must have name' do
+        user.name = ''
         expect(user).to_not be_valid
       end
 
