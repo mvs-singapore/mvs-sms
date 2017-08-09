@@ -28,6 +28,13 @@ RSpec.describe User, type: :model do
             expect(user).to be_valid
           end
         end
+
+        it 'saves the correct values' do
+          user.role = 'teacher'
+          user.save
+
+          expect(user.reload.role).to eq('teacher')
+        end
       end
     end
   end
