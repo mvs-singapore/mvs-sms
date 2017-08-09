@@ -5,9 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   enum role: [ :super_admin, :teacher, :principal, :vice_principal, :clerk, :case_worker ]
-  USER_ROLES = %w(super_admin teacher principal vice_principal clerk case_worker)
 
-  validates :role, presence: true, inclusion: { in: USER_ROLES,
+  validates :role, presence: true, inclusion: { in: roles.keys,
                 message: "%{value} is not a valid role" }
 
   def self.generate_random_password

@@ -17,7 +17,7 @@ RSpec.describe User, type: :model do
 
     context 'valid' do
       describe 'valid roles' do
-        User::USER_ROLES.each do |role|
+        User.roles.keys.each do |role|
           it "valid for #{role}" do
             user.role = role
             expect(user).to be_valid
