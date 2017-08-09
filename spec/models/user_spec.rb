@@ -5,7 +5,7 @@ RSpec.describe User, type: :model do
     let(:user) { User.new(email: "michael@example.com", password: "hello123", role: 'teacher', name: "Awesome Guy") }
 
     context 'invalid' do
-      it 'must not be empty' do
+      it 'must have role' do
         user.role = ''
         expect(user).to_not be_valid
       end
