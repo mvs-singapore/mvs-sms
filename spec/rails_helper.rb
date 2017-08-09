@@ -24,6 +24,16 @@ end
 
 Capybara.javascript_driver = :headless_chrome
 
+def accept_confirm_dialog
+  return unless block_given?
+  if Capybara.javascript_driver == :headless_chrome
+    page.evaluate_script('window.confirm = function(){return true;}')
+    yield
+  else
+    yield
+    page.driver.browser.switch_to.alert.popup.accept
+  end
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

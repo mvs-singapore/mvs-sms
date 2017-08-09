@@ -58,4 +58,36 @@ describe 'manage user accounts', type: :feature do
       #TODO Ensure email was sent.
     end
   end
+
+  xdescribe 'current user' do
+    before do
+      User.create(email: 'teacher@example.com', password: 'password', name: 'Teacher 1', role: 'teacher')
+    end
+
+    it 'deletes existing user', js: true do
+      sign_in super_user
+
+      visit '/admin/users/'
+
+      accept_confirm_dialog { first('a.delete_user').click }
+
+      expect(page).to have_text 'Successfully deleted user.'
+
+      #TODO Ensure email was sent.
+    end
+  end
+
+  xdescribe 'current user' do
+    it 'forbids non super admin to /admin/users page' do
+      User::USER_ROLES.each do |role|
+        next if role == 'super_user'
+
+        user = User.create(email: 'teacher@example.com', password: 'password', name: 'Teacher 1', role: role)
+        sign_in user
+        visit '/admin/users/'
+
+        expect(page).to have_text 'Unauthorized access.'
+      end
+    end
+  end
 end
