@@ -14,4 +14,12 @@ User.where(email: 'sms-admin@mvs.edu.sg').first_or_create! do |user|
   puts "Default admin account created."
 end
 
+User.where(email: 'teacher@mvs.edu.sg').first_or_create! do |user|
+  user.password = 'password1234'
+  user.role = 'teacher'
+  user.name = 'Some Teacher'
+
+  puts "Default teacher account created."
+end
+
 puts "Done seeding."

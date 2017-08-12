@@ -1,4 +1,5 @@
 class Admin::UsersController < ApplicationController
+  before_action :is_admin?
   before_action :fetch_user, only: [:edit, :update, :destroy]
 
   def index
@@ -40,6 +41,7 @@ class Admin::UsersController < ApplicationController
       redirect_to admin_users_path, flash: { alert: @user.errors.full_messages.join(" ") }
     end
   end
+
   private
 
   def fetch_user

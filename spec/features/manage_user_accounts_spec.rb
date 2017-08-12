@@ -79,16 +79,16 @@ describe 'manage user accounts', type: :feature do
     end
   end
 
-  xdescribe 'current user' do
+  describe 'current user' do
     it 'forbids non super admin to /admin/users page' do
-      User::USER_ROLES.each do |role|
-        next if role == 'super_user'
+      User.roles.keys.each do |role|
+        next if role == 'super_admin'
 
         user = User.create(email: 'teacher@example.com', password: 'password', name: 'Teacher 1', role: role)
         sign_in user
         visit '/admin/users/'
 
-        expect(page).to have_text 'Unauthorized access.'
+        expect(page).to have_text 'Unauthorized access'
       end
     end
   end
