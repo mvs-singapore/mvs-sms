@@ -15,21 +15,22 @@ describe 'manage user accounts', type: :feature do
     expect(page).to have_text 'Signed in successfully'
   end
 
-  xdescribe 'new user' do
+  describe 'new user' do
     it 'creates new user with role' do
       sign_in super_user
 
       visit '/admin/users/'
-      click_link 'New User'
+      click_link 'Add User'
 
       within('#new_user') do
         fill_in 'Name', with: 'Yammy'
         fill_in 'Email', with: 'teacher@example.com'
-        select('Teacher', :from => 'User Role')
+        select('teacher', :from => 'Role')
       end
+
       click_button 'Create User'
 
-      expect(page).to have_text 'Successfully created user.'
+      expect(page).to have_text 'Successfully created user'
 
       #TODO Ensure email was sent.
     end
@@ -53,7 +54,7 @@ describe 'manage user accounts', type: :feature do
       end
       click_button 'Update User'
 
-      expect(page).to have_text 'Successfully updated user.'
+      expect(page).to have_text 'Successfully updated user'
 
       #TODO Ensure email was sent.
     end

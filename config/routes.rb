@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :users, only: [:index, :new, :create]
+  end
+
   root to: 'pages#index'
   get 'pages/index'
 
