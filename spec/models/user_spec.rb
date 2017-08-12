@@ -1,11 +1,50 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe 'hello' do
-      it 'has valid email' do
-          user = User.new(email: "michael@example.com", password: "hello123")
+  describe 'validations' do
+    let(:user) { User.new(email: "michael@example.com", password: "hello123", role: 'teacher', name: "Awesome Guy") }
 
-          expect(user).to be_valid
+    context 'invalid' do
+      it 'must have role' do
+        user.role = ''
+        expect(user).to_not be_valid
       end
+
+      it 'must have name' do
+        user.name = ''
+        expect(user).to_not be_valid
+      end
+
+      it 'must have valid role name' do
+        expect{ user.role = 'some_clown' }.to raise_error(ArgumentError)
+      end
+    end
+
+    context 'valid' do
+      describe 'valid roles' do
+        User.roles.keys.each do |role|
+          it "valid for #{role}" do
+            user.role = role
+            expect(user).to be_valid
+          end
+        end
+
+        it 'saves the correct values' do
+          user.role = 'teacher'
+          user.save
+
+          expect(user.reload.role).to eq('teacher')
+        end
+      end
+    end
+  end
+
+  describe '.generate_random_password' do
+    it 'creates a random password' do
+      password = User.generate_random_password
+
+      expect(password).to_not be_nil
+      expect(password.size).to eq(10)
+    end
   end
 end
