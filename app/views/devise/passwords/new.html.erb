@@ -6,7 +6,7 @@
         </div>
         <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= devise_error_messages! %>
-        
+
           <div class="container-fluid">
       <%= render partial: 'shared/flash' unless flash.empty? %>
       <%= yield %>
@@ -16,7 +16,7 @@
         <div class="modal-body">
               <div class="form-group row">
                   <div class="col-sm-12">
-                <%= f.label :email %><br />
+                <%= f.label :email %>
                 <%= f.email_field :email, autofocus: true, class: 'form-control' %>
                   </div>
                   </div>
@@ -28,7 +28,7 @@
             <% end %>
             <div class="modal-footer">
                    <%= render "devise/shared/links" %>
-            </div>   
+            </div>
         </div>
     </form>
 </div>
