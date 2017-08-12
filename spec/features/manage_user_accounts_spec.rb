@@ -41,7 +41,7 @@ describe 'manage user accounts', type: :feature do
       User.create(email: 'teacher@example.com', password: 'password', name: 'Teacher 1', role: 'teacher')
     end
 
-    it 'creates new user with role' do
+    it 'edit user with role' do
       sign_in super_user
 
       visit '/admin/users/'
