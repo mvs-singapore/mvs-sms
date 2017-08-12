@@ -4,7 +4,10 @@
 
 <ul>
 <% @users.each do |user| %>
-  <li><%= link_to user.name, edit_admin_user_path(user), class: "edit_user" %></li>
+  <li>
+    <%= link_to user.name, edit_admin_user_path(user), class: "edit_user" %>
+    [ <%= link_to 'delete', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_user" %> ]
+  </li>
 <% end %>
 </ul>
 

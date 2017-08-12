@@ -31,7 +31,7 @@ def accept_confirm_dialog
     yield
   else
     yield
-    page.driver.browser.switch_to.alert.popup.accept
+    page.driver.browser.switch_to.alert.accept
   end
 end
 

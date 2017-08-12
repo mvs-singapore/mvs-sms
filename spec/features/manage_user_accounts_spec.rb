@@ -61,10 +61,8 @@ describe 'manage user accounts', type: :feature do
     end
   end
 
-  xdescribe 'current user' do
-    before do
-      User.create(email: 'teacher@example.com', password: 'password', name: 'Teacher 1', role: 'teacher')
-    end
+  describe 'current user' do
+    let!(:user){ User.create(email: 'teacher@example.com', password: 'password', name: 'Teacher 1', role: 'teacher') }
 
     it 'deletes existing user', js: true do
       sign_in super_user
@@ -73,7 +71,9 @@ describe 'manage user accounts', type: :feature do
 
       accept_confirm_dialog { first('a.delete_user').click }
 
-      expect(page).to have_text 'Successfully deleted user.'
+      expect(page).to have_text 'Successfully deleted user'
+
+      expect(User.count).to eq 1
 
       #TODO Ensure email was sent.
     end

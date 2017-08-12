@@ -1,5 +1,5 @@
 class Admin::UsersController < ApplicationController
-  before_action :fetch_user, only: [:edit, :update]
+  before_action :fetch_user, only: [:edit, :update, :destroy]
 
   def index
     @users = User.all
@@ -33,6 +33,13 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def destroy
+    if @user.destroy
+      redirect_to admin_users_path, flash: { notice: 'Successfully deleted user' }
+    else
+      redirect_to admin_users_path, flash: { alert: @user.errors.full_messages.join(" ") }
+    end
+  end
   private
 
   def fetch_user
