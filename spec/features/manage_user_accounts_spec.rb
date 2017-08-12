@@ -36,25 +36,26 @@ describe 'manage user accounts', type: :feature do
     end
   end
 
-  xdescribe 'current user' do
-    before do
-      User.create(email: 'teacher@example.com', password: 'password', name: 'Teacher 1', role: 'teacher')
-    end
+  describe 'current user' do
+    let!(:user){ User.create(email: 'teacher@example.com', password: 'password', name: 'Teacher 1', role: 'teacher') }
 
     it 'edit user with role' do
       sign_in super_user
 
       visit '/admin/users/'
-
       first('a.edit_user').click
 
-      within('#edit_user') do
+      within('.edit_user') do
         fill_in 'Name', with: 'Yammy'
         fill_in 'Email', with: 'yammy@example.com'
       end
       click_button 'Update User'
 
       expect(page).to have_text 'Successfully updated user'
+
+      user.reload
+      expect(user.name).to eq 'Yammy'
+      expect(user.email).to eq 'yammy@example.com'
 
       #TODO Ensure email was sent.
     end

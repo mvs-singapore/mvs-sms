@@ -1,5 +1,8 @@
 class Admin::UsersController < ApplicationController
+  before_action :fetch_user, only: [:edit, :update]
+
   def index
+    @users = User.all
   end
 
   def new
@@ -18,7 +21,23 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if @user.update(user_params)
+      redirect_to admin_users_path, flash: { notice: 'Successfully updated user' }
+    else
+      flash.now[:alert] = @user.errors.full_messages.join(" ")
+      render :edit
+    end
+  end
+
   private
+
+  def fetch_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:name, :email, :role)

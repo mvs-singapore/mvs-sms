@@ -1,3 +1,10 @@
 <h1>Manage Users</h1>
 
-<%= link_to('Add User', new_admin_user_path) %>
+<p><%= link_to('Add User', new_admin_user_path) %></p>
+
+<ul>
+<% @users.each do |user| %>
+  <li><%= link_to user.name, edit_admin_user_path(user), class: "edit_user" %></li>
+<% end %>
+</ul>
+
