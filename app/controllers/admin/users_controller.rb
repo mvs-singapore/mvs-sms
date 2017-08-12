@@ -13,7 +13,7 @@ class Admin::UsersController < ApplicationController
     if @user.save
       redirect_to admin_users_path, flash: { notice: 'Successfully created user' }
     else
-      flash.now[:error] = @user.errors.full_messages.join(" ")
+      flash.now[:alert] = @user.errors.full_messages.join(" ")
       render :new
     end
   end
