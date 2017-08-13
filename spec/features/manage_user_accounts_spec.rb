@@ -43,8 +43,7 @@ describe 'manage user accounts', type: :feature do
       sign_in super_user
 
       visit '/admin/users/'
-      first('a.edit_user').click
-
+      find_link('Teacher 1', visible: true).click
       within('.edit_user') do
         fill_in 'Name', with: 'Yammy'
         fill_in 'Email', with: 'yammy@example.com'
@@ -59,36 +58,31 @@ describe 'manage user accounts', type: :feature do
 
       #TODO Ensure email was sent.
     end
-  end
-
-  describe 'current user' do
-    let!(:user){ User.create(email: 'teacher@example.com', password: 'password', name: 'Teacher 1', role: 'teacher') }
 
     it 'deletes existing user', js: true do
       sign_in super_user
 
       visit '/admin/users/'
-
       accept_confirm_dialog { first('a.delete_user').click }
 
       expect(page).to have_text 'Successfully deleted user'
-
-      expect(User.count).to eq 1
+      expect(User.where(email: 'teacher@example.com').count).to eq 0
 
       #TODO Ensure email was sent.
     end
-  end
 
-  describe 'current user' do
-    it 'forbids non super admin to /admin/users page' do
+    describe 'forbids non super admin to /admin/users page' do
       User.roles.keys.each do |role|
         next if role == 'super_admin'
 
-        user = User.create(email: 'teacher@example.com', password: 'password', name: 'Teacher 1', role: role)
-        sign_in user
-        visit '/admin/users/'
+        it "user with role #{role}" do
+          user = User.create(email: 'teacher@example.com', password: 'password', name: 'Teacher 1', role: role)
 
-        expect(page).to have_text 'Unauthorized access'
+          sign_in user
+          visit '/admin/users/'
+
+          expect(page).to have_text 'Unauthorized access'
+        end
       end
     end
   end
