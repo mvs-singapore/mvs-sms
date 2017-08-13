@@ -1,22 +1,4 @@
-<h2>Edit User</h2>
-
+<h3 class="text-center">Edit User</h3>
 <%= form_for(@user, url: admin_user_path(@user)) do |f| %>
-    <div class="field">
-      <%= f.label :name %><br />
-      <%= f.text_field :name, autofocus: true %>
-    </div>
-
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email %>
-    </div>
-
-    <div class="field">
-      <%= f.label :role %><br />
-      <%= f.select(:role, User.roles.to_a) %>
-    </div>
-
-    <div class="actions">
-      <%= f.submit "Update User" %>
-    </div>
+<%= render :partial => 'admin/shared/form', :locals => {:f => f} %>
 <% end %>
