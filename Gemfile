@@ -63,7 +63,7 @@ group :test do
 end
 
 gem 'devise'
-gem 'bootstrap', '~> 4.0.0.alpha6'
+gem 'bootstrap', '~> 4.0.0.beta'
 gem 'jquery-rails'
 
 source 'https://rails-assets.org' do
