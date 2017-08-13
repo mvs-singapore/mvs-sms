@@ -44,7 +44,7 @@ GEM
     archive-zip (0.7.0)
       io-like (~> 0.3.0)
     arel (8.0.0)
-    autoprefixer-rails (7.1.2.3)
+    autoprefixer-rails (7.1.2.4)
       execjs
     bcrypt (3.1.11)
     better_errors (2.1.1)
@@ -54,8 +54,9 @@ GEM
     bindex (0.5.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap (4.0.0.alpha6)
+    bootstrap (4.0.0.beta)
       autoprefixer-rails (>= 6.0.3)
+      popper_js (~> 1.11.1)
       sass (>= 3.4.19)
     builder (3.2.3)
     byebug (9.0.6)
@@ -124,6 +125,7 @@ GEM
       mini_portile2 (~> 2.2.0)
     orm_adapter (0.5.0)
     pg (0.21.0)
+    popper_js (1.11.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -243,7 +245,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
-  bootstrap (~> 4.0.0.alpha6)
+  bootstrap (~> 4.0.0.beta)
   byebug
   capybara
   capybara-selenium
