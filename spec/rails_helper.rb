@@ -35,6 +35,9 @@ def accept_confirm_dialog
   end
 end
 
+require "email_spec"
+require "email_spec/rspec"
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -60,6 +63,8 @@ RSpec.configure do |config|
 
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :feature
+  config.include EmailSpec::Helpers
+  config.include EmailSpec::Matchers
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -101,6 +106,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     DatabaseCleaner.start
+    reset_mailer # Clears out ActionMailer::Base.deliveries
   end
 
   config.append_after(:each) do

@@ -53,6 +53,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'spring-commands-rspec'
   gem 'dotenv-rails'
+  gem 'email_spec'
 end
 
 group :test do
@@ -65,7 +66,3 @@ end
 gem 'devise'
 gem 'bootstrap', '~> 4.0.0.beta'
 gem 'jquery-rails'
-
-source 'https://rails-assets.org' do
-  gem 'rails-assets-tether', '>= 1.3.3'
-end

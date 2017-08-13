@@ -28,6 +28,31 @@
 
 - Here's the guide to doing it on MacOS: https://github.com/CoderKungfu/polyglot-starter-kit/tree/master/ruby
 
+## Email Delivery
+
+### Local Development
+
+We use [Mailcatcher](https://mailcatcher.me) to receive emails sent in local development.
+
+To install Mailcatcher:
+
+```
+gem install mailcatcher --no-ri --no-rdoc
+```
+
+To start mailcatcher:
+
+```
+mailcatcher
+```
+
+Visit the inbox here: [http://localhost:1080](http://localhost:1080)
+
+To stop mail catcher, just click on "Quit" in the web interface.
+
+### Staging Server
+
+Visit the MailTrap inbox here: [https://heroku.mailtrap.io/inboxes/243584/messages](https://heroku.mailtrap.io/inboxes/243584/messages)
 
 ## Contributors
 
