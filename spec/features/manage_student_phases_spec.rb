@@ -4,7 +4,7 @@ xdescribe 'manage student phases', type: :feature do
   let!(:super_admin_role) { Role.create(name: 'super_admin', super_admin: true) }
   let!(:super_user) { User.create(email: 'admin@example.com', password: 'password',
                                   name: 'Super Admin', role: super_admin_role) }
-  let!(:new_admission) { StudentPhase.create(name: 'new_admission', order: 1) }
+  let!(:new_admission) { StudentPhase.create(name: 'new_admission', sort_order: 1) }
 
   before do
     sign_in super_user
@@ -28,7 +28,7 @@ xdescribe 'manage student phases', type: :feature do
   end
 
   describe 'edit student_phase' do
-    let!(:year_one) { StudentPhase.create(name: 'year_1') }
+    let!(:year_one) { StudentPhase.create(name: 'year_1', sort_order: 2) }
 
     it 'edits an existing role' do
       find_link(year_one.name, visible: true).click
@@ -45,7 +45,7 @@ xdescribe 'manage student phases', type: :feature do
   end
 
   describe 'delete student phase' do
-    let!(:year_three) { StudentPhase.create(name: 'year_three', order: 3) }
+    let!(:year_three) { StudentPhase.create(name: 'year_three', sort_order: 3) }
 
     it 'deletes an existing student phase' do
       within("#student-phase-#{year_three.id}") do
