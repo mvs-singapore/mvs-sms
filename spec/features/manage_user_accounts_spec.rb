@@ -32,7 +32,8 @@ describe 'manage user accounts', type: :feature do
 
       expect(page).to have_text 'Successfully created user'
 
-      #TODO Ensure email was sent.
+      received_email = open_email('teacher@example.com', with_subject: "New User Account: Yammy (teacher@example.com)")
+      expect(received_email.body.encoded).to include "Welcome Yammy, to MVS-Student Management System"
     end
   end
 
@@ -55,8 +56,6 @@ describe 'manage user accounts', type: :feature do
       user.reload
       expect(user.name).to eq 'Yammy'
       expect(user.email).to eq 'yammy@example.com'
-
-      #TODO Ensure email was sent.
     end
 
     it 'deletes existing user', js: true do
@@ -67,8 +66,6 @@ describe 'manage user accounts', type: :feature do
 
       expect(page).to have_text 'Successfully deleted user'
       expect(User.where(email: 'teacher@example.com').count).to eq 0
-
-      #TODO Ensure email was sent.
     end
 
     describe 'forbids non super admin to /admin/users page' do

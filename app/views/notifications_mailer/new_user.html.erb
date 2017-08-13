@@ -1,0 +1,18 @@
+<h1>New User</h1>
+
+<p>Welcome <%=@user.name %>, to MVS-Student Management System.</p>
+
+<p>Your login details are:</p>
+
+<dl>
+  <dt>Username:</dt>
+  <dd><%= @user.email %></dd>
+
+  <dt>Default Password:</dt>
+  <dd><%= @default_password %></dd>
+</dl>
+
+<p>Please remember to change your password after logging in.</p>
+
+<p>Regards,</p>
+<p>Super Admin</p>

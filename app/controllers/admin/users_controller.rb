@@ -12,9 +12,11 @@ class Admin::UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.password = User.generate_random_password
+    default_password = User.generate_random_password
+    @user.password = default_password
 
     if @user.save
+      NotificationsMailer.new_user(@user, default_password).deliver_now
       redirect_to admin_users_path, flash: { notice: 'Successfully created user' }
     else
       flash.now[:alert] = @user.errors.full_messages.join(" ")

@@ -39,6 +39,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'mailcatcher'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -53,6 +54,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'spring-commands-rspec'
   gem 'dotenv-rails'
+  gem 'email_spec'
 end
 
 group :test do
@@ -65,7 +67,3 @@ end
 gem 'devise'
 gem 'bootstrap', '~> 4.0.0.beta'
 gem 'jquery-rails'
-
-source 'https://rails-assets.org' do
-  gem 'rails-assets-tether', '>= 1.3.3'
-end
