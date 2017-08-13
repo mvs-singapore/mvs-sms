@@ -9,20 +9,6 @@ xdescribe 'manage user roles', type: :feature do
     visit '/admin/roles/'
   end
 
-  describe 'forbids non super admin to /admin/roles page' do
-    User.roles.keys.each do |role|
-      next if role == 'super_admin'
-
-      it "user with role #{role}" do
-        user = User.create(email: 'teacher@example.com', password: 'password', name: 'Teacher 1', role: role)
-        sign_in user
-        visit '/admin/roles/'
-
-        expect(page).to have_text 'Unauthorized access'
-      end
-    end
-  end
-
   describe 'create role' do
     it 'creates new role' do
       click_link 'Add Role'
@@ -59,7 +45,7 @@ xdescribe 'manage user roles', type: :feature do
     let!(:garbage_collector) { Role.create(name: 'garbage_collector', super_admin: false) }
 
     it 'deletes an existing role' do
-      within("role-#{garbage_collector.id}") do
+      within("#role-#{garbage_collector.id}") do
         accept_confirm_dialog {
           find_link('delete', visible: true).click
         }
