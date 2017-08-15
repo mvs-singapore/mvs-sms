@@ -44,7 +44,7 @@ describe 'manage user accounts', type: :feature do
       sign_in super_user
 
       visit '/admin/users/'
-      find_link('Teacher 1', visible: true).click
+      find(:xpath, "//tr[td[contains(., 'Teacher 1')]]/td/a", :text => 'Edit').click
       within('.edit_user') do
         fill_in 'Name', with: 'Yammy'
         fill_in 'Email', with: 'yammy@example.com'
