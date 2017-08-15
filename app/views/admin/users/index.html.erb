@@ -1,13 +1,30 @@
-<h1>Manage Users</h1>
+<h3>Manage Users</h3>
 
-<p><%= link_to('Add User', new_admin_user_path) %></p>
+<%= link_to('Add User', new_admin_user_path, class: "btn btn-primary") %>
 
-<ul>
-<% @users.each do |user| %>
-  <li>
-    <%= link_to user.name, edit_admin_user_path(user), class: "edit_user" %>
-    [ <%= link_to 'delete', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_user" %> ]
-  </li>
-<% end %>
-</ul>
-
+    <table class="table table-bordered table-responsive">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>User</th>
+          <th>Role</th>
+          <th>Created at</th>
+          <th>Last Login</th>
+          <th>Edit User</th>
+          <th>Delete User</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+        <tr>
+          <th scope="row"></th>
+          <td><%= user.name %></td>
+          <td><%= user.role %></td>
+          <td><%= user.created_at %></td>
+          <td><%= user.last_sign_in_at %></td>
+          <td><%= link_to 'Edit', edit_admin_user_path(user), class: "edit_user btn btn-primary" %></td>
+          <td><%= link_to 'Delete', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_user btn btn-danger" %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
