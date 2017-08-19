@@ -3,6 +3,8 @@ require 'rails_helper'
 describe 'manage user roles', type: :feature do
   let!(:super_admin_role) { Role.create(name: 'super_admin', super_admin: true) }
   let!(:super_user) { User.create(email: 'admin@example.com', password: 'password', name: 'Super Admin', role: super_admin_role) }
+  let!(:social_worker_role) { Role.create(name: 'socialworker') }
+  let!(:garbage_collector) { Role.create(name: 'garbage_collector') }
 
   before do
     sign_in super_user
@@ -11,8 +13,6 @@ describe 'manage user roles', type: :feature do
 
   describe 'create role' do
     it 'creates new role' do
-      sign_in super_user
-      visit '/admin/roles/'
       click_link 'Add Role'
       within('#new_role') do
         fill_in 'Name', with: 'psychiatrist'
@@ -25,11 +25,11 @@ describe 'manage user roles', type: :feature do
     end
   end
 
-  xdescribe 'edit role' do
-    let!(:social_worker_role) { Role.create(name: 'socialworker', super_admin: false) }
-
+  describe 'edit role' do
     it 'edits an existing role' do
-      find_link(social_worker_role.name, visible: true).click
+      within("#role-#{social_worker_role.id}") do
+        find_link('Edit').click
+      end
 
       within('.edit_role') do
         fill_in 'Name', with: 'social_worker'
@@ -42,13 +42,11 @@ describe 'manage user roles', type: :feature do
     end
   end
 
-  xdescribe 'delete role' do
-    let!(:garbage_collector) { Role.create(name: 'garbage_collector', super_admin: false) }
-
+  describe 'delete role', js: true do
     it 'deletes an existing role' do
       within("#role-#{garbage_collector.id}") do
         accept_confirm_dialog {
-          find_link('delete', visible: true).click
+          find_link('Delete', visible: true).click
         }
       end
 
