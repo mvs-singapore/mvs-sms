@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'validations' do
-    let(:user) { User.new(email: "michael@example.com", password: "hello123", role: 'teacher', name: "Awesome Guy") }
+    let(:teacher_role) { Role.create(name: 'teacher') }
+    let(:user) { User.new(email: "michael@example.com", password: "hello123", role: teacher_role, name: "Awesome Guy") }
 
     context 'invalid' do
       it 'must have name' do

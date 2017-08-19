@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe 'manage user accounts', type: :feature do
   let!(:super_admin_role) { Role.create(name: 'super_admin', super_admin: true) }
+  let!(:teacher_role) { Role.create(name: 'teacher') }
   let!(:super_user) do
     User.create(email: 'admin@example.com', password: 'password',
                 name: 'Super Admin', role: super_admin_role)
@@ -75,7 +76,5 @@ describe 'manage user accounts', type: :feature do
       expect(page).to have_text 'Successfully deleted user'
       expect(User.where(email: 'teacher@example.com').count).to eq 0
     end
-
-
   end
 end

@@ -5,8 +5,6 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # enum role: {super_admin: 'super_admin', teacher: 'teacher', principal: 'principal', vice_principal: 'vice_principal', clerk: 'clerk', case_worker: 'case_worker' }
-
   validates :name, presence: true, length: { maximum: 255 }
 
   def self.generate_random_password

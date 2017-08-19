@@ -14,8 +14,8 @@
 
 <div class="form-group row justify-content-center">
   <div class="col-4">
-    <%= f.label :role %>
-    <%= f.select :role, User.roles.keys, {prompt: 'Select Role'}, class: 'form-control'%>
+    <%= f.label :role_id, 'Role' %>
+    <%= f.collection_select :role_id, User.roles, :id, :name, {prompt: 'Select Role'}, class: 'form-control'%>
 
   </div>
 </div>
