@@ -25,7 +25,7 @@ describe 'manage user roles', type: :feature do
     end
   end
 
-  describe 'edit role' do
+  xdescribe 'edit role' do
     let!(:social_worker_role) { Role.create(name: 'socialworker', super_admin: false) }
 
     it 'edits an existing role' do
@@ -42,7 +42,7 @@ describe 'manage user roles', type: :feature do
     end
   end
 
-  describe 'delete role' do
+  xdescribe 'delete role' do
     let!(:garbage_collector) { Role.create(name: 'garbage_collector', super_admin: false) }
 
     it 'deletes an existing role' do
