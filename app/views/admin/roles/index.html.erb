@@ -1,0 +1,26 @@
+<h3>Manage Roles</h3>
+
+<%= link_to('Add Role', new_admin_role_path, class: "btn btn-primary") %>
+
+<table class="table table-bordered table-responsive">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Role</th>
+    <th>Created at</th>
+    <th>Edit Role</th>
+    <th>Delete Role</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @roles.each do |role| %>
+      <tr id="role-<%= role.id %>">
+        <th scope="row"></th>
+        <td><%= role.name %></td>
+        <td><%= role.created_at %></td>
+        <td><%= link_to 'Edit', edit_admin_role_path(role), class: "edit_role btn btn-primary" %></td>
+        <td><%= link_to 'Delete', admin_role_path(role), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_role btn btn-danger" %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

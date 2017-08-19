@@ -3,7 +3,8 @@ require "rails_helper"
 RSpec.describe NotificationsMailer, type: :mailer do
   describe ".new_user" do
     let!(:default_password) { User.generate_random_password }
-    let!(:user) { User.create(email: 'teacher@example.com', password: default_password, name: 'Teacher Yammy', role: 'teacher') }
+    let!(:teacher_role) { Role.create(name: 'teacher') }
+    let!(:user) { User.create(email: 'teacher@example.com', password: default_password, name: 'Teacher Yammy', role: teacher_role) }
     let(:mail) { NotificationsMailer.new_user(user, default_password) }
 
     it "renders the headers" do

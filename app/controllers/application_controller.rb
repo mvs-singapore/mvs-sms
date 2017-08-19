@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def is_admin?
-    unless current_user.super_admin?
+    unless current_user.role.super_admin?
       redirect_to root_path, flash: { alert: 'Unauthorized access' }
     end
   end

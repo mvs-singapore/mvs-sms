@@ -1,4 +1,4 @@
 <h3 class="text-center">Add New User</h3>
 <%= form_for(@user, url: admin_users_path) do |f| %>
-<%= render :partial => 'admin/shared/form', :locals => {:f => f} %>
+<%= render :partial => 'admin/shared/user_form', :locals => {:f => f} %>
 <% end %>

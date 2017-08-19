@@ -1,7 +1,12 @@
 require 'rails_helper'
 
 describe 'manage user accounts', type: :feature do
-  let!(:super_user) { User.create(email: 'admin@example.com', password: 'password', name: 'Super Admin', role: 'super_admin') }
+  let!(:super_admin_role) { Role.create(name: 'super_admin', super_admin: true) }
+  let!(:teacher_role) { Role.create(name: 'teacher') }
+  let!(:super_user) do
+    User.create(email: 'admin@example.com', password: 'password',
+                name: 'Super Admin', role: super_admin_role)
+  end
 
   it 'signs me in' do
     visit '/users/sign_in'
@@ -38,7 +43,11 @@ describe 'manage user accounts', type: :feature do
   end
 
   describe 'current user' do
-    let!(:user){ User.create(email: 'teacher@example.com', password: 'password', name: 'Teacher 1', role: 'teacher') }
+    let!(:teacher) { Role.create(name: 'teacher') }
+    let!(:user) do
+      User.create(email: 'teacher@example.com', password: 'password',
+                  name: 'Teacher 1', role: teacher)
+    end
 
     it 'edit user with role' do
       sign_in super_user
@@ -66,21 +75,6 @@ describe 'manage user accounts', type: :feature do
 
       expect(page).to have_text 'Successfully deleted user'
       expect(User.where(email: 'teacher@example.com').count).to eq 0
-    end
-
-    describe 'forbids non super admin to /admin/users page' do
-      User.roles.keys.each do |role|
-        next if role == 'super_admin'
-
-        it "user with role #{role}" do
-          user = User.create(email: 'teacher@example.com', password: 'password', name: 'Teacher 1', role: role)
-
-          sign_in user
-          visit '/admin/users/'
-
-          expect(page).to have_text 'Unauthorized access'
-        end
-      end
     end
   end
 end

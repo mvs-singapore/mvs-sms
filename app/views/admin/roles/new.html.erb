@@ -1,0 +1,4 @@
+<h3 class="text-center">Add New Role</h3>
+<%= form_for(@role, url: admin_roles_path) do |f| %>
+    <%= render :partial => 'admin/shared/role_form', :locals => {:f => f} %>
+<% end %>
