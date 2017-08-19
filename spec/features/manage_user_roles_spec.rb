@@ -9,15 +9,16 @@ describe 'manage user roles', type: :feature do
     visit '/admin/roles/'
   end
 
-  fdescribe 'create role' do
+  describe 'create role' do
     it 'creates new role' do
+      sign_in super_user
+      visit '/admin/roles/'
       click_link 'Add Role'
-
       within('#new_role') do
         fill_in 'Name', with: 'psychiatrist'
       end
 
-      click_button 'Create User'
+      click_button 'Create Role'
 
       expect(page).to have_text 'Successfully created role'
       expect(Role.where(name: 'psychiatrist').count).to eq 1
