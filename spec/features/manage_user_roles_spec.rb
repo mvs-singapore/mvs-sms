@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-xdescribe 'manage user roles', type: :feature do
+describe 'manage user roles', type: :feature do
   let!(:super_admin_role) { Role.create(name: 'super_admin', super_admin: true) }
   let!(:super_user) { User.create(email: 'admin@example.com', password: 'password', name: 'Super Admin', role: super_admin_role) }
 
@@ -9,7 +9,7 @@ xdescribe 'manage user roles', type: :feature do
     visit '/admin/roles/'
   end
 
-  describe 'create role' do
+  fdescribe 'create role' do
     it 'creates new role' do
       click_link 'Add Role'
 
