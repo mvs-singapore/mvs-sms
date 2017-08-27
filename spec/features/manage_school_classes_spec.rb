@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-xdescribe 'manage student classes', type: :feature do
+describe 'manage school classes', type: :feature do
   let!(:super_admin_role) { Role.create(name: 'super_admin', super_admin: true) }
   let!(:super_user) { User.create(email: 'admin@example.com', password: 'password', name: 'Super Admin', role: super_admin_role) }
 
@@ -9,24 +9,26 @@ xdescribe 'manage student classes', type: :feature do
 
   before do
     sign_in super_user
-    visit '/admin/classes/'
   end
 
-  describe 'create class' do
+  fdescribe 'create class' do
     it 'creates new class' do
+      visit '/admin/school_classes/'
       click_link 'Add Class'
 
-      within('#new_class') do
+      within('#new_school_class') do
         fill_in 'Academic Year', with: '2017'
         fill_in 'Name', with: 'Class 1.1'
         select('Year 1', from: 'Year')
         select(teacher_user.name, from: 'Form Teacher')
       end
 
-      click_button 'Create Class'
+      click_button 'Create School class'
 
       expect(page).to have_text 'Successfully created class'
-      new_class = StudentClass.last
+      expect(page).to have_text teacher_user.name
+
+      new_class = SchoolClass.last
       expect(new_class.name).to eq 'Class 1.1'
       expect(new_class.academic_year).to eq 2017
       expect(new_class.year).to eq 1
@@ -35,19 +37,22 @@ xdescribe 'manage student classes', type: :feature do
   end
 
   describe 'edit class' do
-    let!(:fnb_class) { StudentClass.create(academic_year: 2017,
+    let!(:fnb_class) { SchoolClass.create(academic_year: 2017,
                                            name: 'Year 2 Food & Beverages',
                                            year: 2,
                                            form_teacher: teacher_user)
     }
 
     it 'edits an existing class' do
-      find_link(fnb_class.name, visible: true).click
+      visit '/admin/school_classes/'
 
-      within('.edit_class') do
+      within("#class-#{fnb_class.id}") do
+        find_link('Edit').click
+      end
+      within('.edit_school_class') do
         fill_in 'Name', with: 'Year 2 F&B'
       end
-      click_button 'Update Class'
+      click_button 'Update School class'
 
       expect(page).to have_text 'Successfully updated class'
 
@@ -55,22 +60,24 @@ xdescribe 'manage student classes', type: :feature do
     end
   end
 
-  describe 'delete class' do
-    let!(:closed_class) { StudentClass.create(academic_year: 2017,
+  describe 'delete class', js: true do
+    let!(:closed_class) { SchoolClass.create(academic_year: 2017,
                                               name: 'Year 2 Nose Picking',
                                               year: 2,
                                               form_teacher: teacher_user)
     }
 
     it 'deletes an existing class' do
-      within("class-#{closed_class.id}") do
+      visit '/admin/school_classes/'
+
+      within("#class-#{closed_class.id}") do
         accept_confirm_dialog {
           find_link('delete', visible: true).click
         }
       end
 
       expect(page).to have_text 'Successfully deleted class'
-      expect(StudentClass.where(name: 'Year 2 Nose Picking').count).to eq 0
+      expect(SchoolClass.where(name: 'Year 2 Nose Picking').count).to eq 0
     end
   end
 end
