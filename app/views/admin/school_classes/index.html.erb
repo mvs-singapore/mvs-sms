@@ -1,0 +1,29 @@
+<h3>Manage Classes</h3>
+<%= link_to('Add Class', new_admin_school_class_path, class: "btn btn-primary") %>
+
+<table class="table table-bordered table-responsive">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Academic Year</th>
+    <th>Name</th>
+    <th>Year</th>
+    <th>Form Teacher</th>
+    <th>Edit Class</th>
+    <th>Create Class</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @school_classes.each do |school_class| %>
+      <tr id="class-<%= school_class.id %>">
+        <th scope="row"></th>
+        <td><%= school_class.academic_year %></td>
+        <td><%= school_class.name %></td>
+        <td><%= school_class.year %></td>
+        <td><%= school_class.form_teacher.name %></td>
+        <td><%= link_to 'Edit', edit_admin_school_class_path(school_class), class: "edit_school_class btn btn-primary" %></td>
+        <td><%= link_to 'Delete', admin_school_class_path(school_class), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_school_class btn btn-danger" %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

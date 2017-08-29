@@ -1,0 +1,4 @@
+<h3 class="text-center">Add New Class</h3>
+<%= form_for(@school_class, url: admin_school_classes_path) do |f| %>
+    <%= render :partial => 'admin/shared/school_class_form', :locals => {:f => f} %>
+<% end %>
