@@ -54,6 +54,32 @@ To stop mail catcher, just click on "Quit" in the web interface.
 
 Visit the MailTrap inbox here: [https://heroku.mailtrap.io/inboxes/243584/messages](https://heroku.mailtrap.io/inboxes/243584/messages)
 
+## Running Feature Tests on Windows
+
+If you are using Windows and do development using the Ubuntu Bash, you will have problem running the feature tests on Chrome. Here's the workaround:
+
+1. Download Chromedrive for Windows from [here](https://sites.google.com/a/chromium.org/chromedriver/downloads)
+
+2. Unzip the file and double-click on `chromedriver.exe`.
+
+	> You might see some security warning, just click on "More Info" and click "Run anyway". 
+
+3. You will see this:
+
+	```
+	Starting ChromeDriver 2.32.498550 (9dec58e66c31bcc53a9ce3c7226f0c1c5810906a) on port 9515
+	Only local connections are allowed.
+	```
+
+4. Open `rails_helper.rb` and uncomment the following line:
+
+	```
+	webdriver_options[:url] = 'http://127.0.0.1:9515'
+	```
+
+5. Now run the RSpec test again.
+
+
 ## Contributors
 
 - Michael Cheng
