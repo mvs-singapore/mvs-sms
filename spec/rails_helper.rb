@@ -10,16 +10,24 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'selenium/webdriver'
 
+webdriver_options = {
+  browser: :chrome
+}
+
+# Uncomment the line below if you want to use a remote chromedriver (eg. on Windows)
+# webdriver_options[:url] = 'http://127.0.0.1:9515'
+
 Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new(app, browser: :chrome)
+  Capybara::Selenium::Driver.new(app, webdriver_options)
 end
 
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
       chromeOptions: { args: %w(headless disable-gpu) }
   )
+  webdriver_options[:desired_capabilities] = capabilities
 
-  Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
+  Capybara::Selenium::Driver.new(app, webdriver_options)
 end
 
 Capybara.javascript_driver = :headless_chrome
