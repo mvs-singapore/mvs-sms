@@ -11,7 +11,7 @@ describe 'manage school classes', type: :feature do
     sign_in super_user
   end
 
-  fdescribe 'create class' do
+  describe 'create class' do
     it 'creates new class' do
       visit '/admin/school_classes/'
       click_link 'Add Class'
@@ -72,7 +72,7 @@ describe 'manage school classes', type: :feature do
 
       within("#class-#{closed_class.id}") do
         accept_confirm_dialog {
-          find_link('delete', visible: true).click
+          find('.delete_school_class', visible: true).click
         }
       end
 
