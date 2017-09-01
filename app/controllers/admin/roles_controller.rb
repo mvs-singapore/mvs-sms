@@ -1,5 +1,5 @@
 class Admin::RolesController < ApplicationController
-  before_action :is_admin?
+  before_action :authorize_admin
   before_action :fetch_role, only: [:edit, :update, :destroy]
 
   def index

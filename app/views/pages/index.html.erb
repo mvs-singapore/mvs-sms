@@ -2,6 +2,11 @@
 <p>The time now is: <%= Time.now %></p>
 
 <% if user_signed_in? %>
+    <% if is_admin? %>
+      <li><%= link_to 'Manage Users', admin_users_path %></li>
+      <li><%= link_to 'Manage Roles', admin_roles_path %></li>
+      <li><%= link_to 'Manage School Classes', admin_school_classes_path %></li>
+    <% end %>
     <li>
       <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
     </li>
