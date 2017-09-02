@@ -13,6 +13,10 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe 'associations' do
+    it { is_expected.to have_many(:remarks) }
+  end
+
   describe '.generate_random_password' do
     it 'creates a random password' do
       password = User.generate_random_password

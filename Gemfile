@@ -55,6 +55,7 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem 'dotenv-rails'
   gem 'email_spec'
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :test do

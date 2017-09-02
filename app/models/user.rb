@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 255 }
   has_many :school_classes, foreign_key: 'form_teacher_id'
+  has_many :remarks
 
   def self.generate_random_password
     SecureRandom.hex(5)
