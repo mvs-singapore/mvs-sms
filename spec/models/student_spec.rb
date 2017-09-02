@@ -1,5 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Student, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "new student" do
+    it 'should have default status' do
+      new_student = Student.create(admission_year: 2017, registered_at: Date.today, status: :new_admission)
+      expect(new_student.reload.status).to eq 'new_admission'
+    end
+  end
 end
