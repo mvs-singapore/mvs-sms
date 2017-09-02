@@ -14,6 +14,11 @@
         <%= image_tag('brand/logo.jpg', height: '50', width: '50', class: 'd-inline-block align-center') %>
         Mountbatten Vocational School
       </a>
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+            <li><%= link_to current_user.name, edit_profile_path %></li>
+        <% end %>
+      </ul>
     </nav>
     <div class="container-fluid">
       <%= render partial: 'shared/flash' unless flash.empty? %>
