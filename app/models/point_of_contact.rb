@@ -1,0 +1,2 @@
+class PointOfContact < ApplicationRecord
+end

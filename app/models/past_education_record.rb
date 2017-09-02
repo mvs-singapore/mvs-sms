@@ -1,0 +1,2 @@
+class PastEducationRecord < ApplicationRecord
+end

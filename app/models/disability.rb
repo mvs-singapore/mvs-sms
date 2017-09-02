@@ -1,0 +1,2 @@
+class Disability < ApplicationRecord
+end
