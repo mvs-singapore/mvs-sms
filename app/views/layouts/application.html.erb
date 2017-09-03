@@ -8,18 +8,43 @@
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
   </head>
-  <body>
-    <nav class="navbar navbar-light bg-faded">
-      <a class="navbar-brand" href="#">
+  <body class="bg-light">
+    <nav class="navbar sticky-top navbar-expand-md navbar-light bg-white border">
+      <a class="navbar-brand" href="/" style="color: #404DC9; font-weight: bold;">
         <%= image_tag('brand/logo.jpg', height: '50', width: '50', class: 'd-inline-block align-center') %>
         Mountbatten Vocational School
       </a>
-      <ul class="nav navbar-nav navbar-right">
-        <% if user_signed_in? %>
-            <li><%= link_to current_user.name, edit_profile_path %></li>
-        <% end %>
-      </ul>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <% if user_signed_in? && is_admin? %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarAdminDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Admin
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="navbarAdminDropdownMenuLink">
+                <%= link_to 'Manage Users', admin_users_path, class: 'dropdown-item' %>
+                <%= link_to 'Manage Roles', admin_roles_path, class: 'dropdown-item' %>
+                <%= link_to 'Manage School Classes', admin_school_classes_path, class: 'dropdown-item' %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+
+        <span class="navbar-text">
+          <% if user_signed_in? %>
+              Welcome, <%= link_to current_user.name, edit_profile_path %>
+              <small>[ <%= link_to('Logout', destroy_user_session_path, method: :delete) %> ]</small>
+          <% end %>
+        </span>
+      </div>
     </nav>
+
     <div class="container-fluid">
       <%= render partial: 'shared/flash' unless flash.empty? %>
       <%= yield %>
