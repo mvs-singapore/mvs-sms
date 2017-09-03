@@ -11,8 +11,8 @@ class Student < ApplicationRecord
 
   enum gender: [:female, :male]
 
-  validates_presence_of :admission_year
-
+  validates :admission_year, :registered_at, :status, :referred_by, :surname, :given_name, :date_of_birth, :place_of_birth, :race, :nric, :citizenship, :gender, presence: true
+  validates :admission_year, numericality: { only_integer: true }
   has_many :internship_records
   has_many :past_education_records
   has_many :point_of_contacts
