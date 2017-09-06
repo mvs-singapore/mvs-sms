@@ -28,4 +28,11 @@ User.where(email: 'teacher@mvs.edu.sg').first_or_create! do |user|
   puts "Default teacher account created."
 end
 
+InternshipCompany.where(name: 'abc').first_or_create! do |internship_company|
+  internship_company.address = 'Singapore'
+  internship_company.postal_code = '123456'
+
+  puts "Default internship company created."
+end
+
 puts "Done seeding."

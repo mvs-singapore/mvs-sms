@@ -1,0 +1,33 @@
+<div class="form-group row justify-content-center">
+  <div class="col-4">
+    <%= f.label :name, 'Supervisor Name' %>
+    <%= f.text_field :name, autofocus: true, class: 'form-control' %>
+  </div>
+</div>
+
+<div class="form-group row justify-content-center">
+  <div class="col-4">
+    <%= f.label :email %>
+    <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+  </div>
+</div>
+
+<div class="form-group row justify-content-center">
+  <div class="col-4">
+    <%= f.label :contact_number, 'Contact Number' %>
+    <%= f.text_field :contact_number, autofocus: true, class: 'form-control' %>
+  </div>
+</div>
+
+<div class="form-group row justify-content-center">
+  <div class="col-4">
+    <%= f.label :internship_company_id, 'Internship Company Id' %>
+    <%= f.text_field :internship_company_id, autofocus: true, class: 'form-control' %>
+  </div>
+</div>
+
+<div class="form-group row justify-content-center">
+  <div class="col-4">
+    <%= f.submit :class => 'btn btn-primary' %>
+  </div>
+</div>
