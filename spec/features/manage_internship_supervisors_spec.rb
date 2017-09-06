@@ -2,14 +2,14 @@ require 'rails_helper'
 
 describe 'manage internship supervisors', type: :feature do
   let!(:default_internship_company) { InternshipCompany.create(name: 'xyz', address: 'Singapore', postal_code: '123456') }
-  let!(:default_supervisor) { InternshipSupervisor.create(name: 'aaaa', email: 'some@gmail.com', contact_number: '1234', internship_company_id: '1')}
+  let!(:default_supervisor) { InternshipSupervisor.create(name: 'aaaa', email: 'some@gmail.com', contact_number: '1234', internship_company: default_internship_company)}
   let!(:super_admin_role) { Role.create(name: 'super_admin', super_admin: true) }
   let!(:super_user) { User.create(email: 'admin@example.com', password: 'password', name: 'Super Admin', role: super_admin_role) }
-  let!(:garbage_collector) { InternshipSupervisor.create(name: 'garbage_collector', email: 'garbage@gmail.com', contact_number: '123456', internship_company_id: '1') }
+  let!(:garbage_collector) { InternshipSupervisor.create(name: 'garbage_collector', email: 'garbage@gmail.com', contact_number: '123456', internship_company: default_internship_company) }
 
   before do
     sign_in super_user
-    visit '/internship_supervisors/' 
+    visit '/internship_supervisors/'
   end
 
   describe 'create internship supervisor' do

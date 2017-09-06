@@ -1,16 +1,4 @@
 Rails.application.routes.draw do
-  get 'internship_supervisors/index'
-
-  get 'internship_supervisors/new'
-
-  get 'internship_supervisors/create'
-
-  get 'internship_supervisors/edit'
-
-  get 'internship_supervisors/update'
-
-  get 'internship_supervisors/destroy'
-
   namespace :admin do
     resources :users
     resources :roles
