@@ -33,4 +33,9 @@ class Student < ApplicationRecord
   has_many :student_medical_conditions
   has_many :medical_conditions, through: :student_medical_conditions
   has_many :student_status_histories
+
+  def age
+    Date.today.year - date_of_birth.year
+  end
+
 end

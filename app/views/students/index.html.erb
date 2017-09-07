@@ -5,26 +5,34 @@
 <table class="table table-bordered table-responsive">
   <thead class="table-primary">
     <tr>
-      <th>Admission Year</th>
-      <th>Admission No.</th>
-      <th>Date of Registration</th>
+      <th>Academic Year</th>
       <th>Class</th>
+      <th>Given Name</th>
+      <th>Surname</th>
+      <th>Date of Birth</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Disability</th>
+      <th>Medical Condition</th>
+      <th>Main Contact</th>
       <th>Status</th>
-      <th>Referred By</th>
-      <th>Name of Referee</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody class="bg-white">
     <% @students.each do |student| %>
       <tr id="student-<%= student.id %>">
-        <td><%= student.admission_year %></td>
-        <td><%= student.admission_no %></td>
-        <td><%= student.registered_at %></td>
+        <td></td>
         <td><%= student.current_class %></td>
+        <td><%= student.given_name %></td>
+        <td><%= student.surname %></td>
+        <td><%= student.date_of_birth %></td>
+        <td><%= student.age %></td>
+        <td><%= student.gender %></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td><%= student.status %></td>
-        <td><%= student.referred_by %></td>
-        <td><%= student.referral_notes %></td>
         <td>
           <%= link_to 'Edit', edit_student_path(student), class: "edit_student btn btn-primary" %>
           <%= link_to 'Delete', student_path(student), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_student btn btn-danger" %>

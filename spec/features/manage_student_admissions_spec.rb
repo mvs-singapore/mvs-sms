@@ -44,7 +44,7 @@ describe 'new student admissions', type: :feature do
       click_button 'Create Student'
 
       expect(page).to have_text 'Successfully created student'
-      expect(page).to have_text '16006/2016'
+      expect(page).to have_text 'Ali'
 
       new_student = Student.last
       expect(new_student.admission_year).to eq 2017
@@ -100,7 +100,7 @@ describe 'new student admissions', type: :feature do
       end
 
       expect(page).to have_text 'Successfully deleted student'
-      expect(Student.where(admission_no: '16006/2016').count).to eq 0
+      expect(Student.where(given_name: 'Ali', surname: 'Lee').count).to eq 0
     end
   end
 
