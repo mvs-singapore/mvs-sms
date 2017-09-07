@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     resources :school_classes
   end
 
+  resources :students
+
   root to: 'pages#index'
   get 'pages/index'
 
