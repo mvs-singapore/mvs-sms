@@ -3,9 +3,9 @@ require 'rails_helper'
 describe 'new student admissions', type: :feature do
   let!(:teacher_role) { Role.create(name: 'teacher', super_admin: false) }
   let!(:teacher_user) { User.create(email: 'teacher1@example.com', password: 'password', name: 'Good Teacher', role: teacher_role) }
-  let!(:student) { Student.create(admission_year: 2016, admission_no: '16006/2016', registered_at: Date.today, current_class: 'Food & Beverage',
+  let!(:student) { Student.create(admission_year: 2016, admission_no: '16006/2016', registered_at: Date.parse('09/09/2017'), current_class: 'Food & Beverage',
                                   status: 'new_admission', referred_by: 'association_of_persons_with_special_needs', referral_notes: 'Mdm Referee',
-                                  surname: 'Lee', given_name: 'Ali', date_of_birth: Date.today, place_of_birth: 'Singapore', race: 'Chinese',
+                                  surname: 'Lee', given_name: 'Ali', date_of_birth: Date.parse('09/09/1997'), place_of_birth: 'Singapore', race: 'Chinese',
                                   nric: 'S8888888D', citizenship: 'Singaporean', gender: 'female', sadeaf_client_reg_no: '12345/234',
                                   highest_standard_passed: 'GCE O Levels', medication_needed: 'Antihistamines', allergies: 'Peanuts')
   }
@@ -16,7 +16,7 @@ describe 'new student admissions', type: :feature do
 
   describe 'create student' do
     it 'creates new student' do
-      visit '/students/'
+      visit students_path
       click_link 'Add Student'
 
       within('#new_student') do
@@ -73,7 +73,7 @@ describe 'new student admissions', type: :feature do
   describe 'edit student' do
 
     it 'edits an existing student' do
-      visit '/students/'
+      visit students_path
 
       within("#student-#{student.id}") do
         find_link('Edit').click
@@ -88,11 +88,33 @@ describe 'new student admissions', type: :feature do
     end
   end
 
+  describe 'view student' do
+    it 'displays the details of a student' do
+      visit students_path
+
+      within("#student-#{student.id}") do
+        find_link('View').click
+      end
+
+      expect(page).to have_link 'Edit'
+      expect(page).to have_link 'Delete'
+
+      expect(find('dd[data-for="given_name"]')).to have_content 'Ali'
+      expect(find('dd[data-for="surname"]')).to have_content 'Lee'
+      expect(find('dd[data-for="gender"]')).to have_content 'female'
+      expect(find('dd[data-for="date_of_birth"]')).to have_content '1997-09-09'
+      expect(find('dd[data-for="gender"]')).to have_content 'female'
+      expect(find('dd[data-for="age"]')).to have_content '20'
+      expect(find('dd[data-for="citizenship"]')).to have_content 'Singaporean'
+      expect(find('dd[data-for="race"]')).to have_content 'Chinese'
+      expect(find('dd[data-for="nric"]')).to have_content 'S8888888D'
+    end
+  end
 
   describe 'delete student', js: true do
 
     it 'deletes an existing student' do
-      visit '/students/'
+      visit students_path
 
       within("#student-#{student.id}") do
         accept_confirm_dialog {
