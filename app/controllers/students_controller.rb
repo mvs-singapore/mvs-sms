@@ -1,8 +1,11 @@
 class StudentsController < ApplicationController
-  before_action :fetch_student, only: [:edit, :update, :destroy]
+  before_action :fetch_student, only: [:show, :edit, :update, :destroy]
 
   def index
     @students = Student.all
+  end
+
+  def show
   end
 
   def new
