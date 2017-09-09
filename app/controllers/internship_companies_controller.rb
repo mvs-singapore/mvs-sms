@@ -1,7 +1,6 @@
-	class InternshipCompaniesController < ApplicationController
-    before_action :fetch_internship_company, only: [:edit, :update, :destroy, :show]
-		
-		
+class InternshipCompaniesController < ApplicationController
+  before_action :fetch_internship_company, only: [:edit, :update, :destroy, :show]	
+
 	def index
 		 @internship_company = InternshipCompany.all
   end
@@ -21,8 +20,7 @@
     end
   end
 
-  def edit
-		
+  def edit		
   end
     
   def show
