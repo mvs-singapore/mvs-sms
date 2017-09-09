@@ -1,0 +1,43 @@
+<h3><%= @internship_company.name %></h3>
+
+<h3>Supervisor List</h3>
+<table class="table table-bordered table-responsive">
+  <thead class="table-primary">
+    <tr>
+			<th>Name</th>
+      <th>Email</th>
+			<th>Contact Number</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white">
+        <% @internship_company.internship_supervisors.each do |supervisor| %>
+          <tr id="supervisor-<%= supervisor.id %>">
+            <td><%= supervisor.name %></td>
+            <td><%= supervisor.email %></td>
+            <td><%= supervisor.contact_number %></td>
+          </tr>
+        <% end %>
+      </tbody>
+</table>
+
+<h3>Students Assigned List</h3>
+<table class="table table-bordered table-responsive">
+  <thead class="table-primary">
+    <tr>
+			<th>Student Name</th>
+      <th>Supervisor Name</th>
+			<th>From Date</th>
+      <th>To Date</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white">
+        <% @internship_company.internship_records.each do |record| %>
+          <tr id="student-<%= record.student.id %>">
+            <td><%= record.student.surname %>, <%= record.student.given_name %></td>
+            <td><%= record.internship_supervisor.name %></td>
+            <td><%= record.from_date %></td>
+            <td><%= record.to_date %></td>
+          </tr>
+        <% end %>
+      </tbody>
+</table>
