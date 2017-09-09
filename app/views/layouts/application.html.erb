@@ -21,6 +21,18 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+          <% if user_signed_in? %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarInternshipDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Internship
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="navbarInternshipDropdownMenuLink">
+                <%= link_to 'Companies', '/internship_companies', class: 'dropdown-item' %>
+                <%= link_to 'Supervisors', internship_supervisors_path, class: 'dropdown-item' %>
+              </div>
+            </li>
+          <% end %>
           <% if user_signed_in? && is_admin? %>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarAdminDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
