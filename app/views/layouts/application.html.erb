@@ -23,13 +23,15 @@
         <ul class="navbar-nav mr-auto">
           <% if user_signed_in? %>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarInternshipDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Internship
+              <a class="nav-link dropdown-toggle" href="#" id="navbarSettingsDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Settings
               </a>
 
-              <div class="dropdown-menu" aria-labelledby="navbarInternshipDropdownMenuLink">
-                <%= link_to 'Companies', internship_companies_path, class: 'dropdown-item' %>
-                <%= link_to 'Supervisors', internship_supervisors_path, class: 'dropdown-item' %>
+              <div class="dropdown-menu" aria-labelledby="navbarSettingsDropdownMenuLink">
+                <%= link_to 'Internship Companies', internship_companies_path, class: 'dropdown-item' %>
+                <%= link_to 'Internship Supervisors', internship_supervisors_path, class: 'dropdown-item' %>
+                <%= link_to 'Medical Conditions List', medical_conditions_path, class: 'dropdown-item' %>
+                <%= link_to 'Disabilities List', disabilities_path, class: 'dropdown-item' %>
               </div>
             </li>
           <% end %>
