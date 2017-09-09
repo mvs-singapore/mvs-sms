@@ -1,0 +1,25 @@
+<h3>Manage Medical Conditions</h3>
+
+<p><%= link_to('Add Medical Condition', new_medical_condition_path, class: "btn btn-primary") %></p>
+
+<table class="table table-bordered table-responsive">
+  <thead class="table-primary">
+    <tr>
+      <th>Medical Condition</th>
+      <th>Created at</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white">
+  <% @medical_conditions.each do |condition| %>
+    <tr id="medical-condition-<%= condition.id %>">
+      <td><%= condition.title %></td>
+      <td><%= condition.created_at %></td>
+      <td>
+        <%= link_to 'Edit', edit_medical_condition_path(condition), class: "edit_role btn btn-primary" %>
+        <%= link_to 'Delete', medical_condition_path(condition), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_medical_condition btn btn-danger" %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
