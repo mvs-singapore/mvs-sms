@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <h3>Student Particulars</h3>
+    </div>
+    <div class="col-9 text-right">
+      <%= link_to 'Edit', edit_student_path(@student), class: "edit_student btn btn-primary" %>
+      <%= link_to 'Delete', student_path(@student), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_student btn btn-danger" %>
+    </div>
+  </div>
+
+  <dl class="row">
+    <dt class="col-3">Given Name</dt>
+    <dd class="col-9" data-for="given_name"><%= @student.given_name %></dd>
+
+    <dt class="col-3">Surname</dt>
+    <dd class="col-9" data-for="surname"><%= @student.surname %></dd>
+
+    <dt class="col-3">Gender</dt>
+    <dd class="col-9" data-for="gender"><%= @student.gender %></dd>
+
+    <dt class="col-3">Date of Birth</dt>
+    <dd class="col-9" data-for="date_of_birth"><%= @student.date_of_birth %></dd>
+
+    <dt class="col-3">Age</dt>
+    <dd class="col-9" data-for="age"><%= @student.age %></dd>
+
+    <dt class="col-3">Citizenship</dt>
+    <dd class="col-9" data-for="citizenship"><%= @student.citizenship %></dd>
+
+    <dt class="col-3">Race</dt>
+    <dd class="col-9" data-for="race"><%= @student.race %></dd>
+
+    <dt class="col-3">NRIC</dt>
+    <dd class="col-9" data-for="nric"><%= @student.nric %></dd>
+  </dl>
+</div>
