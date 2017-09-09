@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   end
   resources :internship_supervisors
 
+  resources :students
+
   root to: 'pages#index'
   get 'pages/index'
 

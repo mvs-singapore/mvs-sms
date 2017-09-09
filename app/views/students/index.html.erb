@@ -1,0 +1,43 @@
+<h3>Manage Students</h3>
+
+<p><%= link_to('Add Student', new_student_path, class: "btn btn-primary") %></p>
+
+<table class="table table-bordered table-responsive">
+  <thead class="table-primary">
+    <tr>
+      <th>Academic Year</th>
+      <th>Class</th>
+      <th>Given Name</th>
+      <th>Surname</th>
+      <th>Date of Birth</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Disability</th>
+      <th>Medical Condition</th>
+      <th>Main Contact</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white">
+    <% @students.each do |student| %>
+      <tr id="student-<%= student.id %>">
+        <td data-for="academic_year"></td>
+        <td data-for="class"><%= student.current_class %></td>
+        <td data-for="given_name"><%= student.given_name %></td>
+        <td data-for="surname"><%= student.surname %></td>
+        <td data-for="date_of_birth"><%= student.date_of_birth %></td>
+        <td data-for="age"><%= student.age %></td>
+        <td data-for="gender"><%= student.gender %></td>
+        <td data-for="disability"></td>
+        <td data-for="medical_conditions"></td>
+        <td data-for="main_contact"></td>
+        <td data-for="status"><%= student.status %></td>
+        <td>
+          <%= link_to 'Edit', edit_student_path(student), class: "edit_student btn btn-primary" %>
+          <%= link_to 'Delete', student_path(student), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_student btn btn-danger" %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
