@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :roles
     resources :school_classes
   end
+  resources :internship_supervisors
 
   root to: 'pages#index'
   get 'pages/index'
