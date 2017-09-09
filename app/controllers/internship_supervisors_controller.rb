@@ -40,13 +40,12 @@ class InternshipSupervisorsController < ApplicationController
     end
   end
 
-  
+  private
 
   def fetch_supervisor
     @internship_supervisor = InternshipSupervisor.find(params[:id])
   end
 
-private
   def internship_supervisor_params
     params.require(:internship_supervisor).permit(:name, :email, :contact_number, :internship_company_id)
   end
