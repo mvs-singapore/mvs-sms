@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :school_classes
   end
   resources :internship_supervisors
+  resources :medical_conditions
 
   resources :students
 
