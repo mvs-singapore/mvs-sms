@@ -1,0 +1,25 @@
+<h3>Manage Disabilities</h3>
+
+<p><%= link_to('Add Disability', new_disability_path, class: "btn btn-primary") %></p>
+
+<table class="table table-bordered table-responsive">
+  <thead class="table-primary">
+    <tr>
+      <th>Disability</th>
+      <th>Created at</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white">
+  <% @disabilities.each do |disability| %>
+    <tr id="disability-<%= disability.id %>">
+      <td><%= disability.title %></td>
+      <td><%= disability.created_at %></td>
+      <td>
+        <%= link_to 'Edit', edit_disability_path(disability), class: "edit_role btn btn-primary" %>
+        <%= link_to 'Delete', disability_path(disability), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_disability btn btn-danger" %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
