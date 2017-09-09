@@ -22,14 +22,13 @@ describe 'new student admissions', type: :feature do
       within('#new_student') do
         fill_in 'Admission Year', with: '2017'
         fill_in 'Admission No.', with: '16006/2016'
-        fill_in 'Date of Registration', with: Date.today
-        fill_in 'Current Class', with: 'Food & Beverage'
+        fill_in 'Date of Registration', with: '09/09/2017'
         select('new_admission', from: 'Status')
         select('association_of_persons_with_special_needs', from: 'Referred By')
         fill_in 'Name of Referee', with: 'Mdm Referee'
         fill_in 'Surname', with: 'Lee'
         fill_in 'Given Name', with: 'Ali'
-        fill_in 'Date of Birth', with: Date.today
+        fill_in 'Date of Birth', with: '09/09/1997'
         fill_in 'Place of Birth', with: 'Singapore'
         fill_in 'Race', with: 'Chinese'
         fill_in 'NRIC', with: 'S8888888D'
@@ -47,21 +46,23 @@ describe 'new student admissions', type: :feature do
       expect(page).to have_text 'Ali'
 
       new_student = Student.last
-      expect(new_student.admission_year).to eq 2017
+
+      within("#student-#{new_student.id}") do
+        expect(find('td[data-for="given_name"]')).to have_content 'Ali'
+        expect(find('td[data-for="surname"]')).to have_content 'Lee'
+        expect(find('td[data-for="date_of_birth"]')).to have_content '1997-09-09'
+        expect(find('td[data-for="gender"]')).to have_content 'female'
+        expect(find('td[data-for="status"]')).to have_content 'new_admission'
+      end
+
       expect(new_student.admission_no).to eq '16006/2016'
-      expect(new_student.registered_at).to eq Date.today
-      expect(new_student.current_class).to eq 'Food & Beverage'
-      expect(new_student.status).to eq 'new_admission'
+      expect(new_student.registered_at).to eq Date.parse('09/09/2017')
       expect(new_student.referred_by).to eq 'association_of_persons_with_special_needs'
       expect(new_student.referral_notes).to eq 'Mdm Referee'
-      expect(new_student.surname).to eq 'Lee'
-      expect(new_student.given_name).to eq 'Ali'
-      expect(new_student.date_of_birth).to eq Date.today
       expect(new_student.place_of_birth).to eq 'Singapore'
       expect(new_student.race).to eq 'Chinese'
       expect(new_student.nric).to eq 'S8888888D'
       expect(new_student.citizenship).to eq 'Singaporean'
-      expect(new_student.gender).to eq 'female'
       expect(new_student.sadeaf_client_reg_no).to eq '12345/234'
       expect(new_student.highest_standard_passed).to eq 'GCE O Levels'
       expect(new_student.medication_needed).to eq 'Antihistamines'

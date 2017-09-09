@@ -18,11 +18,6 @@
   </div>
 
   <div class="col-6">
-    <%= f.label :current_class, 'Current Class' %>
-    <%= f.text_field :current_class, autofocus: true, class: 'form-control' %>
-  </div>
-
-  <div class="col-6">
     <%= f.label :status %>
     <%= f.select :status, Student.statuses.keys, {selected: 'new_admission'}, class: 'form-control' %>
   </div>
