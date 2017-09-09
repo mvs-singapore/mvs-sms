@@ -16,7 +16,7 @@ describe 'new student admissions', type: :feature do
 
   describe 'create student' do
     it 'creates new student' do
-      visit '/students/'
+      visit students_path
       click_link 'Add Student'
 
       within('#new_student') do
@@ -73,7 +73,7 @@ describe 'new student admissions', type: :feature do
   describe 'edit student' do
 
     it 'edits an existing student' do
-      visit '/students/'
+      visit students_path
 
       within("#student-#{student.id}") do
         find_link('Edit').click
@@ -92,7 +92,7 @@ describe 'new student admissions', type: :feature do
   describe 'delete student', js: true do
 
     it 'deletes an existing student' do
-      visit '/students/'
+      visit students_path
 
       within("#student-#{student.id}") do
         accept_confirm_dialog {
