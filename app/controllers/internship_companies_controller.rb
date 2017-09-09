@@ -1,5 +1,5 @@
 	class InternshipCompaniesController < ApplicationController
-		before_action :fetch_internship_company, only: [:edit, :update, :destroy, :show]
+    before_action :fetch_internship_company, only: [:edit, :update, :destroy, :show]
 		
 		
 	def index
@@ -52,7 +52,7 @@
   end
 	
 	def internship_company_params
-   params.require(:internship_company).permit(:name, :address, :postal_code)
+    params.require(:internship_company).permit(:name, :address, :postal_code)
 	end
 	
 end
