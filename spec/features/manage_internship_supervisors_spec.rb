@@ -19,7 +19,7 @@ describe 'manage internship supervisors', type: :feature do
         fill_in 'Supervisor Name', with: 'abc'
         fill_in 'Email', with: 'abc@gmail.com'
         fill_in 'Contact Number', with: '12345678'
-        fill_in 'Internship Company Id', with: '1'
+        select(default_internship_company.name, :from => 'Internship Company')
       end
 
       click_button 'Create Internship supervisor'

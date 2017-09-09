@@ -22,7 +22,7 @@
 <div class="form-group row justify-content-center">
   <div class="col-4">
     <%= f.label :internship_company_id, 'Internship Company Id' %>
-    <%= f.text_field :internship_company_id, autofocus: true, class: 'form-control' %>
+    <%= f.collection_select :internship_company_id, InternshipCompany.all, :id, :name, {prompt: 'Select Company'}, class: 'form-control'%>
   </div>
 </div>
 
