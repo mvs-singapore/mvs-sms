@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :internship_supervisors
   resources :medical_conditions
+  resources :disabilities
   resources :students
 	resources :internship_companies
 
