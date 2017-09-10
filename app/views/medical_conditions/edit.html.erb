@@ -1,4 +1,4 @@
 <h3 class="text-center">Edit Medical condition</h3>
-<%= form_for(@medical_condition, url: medical_condition_path(@medical_condition)) do |f| %>
+<%= form_for(@resource, url: medical_condition_path(@resource)) do |f| %>
     <%= render :partial => 'medical_conditions/shared/medical_condition_form', :locals => {:f => f} %>
 <% end %>

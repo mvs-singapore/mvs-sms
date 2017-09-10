@@ -1,4 +1,4 @@
-<h3><%= @internship_company.name %></h3>
+<h3><%= @resource.name %></h3>
 
 <h3>Supervisor List</h3>
 <table class="table table-bordered table-responsive">
@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody class="bg-white">
-        <% @internship_company.internship_supervisors.each do |supervisor| %>
+        <% @resource.internship_supervisors.each do |supervisor| %>
           <tr id="supervisor-<%= supervisor.id %>">
             <td><%= supervisor.name %></td>
             <td><%= supervisor.email %></td>
@@ -31,7 +31,7 @@
     </tr>
   </thead>
   <tbody class="bg-white">
-        <% @internship_company.internship_records.each do |record| %>
+        <% @resource.internship_records.each do |record| %>
           <tr id="student-<%= record.student.id %>">
             <td><%= record.student.surname %>, <%= record.student.given_name %></td>
             <td><%= record.internship_supervisor.name %></td>
