@@ -13,13 +13,13 @@
         </tr>
       </thead>
       <tbody class="bg-white">
-        <% @internship_supervisors.each do |supervisor| %>
-          <tr id="supervisor-<%= supervisor.id %>" > 
+        <% @resources.each do |supervisor| %>
+          <tr id="supervisor-<%= supervisor.id %>" >
             <td><%= supervisor.name %></td>
             <td><%= supervisor.email %></td>
             <td><%= supervisor.contact_number %></td>
             <td><%= supervisor.internship_company.name %></td>
-            <td>    
+            <td>
               <%= link_to 'Edit', edit_internship_supervisor_path(supervisor), class: "edit_supervisor btn btn-primary" %>
               <%= link_to 'Delete', internship_supervisor_path(supervisor), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_user btn btn-danger" %>
             </td>
