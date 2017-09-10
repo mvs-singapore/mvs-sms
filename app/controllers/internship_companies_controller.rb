@@ -8,11 +8,11 @@ class InternshipCompaniesController < ApplicationController
   def show
   end
 
-	private
+  private
 
-	def resource_params
+  def resource_params
     params.require(:internship_company).permit(:name, :address, :postal_code)
-	end
+  end
 
   def resources_path
     internship_companies_path
