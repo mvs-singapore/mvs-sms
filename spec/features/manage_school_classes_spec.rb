@@ -25,7 +25,7 @@ describe 'manage school classes', type: :feature do
 
       click_button 'Create School class'
 
-      expect(page).to have_text 'Successfully created class'
+      expect(page).to have_text 'Successfully created school class'
       expect(page).to have_text teacher_user.name
 
       new_class = SchoolClass.last
@@ -54,7 +54,7 @@ describe 'manage school classes', type: :feature do
       end
       click_button 'Update School class'
 
-      expect(page).to have_text 'Successfully updated class'
+      expect(page).to have_text 'Successfully updated school class'
 
       expect(fnb_class.reload.name).to eq 'Year 2 F&B'
     end
@@ -76,7 +76,7 @@ describe 'manage school classes', type: :feature do
         }
       end
 
-      expect(page).to have_text 'Successfully deleted class'
+      expect(page).to have_text 'Successfully deleted school class'
       expect(SchoolClass.where(name: 'Year 2 Nose Picking').count).to eq 0
     end
   end
