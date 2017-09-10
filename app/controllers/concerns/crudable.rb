@@ -6,18 +6,18 @@ module Crudable
   end
 
   def index
-    @resources = resource_class.all
+    @resources = self.class::RESOURCE_CLASS.all
   end
 
   def new
-    @resource = resource_class.new
+    @resource = self.class::RESOURCE_CLASS.new
   end
 
   def create
-    @resource = resource_class.new(resource_params)
+    @resource = self.class::RESOURCE_CLASS.new(resource_params)
 
     if @resource.save
-      redirect_to resources_path, flash: {notice: 'Successfully created ' + resource_class.to_s.titleize.downcase}
+      redirect_to resources_path, flash: {notice: 'Successfully created ' + self.class::RESOURCE_CLASS.to_s.titleize.downcase}
     else
       flash.now[:alert] = @resource.errors.full_messages.join(" ")
       render :new
@@ -29,7 +29,7 @@ module Crudable
 
   def update
     if @resource.update(resource_params)
-      redirect_to resources_path, flash: {notice: 'Successfully updated ' + resource_class.to_s.titleize.downcase }
+      redirect_to resources_path, flash: {notice: 'Successfully updated ' + self.class::RESOURCE_CLASS.to_s.titleize.downcase }
     else
       flash.now[:alert] = @resource.errors.full_messages.join(" ")
       render :edit
@@ -38,7 +38,7 @@ module Crudable
 
   def destroy
     if @resource.destroy
-      redirect_to resources_path, flash: {notice: 'Successfully deleted ' + resource_class.to_s.titleize.downcase }
+      redirect_to resources_path, flash: {notice: 'Successfully deleted ' + self.class::RESOURCE_CLASS.to_s.titleize.downcase }
     else
       redirect_to resources_path, flash: {alert: @resource.errors.full_messages.join(" ") }
     end
@@ -47,6 +47,6 @@ module Crudable
   private
 
   def fetch_resource
-    @resource = resource_class.find(params[:id])
+    @resource = self.class::RESOURCE_CLASS.find(params[:id])
   end
 end

@@ -1,6 +1,8 @@
 class DisabilitiesController < ApplicationController
   include Crudable
 
+  RESOURCE_CLASS = Disability
+
   private
 
   def resource_params
@@ -9,9 +11,5 @@ class DisabilitiesController < ApplicationController
 
   def resources_path
     disabilities_path
-  end
-
-  def resource_class
-    Disability
   end
 end
