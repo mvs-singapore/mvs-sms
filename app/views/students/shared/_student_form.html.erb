@@ -110,6 +110,34 @@
 
 </div>
 
+<br>
+
+<h5>Past Education Records</h5>
+
+<div class="form-group row">
+  <%= f.fields_for :past_education_records do |past_education_record| %>
+  <div class="col-4">
+    <%= past_education_record.label :school_name, 'School Attended' %>
+    <%= past_education_record.text_field :school_name, autofocus: true, class: 'form-control' %>
+  </div>
+
+  <div class="col-2">
+    <%= past_education_record.label :from_date, 'From Date' %>
+    <%= past_education_record.date_field :from_date, autofocus: true, class: 'form-control' %>
+  </div>
+
+  <div class="col-2">
+    <%= past_education_record.label :to_date, 'To Date' %>
+    <%= past_education_record.date_field :to_date, autofocus: true, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= past_education_record.label :qualification %>
+    <%= past_education_record.text_field :qualification, autofocus: true, class: 'form-control' %>
+  </div>
+  <% end %>
+  <br>
+</div>
 <div class="form-group row">
   <div class="col-4"><%= f.submit :class => 'btn btn-primary' %></div>
 </div>

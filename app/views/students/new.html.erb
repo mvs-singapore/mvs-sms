@@ -1,6 +1,6 @@
 <div class="container">
   <h3 class="text-center">Add New Student</h3>
-  <%= form_for(@resource, url: students_path) do |f| %>
+  <%= form_for(@student, url: students_path) do |f| %>
     <%= render :partial => 'students/shared/student_form', :locals => {:f => f} %>
   <% end %>
 </div>
