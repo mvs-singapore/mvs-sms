@@ -44,5 +44,4 @@ class Student < ApplicationRecord
   def age
     Date.today.year - date_of_birth.year
   end
-
 end
