@@ -5,10 +5,12 @@ Rails.application.routes.draw do
     resources :school_classes
   end
 
+  resources :students do
+    resources :past_education_records, except: [:index, :show]
+  end
   resources :internship_supervisors
   resources :medical_conditions
   resources :disabilities
-  resources :students
 	resources :internship_companies
 
   root to: 'pages#index'

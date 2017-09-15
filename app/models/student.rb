@@ -33,6 +33,7 @@ class Student < ApplicationRecord
   has_many :student_medical_conditions
   has_many :medical_conditions, through: :student_medical_conditions
   has_many :student_status_histories
+  accepts_nested_attributes_for :past_education_records, allow_destroy: true
 
   scope :sorted, -> { order(surname: :asc) }
 

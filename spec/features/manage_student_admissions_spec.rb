@@ -38,13 +38,16 @@ describe 'new student admissions', type: :feature do
         fill_in 'Highest Standard Passed', with: 'GCE O Levels'
         fill_in 'Medication Needed', with: 'Antihistamines'
         fill_in 'Allergies', with: 'Peanuts'
+        fill_in 'School Attended', with: 'Northlight'
+        fill_in 'From Date', with: '02/03/2016'
+        fill_in 'To Date', with: '02/03/2017'
+        fill_in 'Qualification', with: 'GCE O Levels'
       end
 
       click_button 'Create Student'
 
       expect(page).to have_text 'Successfully created student'
       expect(page).to have_text 'Ali'
-
       new_student = Student.last
 
       within("#student-#{new_student.id}") do
