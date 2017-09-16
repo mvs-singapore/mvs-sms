@@ -31,6 +31,48 @@ RSpec.describe Student, type: :model do
     it { is_expected.to have_many(:student_status_histories) }
   end
 
+  describe 'scopes' do
+    describe 'sorted' do
+      let!(:student_1) {
+        Student.create(
+            admission_year: 2017,
+            registered_at: Date.today,
+            status: :new_admission,
+            referred_by: 'self_referred',
+            surname: 'Li',
+            given_name: 'Ah Hock',
+            date_of_birth: Date.today,
+            place_of_birth: 'Singapore',
+            race: 'Chinese',
+            nric: 'S80888888D',
+            citizenship: 'Singaporean',
+            gender: :male
+        )
+      }
+
+      let!(:student_2) {
+        Student.create(
+            admission_year: 2017,
+            registered_at: Date.today,
+            status: :new_admission,
+            referred_by: 'self_referred',
+            surname: 'Chan',
+            given_name: 'Hock Chye',
+            date_of_birth: Date.today,
+            place_of_birth: 'Singapore',
+            race: 'Chinese',
+            nric: 'S80888888D',
+            citizenship: 'Singaporean',
+            gender: :male
+        )
+      }
+
+      it 'returns students sorted in alphabetical order of surname' do
+        expect(Student.sorted).to eq [student_2, student_1]
+      end
+    end
+  end
+
   describe "new student" do
     it 'should have default status' do
       new_student = Student.create(

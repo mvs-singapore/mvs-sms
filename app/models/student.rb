@@ -34,6 +34,8 @@ class Student < ApplicationRecord
   has_many :medical_conditions, through: :student_medical_conditions
   has_many :student_status_histories
 
+  scope :sorted, -> { order(surname: :asc) }
+
   def full_name
     "#{surname}, #{given_name}"
   end
