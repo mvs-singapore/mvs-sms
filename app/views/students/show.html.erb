@@ -209,4 +209,19 @@
     <dt class="col-3">NRIC</dt>
     <dd class="col-9" data-for="nric"><%= @student.nric %></dd>
   </dl>
+
+<div class="row">
+  <div class="col-12">
+    <h4>Student Medical History</h4>
+  </div>
+</div>
+
+<dl class="row">
+  <dt class="col-3">Disabilities</dt>
+  <dd class="col-9" data-for="disabilities"><%= @student.disabilities.map(&:title).join(", ") %></dd>
+
+  <dt class="col-3">Medical Conditions</dt>
+  <dd class="col-9" data-for="medical_conditions"><%= @student.medical_conditions.map(&:title).join(", ") %></dd>
+</dl>
+
 </div>
