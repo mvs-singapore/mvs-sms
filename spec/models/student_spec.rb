@@ -50,4 +50,25 @@ RSpec.describe Student, type: :model do
       expect(new_student.reload.status).to eq 'new_admission'
     end
   end
+
+  describe '#full_name' do
+    it 'should include given name and surname' do
+      student = Student.create(
+          admission_year: 2017,
+          registered_at: Date.today,
+          status: :new_admission,
+          referred_by: 'self_referred',
+          surname: 'Li',
+          given_name: 'Ah Hock',
+          date_of_birth: Date.today,
+          place_of_birth: 'Singapore',
+          race: 'Chinese',
+          nric: 'S80888888D',
+          citizenship: 'Singaporean',
+          gender: :male
+      )
+
+      expect(student.full_name).to eq 'Li, Ah Hock'
+    end
+  end
 end
