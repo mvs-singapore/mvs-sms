@@ -20,4 +20,24 @@
     <dt class="col-3">Form Teacher</dt>
     <dd class="col-9" data-for="form_teacher"><%= @resource.form_teacher.name %></dd>
   </dl>
+
+  <h4>Students Assigned List</h4>
+  <table class="table table-bordered table-responsive" data-for="students">
+    <thead class="table-primary">
+    <tr>
+      <th>Student Name</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody class="bg-white">
+    <% @resource.students.sorted.each do |student| %>
+        <tr id="student-<%= student.id %>">
+          <td><%= student.full_name %></td>
+          <td>
+            <%= link_to 'View', student_path(student), class: "view_student btn btn-primary" %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
 </div>

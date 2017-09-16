@@ -13,7 +13,7 @@ class Admin::SchoolClassesController < ApplicationController
   private
 
   def resource_params
-    params.require(:school_class).permit(:academic_year, :name, :year, :form_teacher_id)
+    params.require(:school_class).permit(:academic_year, :name, :year, :form_teacher_id, student_ids: [])
   end
 
   def resources_path
