@@ -9,6 +9,7 @@ require 'rspec/rails'
 
 require 'capybara/rspec'
 require 'selenium/webdriver'
+require 'chosen-rails/rspec'
 
 webdriver_options = {
   browser: :chrome

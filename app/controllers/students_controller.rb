@@ -1,6 +1,7 @@
 class StudentsController < ApplicationController
 
   before_action :fetch_student, only: [:show, :edit, :update, :destroy]
+  before_action :fetch_medical_history_master_list, only: [:new, :edit, :create, :update]
 
   def index
     @students = Student.all
@@ -15,6 +16,14 @@ class StudentsController < ApplicationController
   def create
     @student = Student.new(student_params)
 
+    medical_history_params[:disability_ids].reject(&:blank?).each do |disability_id|
+      @student.student_disabilities.build(disability_id: disability_id)
+    end
+
+    medical_history_params[:medical_condition_ids].reject(&:blank?).each do |condition_id|
+      @student.student_medical_conditions.build(medical_condition_id: condition_id)
+    end
+
     if @student.save
       redirect_to students_path, flash: {notice: 'Successfully created student'}
     else
@@ -23,7 +32,44 @@ class StudentsController < ApplicationController
     end
   end
 
-  def show
+  def update
+    if @student.update(resource_params)
+
+      updated_disabilities = medical_history_params[:disability_ids].reject(&:blank?).map(&:to_i).sort
+      original_disabilities = @student.disability_ids.sort
+      unless original_disabilities == updated_disabilities
+        disabilities_to_remove = original_disabilities - updated_disabilities
+        disabilities_to_add = updated_disabilities - original_disabilities
+
+        disabilities_to_remove.each do |disability_id|
+          @student.student_disabilities.where(disability_id: disability_id).destroy_all
+        end
+
+        disabilities_to_add.each do |disability_id|
+          @student.student_disabilities.create(disability_id: disability_id)
+        end
+      end
+
+      updated_conditions = medical_history_params[:medical_condition_ids].reject(&:blank?).map(&:to_i).sort
+      original_conditions = @student.medical_condition_ids.sort
+      unless original_conditions == updated_conditions
+        conditions_to_remove = original_conditions - updated_conditions
+        conditions_to_add = updated_conditions - original_conditions
+
+        conditions_to_remove.each do |condition_id|
+          @student.student_medical_conditions.where(medical_condition_id: condition_id).destroy_all
+        end
+
+        conditions_to_add.each do |condition_id|
+          @student.student_medical_conditions.create(medical_condition_id: condition_id)
+        end
+      end
+
+      redirect_to resources_path, flash: {notice: 'Successfully updated ' + self.class::RESOURCE_CLASS.to_s.titleize.downcase }
+    else
+      flash.now[:alert] = @student.errors.full_messages.join(" ")
+      render :edit
+    end
   end
 
   def edit
@@ -53,6 +99,11 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
   end
 
+  def fetch_medical_history_master_list
+    @disabilities = Disability.all
+    @medical_conditions = MedicalCondition.all
+  end
+
   def student_params
     params.require(:student).permit(:admission_year, :admission_no, :registered_at, :current_class, :status, :referred_by, :referral_notes,
                                     :surname, :given_name, :date_of_birth, :place_of_birth, :race, :nric, :citizenship, :gender, :sadeaf_client_reg_no,
@@ -63,4 +114,11 @@ class StudentsController < ApplicationController
                                     :nationality, :occupation, :home_number, :handphone_number, :office_number, :relationship])
   end
 
+  def medical_history_params
+    params.require(:student).permit(disability_ids:[], medical_condition_ids:[])
+  end
+
+  def resources_path
+    students_path
+  end
 end
