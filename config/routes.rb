@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :students do
     resources :past_education_records, except: [:index, :show]
+    resources :point_of_contacts, except: [:index, :show]
   end
   resources :internship_supervisors
   resources :medical_conditions

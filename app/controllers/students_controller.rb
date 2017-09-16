@@ -9,6 +9,7 @@ class StudentsController < ApplicationController
   def new
     @student = Student.new
     @student.past_education_records.new
+    @student.point_of_contacts.new
   end
 
   def create
@@ -55,8 +56,11 @@ class StudentsController < ApplicationController
   def student_params
     params.require(:student).permit(:admission_year, :admission_no, :registered_at, :current_class, :status, :referred_by, :referral_notes,
                                     :surname, :given_name, :date_of_birth, :place_of_birth, :race, :nric, :citizenship, :gender, :sadeaf_client_reg_no,
-                                    :highest_standard_passed, :medication_needed, :allergies, past_education_records_attributes:
-                                    [:id, :school_name, :from_date, :to_date, :qualification])
+                                    :highest_standard_passed, :medication_needed, :allergies,
+                                    past_education_records_attributes: [:id, :school_name, :from_date, :to_date, :qualification],
+                                    point_of_contacts_attributes: [:id, :surname, :given_name, :address, :postal_code, :race,
+                                    :dialect, :languages_spoken, :id_number, :id_type, :date_of_birth, :place_of_birth,
+                                    :nationality, :occupation, :home_number, :handphone_number, :office_number, :relationship])
   end
 
 end
