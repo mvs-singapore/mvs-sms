@@ -1,0 +1,6 @@
+<div class="container">
+  <h3 class="text-center">Edit Point of Contact</h3>
+  <%= form_for([@student, @point_of_contact], url: student_point_of_contact_path(@student)) do |f| %>
+  <%= render :partial => 'point_of_contacts/shared/point_of_contact_form', :locals => {:f => f} %>
+  <% end %>
+</div>

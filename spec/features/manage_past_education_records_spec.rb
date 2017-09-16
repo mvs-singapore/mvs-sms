@@ -14,39 +14,6 @@ describe 'manage student past education records', type: :feature do
     sign_in teacher_user
   end
 
-  describe 'create past education record' do
-    it 'creates new student with past education record' do
-      visit students_path
-      click_link 'Add Student'
-
-      within('#new_student') do
-        fill_in 'Admission Year', with: '2017'
-        fill_in 'Date of Registration', with: '09/09/2017'
-        select('new_admission', from: 'Status')
-        select('association_of_persons_with_special_needs', from: 'Referred By')
-        fill_in 'Surname', with: 'Lee'
-        fill_in 'Given Name', with: 'Ali'
-        fill_in 'Date of Birth', with: '09/09/1997'
-        fill_in 'Place of Birth', with: 'Singapore'
-        fill_in 'Race', with: 'Chinese'
-        fill_in 'NRIC', with: 'S8888888D'
-        fill_in 'Citizenship', with: 'Singaporean'
-        select('female', from: 'Gender')
-        fill_in 'School Attended', with: 'Northlight'
-        fill_in 'From Date', with: '02/03/2014'
-        fill_in 'To Date', with: '02/03/2015'
-        fill_in 'Qualification', with: 'PSLE'
-      end
-
-      click_button 'Create Student'
-
-      expect(PastEducationRecord.where(school_name: 'Northlight').count).to eq 1
-      expect(PastEducationRecord.where(from_date: '02/03/2014').count).to eq 1
-      expect(PastEducationRecord.where(to_date: '02/03/2015').count).to eq 1
-      expect(PastEducationRecord.where(qualification: 'PSLE').count).to eq 1
-    end
-  end
-
   describe 'add student past education record within add past education record page' do
     it 'adds a past education record' do
       visit students_path
