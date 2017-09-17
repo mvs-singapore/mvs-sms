@@ -17,3 +17,9 @@
 //= require chosen-jquery
 //= require scaffold
 //= require_tree .
+
+$(document).ready(function () {
+    $('i.fa-plus').click(function () {
+        $(this).toggleClass('fa-minus');
+    });
+});

@@ -2,7 +2,7 @@
 
 <p><%= link_to('Add Student', new_student_path, class: "btn btn-primary") %></p>
 
-<table class="table table-bordered table-responsive">
+<table class="table table-bordered table-sm table-responsive">
   <thead class="table-primary">
     <tr>
       <th>Academic Year</th>
@@ -16,7 +16,7 @@
       <th>Medical Condition</th>
       <th>Main Contact</th>
       <th>Status</th>
-      <th>Actions</th>
+      <th>View</th>
     </tr>
   </thead>
   <tbody class="bg-white">
@@ -33,12 +33,35 @@
         <td data-for="medical_conditions"><%= student.medical_conditions.map{|d| d.title }.join(', ') %></td>
         <td data-for="main_contact"></td>
         <td data-for="status"><%= student.status %></td>
-        <td>
-          <%= link_to 'View', student_path(student), class: "view_student btn btn-primary" %>
-          <%= link_to 'Edit', edit_student_path(student), class: "edit_student btn btn-primary" %>
-          <%= link_to 'Delete', student_path(student), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_student btn btn-danger" %>
-        </td>
+        <td data-for="view" class="text-center"><i class="fa fa-plus fa-2x" data-toggle="collapse" data-target="#student-details-<%= student.id %>"></td>
       </tr>
+      <td colspan="100%">
+        <div class="collapse" id="student-details-<%= student.id %>">
+          <div class="row">
+            <div class="col-3">
+              <dl class="row">
+                <dt class="col-5">Allergies</dt>
+                <dd class="col-7"><%= student.allergies %></dd>
+              </dl>
+            </div>
+
+            <div class="col-3">
+            </div>
+
+            <div class="col-3">
+            </div>
+
+            <div class="col-3 text-right">
+                <%= link_to 'View', student_path(student), class: "view_student btn btn-primary" %>
+                <%= link_to 'Edit', edit_student_path(student), class: "edit_student btn btn-primary" %>
+                <%= link_to 'Delete', student_path(student), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_student btn btn-danger" %>
+              </dl>
+            </div>
+
+          </div>
+        </div>
+      </td>
+
   <% end %>
   </tbody>
 </table>

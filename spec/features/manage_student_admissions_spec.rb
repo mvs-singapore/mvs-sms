@@ -141,6 +141,9 @@ xdescribe 'new student admissions', type: :feature do
       visit students_path
 
       within("#student-#{student.id}") do
+        find('td[data-for="view"]').find(".fa-plus").click
+      end
+      within("#student-details-#{student.id}") do
         find_link('Edit').click
       end
       within('.edit_student') do
@@ -167,6 +170,9 @@ xdescribe 'new student admissions', type: :feature do
       visit students_path
 
       within("#student-#{student.id}") do
+        find('td[data-for="view"]').find(".fa-plus").click
+      end
+      within("#student-details-#{student.id}") do
         find_link('View').click
       end
 
@@ -191,6 +197,9 @@ xdescribe 'new student admissions', type: :feature do
       visit students_path
 
       within("#student-#{student.id}") do
+        find('td[data-for="view"]').find(".fa-plus").click
+      end
+      within("#student-details-#{student.id}") do
         accept_confirm_dialog {
           find('.delete_student', visible: true).click
         }
