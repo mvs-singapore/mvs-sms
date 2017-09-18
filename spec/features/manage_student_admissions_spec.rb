@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-xdescribe 'new student admissions', type: :feature do
+describe 'new student admissions', type: :feature do
   let!(:teacher_role) { Role.create(name: 'teacher', super_admin: false) }
   let!(:teacher_user) { User.create(email: 'teacher1@example.com', password: 'password', name: 'Good Teacher', role: teacher_role) }
   let!(:student) { Student.create(admission_year: 2016, admission_no: '16006/2016', registered_at: Date.parse('09/09/2017'), current_class: 'Food & Beverage',
@@ -143,7 +143,7 @@ xdescribe 'new student admissions', type: :feature do
       student.student_medical_conditions.create(medical_condition: epilepsy_medical_condition)
     end
 
-    it 'edits an existing student' do
+    it 'edits admission details' do
       visit students_path
 
       within("#student-#{student.id}") do
@@ -151,7 +151,22 @@ xdescribe 'new student admissions', type: :feature do
       end
       within('.edit_student') do
         fill_in 'Admission Year', with: 2017
+      end
+      click_button 'Update Student'
 
+      expect(page).to have_text 'Successfully updated student'
+      expect(student.reload.admission_year).to eq 2017
+    end
+
+    it 'edits medical conditions in student details' do
+      visit students_path
+
+      within("#student-#{student.id}") do
+        find_link('Edit').click
+      end
+
+      click_link 'Student Particulars'
+      within('#student-particulars') do
         page.execute_script "window.scrollBy(0,10000)"
         chosen_unselect('Autistic', from: 'Disabilities')
         chosen_unselect('Epilepsy', from: 'Medical Conditions')
@@ -159,7 +174,6 @@ xdescribe 'new student admissions', type: :feature do
       click_button 'Update Student'
 
       expect(page).to have_text 'Successfully updated student'
-      expect(student.reload.admission_year).to eq 2017
       expect(student.reload.disabilities.first.title).to eq "Down's Syndrome"
       expect(student.reload.disability_ids).to include(disability.id, disability.id)
 
@@ -167,7 +181,7 @@ xdescribe 'new student admissions', type: :feature do
       expect(student.reload.medical_condition_ids).to include(medical_condition.id, medical_condition.id)
     end
 
-    it 'deletes point of contacts', js: true do
+    it 'deletes point of contacts' do
       papa = { surname: 'Doe', given_name: 'John', handphone_number: '12345678', relationship: 'Father' }
       mama = { surname: 'Doe', given_name: 'Jean', handphone_number: '12345678', relationship: 'Mother' }
       student.point_of_contacts.create(papa)
@@ -175,7 +189,7 @@ xdescribe 'new student admissions', type: :feature do
 
       visit students_path
       within("#student-#{student.id}") { find_link('Edit').click }
-      
+
       click_link 'Parent/Guardian Particulars'
       within('#contacts .nested-fields:nth-of-type(2)') { find_link('Delete Contact').click }
 

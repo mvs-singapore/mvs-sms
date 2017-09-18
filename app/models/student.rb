@@ -23,7 +23,7 @@ class Student < ApplicationRecord
   validates :admission_year, :registered_at, :status, :referred_by, :surname, :given_name, :date_of_birth, :place_of_birth, :race, :nric, :citizenship, :gender, presence: true
   validates :admission_year, numericality: { only_integer: true }
 
-  has_many :point_of_contacts, inverse_of: :student
+  has_many :point_of_contacts, inverse_of: :student, dependent: :destroy
   accepts_nested_attributes_for :point_of_contacts, reject_if: :all_blank, allow_destroy: true
   has_many :internship_records, dependent: :destroy
   has_many :past_education_records, dependent: :destroy
