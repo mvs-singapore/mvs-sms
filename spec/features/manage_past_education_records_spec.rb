@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'manage student past education records', type: :feature do
+xdescribe 'manage student past education records', type: :feature do
   let!(:teacher_role) { Role.create(name: 'teacher', super_admin: false) }
   let!(:teacher_user) { User.create(email: 'teacher1@example.com', password: 'password', name: 'Good Teacher', role: teacher_role) }
   let!(:default_student) { Student.create(admission_year: 2016, registered_at: Date.new(2017,9,9), status: 'new_admission',
