@@ -26,6 +26,7 @@ describe 'new student admissions', type: :feature do
       select('association_of_persons_with_special_needs', from: 'Referred By')
       fill_in 'Name of Referee', with: 'Mdm Referee'
 
+      click_link 'Student Particulars'
       within('#student-particulars') do
         fill_in 'Surname', with: 'Lee'
         fill_in 'Given Name', with: 'Ali'
@@ -41,6 +42,7 @@ describe 'new student admissions', type: :feature do
         fill_in 'Allergies', with: 'Peanuts'
       end
 
+      click_link 'Past Education Records'
       within('#past-educations') do
         fill_in 'School Attended', with: 'Northlight'
         fill_in 'From Date', with: '02/03/2016'
@@ -48,8 +50,8 @@ describe 'new student admissions', type: :feature do
         fill_in 'Qualification', with: 'GCE O Levels'
       end
 
+      click_link 'Parent/Guardian Particulars'
       click_link 'Add Parent / Guardian'
-
       within('#contacts .nested-fields:nth-of-type(2)') do
         fill_in 'Surname', with: 'Ong'
         fill_in 'Given Name', with: 'Pearly'
@@ -142,6 +144,8 @@ describe 'new student admissions', type: :feature do
 
       visit students_path
       within("#student-#{student.id}") { find_link('Edit').click }
+      
+      click_link 'Parent/Guardian Particulars'
       within('#contacts .nested-fields:nth-of-type(2)') { find_link('Delete Contact').click }
 
       click_button 'Update Student'
