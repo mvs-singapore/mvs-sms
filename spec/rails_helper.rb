@@ -9,6 +9,7 @@ require 'rspec/rails'
 
 require 'capybara/rspec'
 require 'selenium/webdriver'
+require 'chosen-rails/rspec'
 
 webdriver_options = {
   browser: :chrome
@@ -18,12 +19,16 @@ webdriver_options = {
 # webdriver_options[:url] = 'http://127.0.0.1:9515'
 
 Capybara.register_driver :chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+      chromeOptions: { args: %w(window-size=1280,720) }
+  )
+  webdriver_options[:desired_capabilities] = capabilities
   Capybara::Selenium::Driver.new(app, webdriver_options)
 end
 
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-      chromeOptions: { args: %w(headless disable-gpu) }
+      chromeOptions: { args: %w(headless disable-gpu window-size=1280,720) }
   )
   webdriver_options[:desired_capabilities] = capabilities
 
@@ -81,6 +86,7 @@ RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :feature
   config.include EmailSpec::Helpers
   config.include EmailSpec::Matchers
+  config.include Chosen::Rspec::FeatureHelpers, type: :feature
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
