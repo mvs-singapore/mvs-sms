@@ -20,7 +20,7 @@
     </tr>
   </thead>
   <tbody class="bg-white">
-    <% @resources.each do |student| %>
+    <% @students.each do |student| %>
       <tr id="student-<%= student.id %>">
         <td data-for="academic_year"></td>
         <td data-for="class"><%= student.current_class %></td>

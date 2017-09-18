@@ -46,7 +46,7 @@
 
 <h5>Student Particulars</h5>
 
-<div class="form-group row">
+<div class="form-group row student-particulars">
 
   <div class="col-6">
     <%= f.label :given_name, 'Given Name' %>
@@ -109,6 +109,131 @@
   </div>
 
 </div>
+
+<br>
+
+<h5>Past Education Records</h5>
+
+<div class="form-group row student-past-education-records">
+  <%= f.fields_for :past_education_records do |past_education_record| %>
+  <div class="col-4">
+    <%= past_education_record.label :school_name, 'School Attended' %>
+    <%= past_education_record.text_field :school_name, autofocus: true, class: 'form-control' %>
+  </div>
+
+  <div class="col-2">
+    <%= past_education_record.label :from_date, 'From Date' %>
+    <%= past_education_record.date_field :from_date, autofocus: true, class: 'form-control' %>
+  </div>
+
+  <div class="col-2">
+    <%= past_education_record.label :to_date, 'To Date' %>
+    <%= past_education_record.date_field :to_date, autofocus: true, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= past_education_record.label :qualification %>
+    <%= past_education_record.text_field :qualification, autofocus: true, class: 'form-control' %>
+  </div>
+  <% end %>
+  <br>
+</div>
+
+
+<h5>Parent/Guardian Particulars</h5>
+
+<div class="form-group row contacts">
+  <%= f.fields_for :point_of_contacts do |contacts| %>
+  <div class="col-4">
+    <%= contacts.label :surname %>
+    <%= contacts.text_field :surname, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= contacts.label :given_name, 'Given Name' %>
+    <%= contacts.text_field :given_name, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= contacts.label :address %>
+    <%= contacts.text_field :address, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= contacts.label :postal_code, 'Postal Code' %>
+    <%= contacts.text_field :postal_code, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= contacts.label :race %>
+    <%= contacts.text_field :race, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= contacts.label :dialect %>
+    <%= contacts.text_field :dialect, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= contacts.label :languages_spoken, 'Languages Spoken' %>
+    <%= contacts.text_field :languages_spoken, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= contacts.label :id_number, 'ID Number' %>
+    <%= contacts.text_field :id_number, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= contacts.label :id_type, 'ID Type' %>
+    <%= contacts.select :id_type, PointOfContact.id_types.keys, {prompt: 'Select ID Type'}, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= contacts.label :date_of_birth, 'Date of Birth' %>
+    <%= contacts.date_field :date_of_birth, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= contacts.label :place_of_birth, 'Place of Birth' %>
+    <%= contacts.text_field :place_of_birth, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= contacts.label :nationality %>
+    <%= contacts.text_field :nationality, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= contacts.label :occupation %>
+    <%= contacts.text_field :occupation, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= contacts.label :home_number, 'Home Number' %>
+    <%= contacts.text_field :home_number, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= contacts.label :handphone_number, 'Handphone Number' %>
+    <%= contacts.text_field :handphone_number, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= contacts.label :office_number, 'Office Number' %>
+    <%= contacts.text_field :office_number, class: 'form-control' %>
+  </div>
+
+  <div class="col-4">
+    <%= contacts.label :relationship %>
+    <%= contacts.text_field :relationship, class: 'form-control' %>
+  </div>
+
+  <% end %>
+  <br>
+</div>
+
+
 
 <div class="form-group row">
   <div class="col-4"><%= f.submit :class => 'btn btn-primary' %></div>
