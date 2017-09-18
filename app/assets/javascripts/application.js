@@ -15,4 +15,6 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require cocoon
+//= require chosen-jquery
+//= require scaffold
 //= require_tree .
