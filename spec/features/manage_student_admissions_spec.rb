@@ -18,7 +18,7 @@ describe 'new student admissions', type: :feature do
     sign_in teacher_user
   end
 
-  describe 'create student' do
+  describe 'create student', js: true do
     it 'creates new student' do
       visit students_path
       click_link 'Add Student'
