@@ -1,0 +1,33 @@
+<div class="form-group row">
+
+  <div class="col-6">
+    <%= f.label :admission_year, 'Admission Year' %>
+    <%= f.text_field :admission_year, autofocus: true, class: 'form-control' %>
+  </div>
+
+  <div class="col-6">
+    <%= f.label :admission_no, 'Admission No.' %>
+    <%= f.text_field :admission_no, autofocus: true, class: 'form-control' %>
+  </div>
+
+  <div class="col-6">
+    <%= f.label :registered_at, 'Date of Registration' %>
+    <%= f.date_field :registered_at, autofocus: true, value: Date.today, class: 'form-control' %>
+  </div>
+
+  <div class="col-6">
+    <%= f.label :status %>
+    <%= f.select :status, Student.statuses.keys, {selected: 'new_admission'}, class: 'form-control' %>
+  </div>
+
+  <div class="col-6">
+    <%= f.label :referred_by, 'Referred By' %>
+    <%= f.select :referred_by, Student.institutions.keys, {prompt: 'Select Institution'}, class: 'form-control' %>
+  </div>
+
+  <div class="col-6">
+    <%= f.label :referral_notes, 'Name of Referee' %>
+    <%= f.text_field :referral_notes, autofocus: true, class: 'form-control' %>
+  </div>
+
+</div>

@@ -1,240 +1,69 @@
-<h5>Admission Details</h5>
+<div class="row">
 
-<div class="form-group row">
-
-  <div class="col-6">
-    <%= f.label :admission_year, 'Admission Year' %>
-    <%= f.text_field :admission_year, autofocus: true, class: 'form-control' %>
+  <div class="col-3">
+    <div class="nav flex-column nav-pills" id="student-form-tab" role="tablist">
+      <a class="nav-link active" id="admission-tab" data-toggle="pill" href="#admission" role="tab" aria-controls="admission" aria-expanded="true">Admission Details</a>
+      <a class="nav-link" id="student-particulars-tab" data-toggle="pill" href="#student-particulars" role="tab" aria-controls="student-particulars" aria-expanded="true">Student Particulars</a>
+      <a class="nav-link" id="past-educations-tab" data-toggle="pill" href="#past-educations" role="tab" aria-controls="past-educations" aria-expanded="true">Past Education Records</a>
+      <a class="nav-link" id="contacts-tab" data-toggle="pill" href="#contacts" role="tab" aria-controls="contacts" aria-expanded="true">Parent/Guardian Particulars</a>
+    </div>
   </div>
 
-  <div class="col-6">
-    <%= f.label :admission_no, 'Admission No.' %>
-    <%= f.text_field :admission_no, autofocus: true, class: 'form-control' %>
+  <div class="col-9">
+    <div class="tab-content" id="student-form-tabContent">
+
+      <div class="tab-pane fade show active" id="admission" role="tabpanel" aria-labelledby="admission-tab">
+        <%= render '/students/shared/admission_details', f: f %>
+      </div>
+
+      <div class="tab-pane fade" id="student-particulars" role="tabpanel" aria-labelledby="student-particulars-tab">
+        <%= render '/students/shared/student_particulars', f: f %>
+      </div>
+
+      <div class="tab-pane fade" id="past-educations" role="tabpanel" aria-labelledby="past-educations-tab">
+        <%= f.fields_for :past_education_records do |past_education_record| %>
+            <div class="form-group row">
+              <div class="col-4">
+                <%= past_education_record.label :school_name, 'School Attended' %>
+                <%= past_education_record.text_field :school_name, autofocus: true, class: 'form-control' %>
+              </div>
+
+              <div class="col-2">
+                <%= past_education_record.label :from_date, 'From Date' %>
+                <%= past_education_record.date_field :from_date, autofocus: true, class: 'form-control' %>
+              </div>
+
+              <div class="col-2">
+                <%= past_education_record.label :to_date, 'To Date' %>
+                <%= past_education_record.date_field :to_date, autofocus: true, class: 'form-control' %>
+              </div>
+
+              <div class="col-4">
+                <%= past_education_record.label :qualification %>
+                <%= past_education_record.text_field :qualification, autofocus: true, class: 'form-control' %>
+              </div>
+            </div>
+        <% end %>
+      </div>
+
+      <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
+        <%= f.fields_for :point_of_contacts do |contacts| %>
+          <%= render '/students/shared/point_of_contact_fields', f: contacts %>
+        <% end %>
+        <div class='form-group row'>
+          <%= link_to_add_association 'Add Parent / Guardian', f, :point_of_contacts,
+                                      partial: '/students/shared/point_of_contact_fields', class: 'btn btn-primary' %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-4">
+          <%= f.submit :class => 'btn btn-primary' %>
+        </div>
+      </div>
+
+    </div>
   </div>
-
-  <div class="col-6">
-    <%= f.label :registered_at, 'Date of Registration' %>
-    <%= f.date_field :registered_at, autofocus: true, value: Date.today, class: 'form-control' %>
-  </div>
-
-  <div class="col-6">
-    <%= f.label :status %>
-    <%= f.select :status, Student.statuses.keys, {selected: 'new_admission'}, class: 'form-control' %>
-  </div>
-
-</div>
-
-<br>
-
-<h5>Referral Details</h5>
-
-<div class="form-group row">
-
-  <div class="col-6">
-    <%= f.label :referred_by, 'Referred By' %>
-    <%= f.select :referred_by, Student.institutions.keys, {prompt: 'Select Institution'}, class: 'form-control' %>
-  </div>
-
-  <div class="col-6">
-    <%= f.label :referral_notes, 'Name of Referee' %>
-    <%= f.text_field :referral_notes, autofocus: true, class: 'form-control' %>
-  </div>
-
-</div>
-
-<br>
-
-<h5>Student Particulars</h5>
-
-<div class="form-group row student-particulars">
-
-  <div class="col-6">
-    <%= f.label :given_name, 'Given Name' %>
-    <%= f.text_field :given_name, autofocus: true, class: 'form-control' %>
-  </div>
-
-  <div class="col-6">
-    <%= f.label :surname %>
-    <%= f.text_field :surname, autofocus: true, class: 'form-control' %>
-  </div>
-
-  <div class="col-6">
-    <%= f.label :date_of_birth, 'Date of Birth' %>
-    <%= f.date_field :date_of_birth, autofocus: true, class: 'form-control' %>
-  </div>
-
-  <div class="col-6">
-    <%= f.label :place_of_birth, 'Place of Birth' %>
-    <%= f.text_field :place_of_birth, autofocus: true, class: 'form-control' %>
-  </div>
-
-  <div class="col-6">
-    <%= f.label :race %>
-    <%= f.text_field :race, autofocus: true, class: 'form-control' %>
-  </div>
-
-  <div class="col-6">
-    <%= f.label :nric, 'NRIC' %>
-    <%= f.text_field :nric, autofocus: true, class: 'form-control' %>
-  </div>
-
-  <div class="col-6">
-    <%= f.label :citizenship %>
-    <%= f.text_field :citizenship, autofocus: true, class: 'form-control' %>
-  </div>
-
-  <div class="col-6">
-    <%= f.label :gender %>
-    <%= f.select :gender, Student.genders.keys, {prompt: 'Select Gender'}, class: 'form-control' %>
-  </div>
-
-  <div class="col-6">
-    <%= f.label :sadeaf_client_reg_no, 'SADeaf Client Registration No.' %>
-    <%= f.text_field :sadeaf_client_reg_no, autofocus: true, class: 'form-control' %>
-  </div>
-
-  <div class="col-6">
-    <%= f.label :highest_standard_passed, 'Highest Standard Passed' %>
-    <%= f.text_field :highest_standard_passed, autofocus: true, class: 'form-control' %>
-  </div>
-
-  <div class="col-6">
-    <%= f.label :medication_needed, 'Medication Needed' %>
-    <%= f.text_field :medication_needed, autofocus: true, class: 'form-control' %>
-  </div>
-
-  <div class="col-6">
-    <%= f.label :allergies %>
-    <%= f.text_field :allergies, autofocus: true, class: 'form-control' %>
-  </div>
-
-</div>
-
-<br>
-
-<h5>Past Education Records</h5>
-
-<div class="form-group row student-past-education-records">
-  <%= f.fields_for :past_education_records do |past_education_record| %>
-  <div class="col-4">
-    <%= past_education_record.label :school_name, 'School Attended' %>
-    <%= past_education_record.text_field :school_name, autofocus: true, class: 'form-control' %>
-  </div>
-
-  <div class="col-2">
-    <%= past_education_record.label :from_date, 'From Date' %>
-    <%= past_education_record.date_field :from_date, autofocus: true, class: 'form-control' %>
-  </div>
-
-  <div class="col-2">
-    <%= past_education_record.label :to_date, 'To Date' %>
-    <%= past_education_record.date_field :to_date, autofocus: true, class: 'form-control' %>
-  </div>
-
-  <div class="col-4">
-    <%= past_education_record.label :qualification %>
-    <%= past_education_record.text_field :qualification, autofocus: true, class: 'form-control' %>
-  </div>
-  <% end %>
-  <br>
 </div>
 
 
-<h5>Parent/Guardian Particulars</h5>
-
-<div class="form-group row contacts">
-  <%= f.fields_for :point_of_contacts do |contacts| %>
-  <div class="col-4">
-    <%= contacts.label :surname %>
-    <%= contacts.text_field :surname, class: 'form-control' %>
-  </div>
-
-  <div class="col-4">
-    <%= contacts.label :given_name, 'Given Name' %>
-    <%= contacts.text_field :given_name, class: 'form-control' %>
-  </div>
-
-  <div class="col-4">
-    <%= contacts.label :address %>
-    <%= contacts.text_field :address, class: 'form-control' %>
-  </div>
-
-  <div class="col-4">
-    <%= contacts.label :postal_code, 'Postal Code' %>
-    <%= contacts.text_field :postal_code, class: 'form-control' %>
-  </div>
-
-  <div class="col-4">
-    <%= contacts.label :race %>
-    <%= contacts.text_field :race, class: 'form-control' %>
-  </div>
-
-  <div class="col-4">
-    <%= contacts.label :dialect %>
-    <%= contacts.text_field :dialect, class: 'form-control' %>
-  </div>
-
-  <div class="col-4">
-    <%= contacts.label :languages_spoken, 'Languages Spoken' %>
-    <%= contacts.text_field :languages_spoken, class: 'form-control' %>
-  </div>
-
-  <div class="col-4">
-    <%= contacts.label :id_number, 'ID Number' %>
-    <%= contacts.text_field :id_number, class: 'form-control' %>
-  </div>
-
-  <div class="col-4">
-    <%= contacts.label :id_type, 'ID Type' %>
-    <%= contacts.select :id_type, PointOfContact.id_types.keys, {prompt: 'Select ID Type'}, class: 'form-control' %>
-  </div>
-
-  <div class="col-4">
-    <%= contacts.label :date_of_birth, 'Date of Birth' %>
-    <%= contacts.date_field :date_of_birth, class: 'form-control' %>
-  </div>
-
-  <div class="col-4">
-    <%= contacts.label :place_of_birth, 'Place of Birth' %>
-    <%= contacts.text_field :place_of_birth, class: 'form-control' %>
-  </div>
-
-  <div class="col-4">
-    <%= contacts.label :nationality %>
-    <%= contacts.text_field :nationality, class: 'form-control' %>
-  </div>
-
-  <div class="col-4">
-    <%= contacts.label :occupation %>
-    <%= contacts.text_field :occupation, class: 'form-control' %>
-  </div>
-
-  <div class="col-4">
-    <%= contacts.label :home_number, 'Home Number' %>
-    <%= contacts.text_field :home_number, class: 'form-control' %>
-  </div>
-
-  <div class="col-4">
-    <%= contacts.label :handphone_number, 'Handphone Number' %>
-    <%= contacts.text_field :handphone_number, class: 'form-control' %>
-  </div>
-
-  <div class="col-4">
-    <%= contacts.label :office_number, 'Office Number' %>
-    <%= contacts.text_field :office_number, class: 'form-control' %>
-  </div>
-
-  <div class="col-4">
-    <%= contacts.label :relationship %>
-    <%= contacts.text_field :relationship, class: 'form-control' %>
-  </div>
-
-  <% end %>
-  <br>
-</div>
-
-
-
-<div class="form-group row">
-  <div class="col-4"><%= f.submit :class => 'btn btn-primary' %></div>
-</div>
