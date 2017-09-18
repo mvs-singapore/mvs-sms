@@ -9,6 +9,10 @@ describe 'new student admissions', type: :feature do
                                   nric: 'S8888888D', citizenship: 'Singaporean', gender: 'female', sadeaf_client_reg_no: '12345/234',
                                   highest_standard_passed: 'GCE O Levels', medication_needed: 'Antihistamines', allergies: 'Peanuts')
   }
+  let!(:autistic_disability) { Disability.create(title: "Autistic")}
+  let!(:disability) { Disability.create(title: "Down's Syndrome")}
+  let!(:epilepsy_medical_condition) {MedicalCondition.create(title: "Epilepsy")}
+  let!(:medical_condition) {MedicalCondition.create(title: "Asthma")}
 
   before do
     sign_in teacher_user
@@ -37,8 +41,11 @@ describe 'new student admissions', type: :feature do
         select('female', from: 'Gender')
         fill_in 'SADeaf Client Registration No.', with: '12345/234'
         fill_in 'Highest Standard Passed', with: 'GCE O Levels'
+
         fill_in 'Medication Needed', with: 'Antihistamines'
         fill_in 'Allergies', with: 'Peanuts'
+        chosen_select('Autistic', "Down's Syndrome", from: 'Disabilities')
+        chosen_select('Epilepsy', "Asthma", from: 'Medical Conditions')
       end
 
       within('.student-past-education-records') do
@@ -80,6 +87,8 @@ describe 'new student admissions', type: :feature do
         expect(find('td[data-for="date_of_birth"]')).to have_content '1997-09-09'
         expect(find('td[data-for="gender"]')).to have_content 'female'
         expect(find('td[data-for="status"]')).to have_content 'new_admission'
+        expect(find('td[data-for="disabilities"]')).to have_content "Autistic, Down's Syndrome"
+        expect(find('td[data-for="medical_conditions"]')).to have_content "Epilepsy, Asthma"
       end
 
       expect(new_student.admission_no).to eq '16006/2016'
@@ -111,6 +120,11 @@ describe 'new student admissions', type: :feature do
       expect(new_student.point_of_contacts.last.handphone_number).to eq '87778777'
       expect(new_student.point_of_contacts.last.office_number).to eq '61116111'
       expect(new_student.point_of_contacts.last.relationship).to eq 'Mother'
+      expect(new_student.disabilities.first.title).to eq 'Autistic'
+      expect(new_student.disability_ids).to include(autistic_disability.id, disability.id)
+
+      expect(new_student.medical_conditions.first.title).to eq 'Epilepsy'
+      expect(new_student.disability_ids).to include(medical_condition.id, epilepsy_medical_condition.id)
     end
   end
 
