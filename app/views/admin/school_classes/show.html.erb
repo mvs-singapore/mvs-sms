@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <h3><%= @resource.name %></h3>
+    </div>
+    <div class="col-9 text-right">
+      <%= link_to 'Edit', edit_admin_school_class_path(@resource), class: "edit_school_class btn btn-primary" %>
+      <%= link_to 'Delete', admin_school_class_path(@resource), method: :delete, data: {confirm: 'Are you sure?'}, class: "delete_school_class btn btn-danger" %>
+    </div>
+  </div>
+
+  <h4>Class Details</h4>
+  <dl class="row">
+    <dt class="col-3">Academic Year</dt>
+    <dd class="col-9" data-for="academic_year"><%= @resource.academic_year %></dd>
+
+    <dt class="col-3">Year</dt>
+    <dd class="col-9" data-for="year"><%= @resource.year %></dd>
+
+    <dt class="col-3">Form Teacher</dt>
+    <dd class="col-9" data-for="form_teacher"><%= @resource.form_teacher.name %></dd>
+  </dl>
+
+  <h4>Students Assigned List</h4>
+  <table class="table table-bordered table-responsive" data-for="students">
+    <thead class="table-primary">
+    <tr>
+      <th>Student Name</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody class="bg-white">
+    <% @resource.students.sorted.each do |student| %>
+        <tr id="student-<%= student.id %>">
+          <td><%= student.full_name %></td>
+          <td>
+            <%= link_to 'View', student_path(student), class: "view_student btn btn-primary" %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

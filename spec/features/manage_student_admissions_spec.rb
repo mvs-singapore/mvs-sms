@@ -19,13 +19,14 @@ describe 'new student admissions', type: :feature do
       visit students_path
       click_link 'Add Student'
 
-      within('#new_student') do
-        fill_in 'Admission Year', with: '2017'
-        fill_in 'Admission No.', with: '16006/2016'
-        fill_in 'Date of Registration', with: '09/09/2017'
-        select('new_admission', from: 'Status')
-        select('association_of_persons_with_special_needs', from: 'Referred By')
-        fill_in 'Name of Referee', with: 'Mdm Referee'
+      fill_in 'Admission Year', with: '2017'
+      fill_in 'Admission No.', with: '16006/2016'
+      fill_in 'Date of Registration', with: '09/09/2017'
+      select('new_admission', from: 'Status')
+      select('association_of_persons_with_special_needs', from: 'Referred By')
+      fill_in 'Name of Referee', with: 'Mdm Referee'
+
+      within('.student-particulars') do
         fill_in 'Surname', with: 'Lee'
         fill_in 'Given Name', with: 'Ali'
         fill_in 'Date of Birth', with: '09/09/1997'
@@ -40,11 +41,37 @@ describe 'new student admissions', type: :feature do
         fill_in 'Allergies', with: 'Peanuts'
       end
 
+      within('.student-past-education-records') do
+        fill_in 'School Attended', with: 'Northlight'
+        fill_in 'From Date', with: '02/03/2016'
+        fill_in 'To Date', with: '02/03/2017'
+        fill_in 'Qualification', with: 'GCE O Levels'
+      end
+
+      within(".contacts") do
+        fill_in 'Surname', with: 'Ong'
+        fill_in 'Given Name', with: 'Pearly'
+        fill_in 'Address', with: '5 Smith Street'
+        fill_in 'Postal Code', with: '987654'
+        fill_in 'Race', with: 'Chinese'
+        fill_in 'Dialect', with: 'Teochew'
+        fill_in 'Languages Spoken', with: 'English'
+        fill_in 'ID Number', with: 'S8888888D'
+        select('blue', from: 'ID Type')
+        fill_in 'Date of Birth', with: '01/01/2000'
+        fill_in 'Place of Birth', with: 'Singapore'
+        fill_in 'Nationality', with: 'Singaporean'
+        fill_in 'Occupation', with: 'Clerk'
+        fill_in 'Home Number', with: '65556555'
+        fill_in 'Handphone Number', with: '87778777'
+        fill_in 'Office Number', with: '61116111'
+        fill_in 'Relationship', with: 'Mother'
+      end
+
       click_button 'Create Student'
 
       expect(page).to have_text 'Successfully created student'
       expect(page).to have_text 'Ali'
-
       new_student = Student.last
 
       within("#student-#{new_student.id}") do
@@ -67,6 +94,23 @@ describe 'new student admissions', type: :feature do
       expect(new_student.highest_standard_passed).to eq 'GCE O Levels'
       expect(new_student.medication_needed).to eq 'Antihistamines'
       expect(new_student.allergies).to eq 'Peanuts'
+      expect(new_student.point_of_contacts.last.surname).to eq 'Ong'
+      expect(new_student.point_of_contacts.last.given_name).to eq 'Pearly'
+      expect(new_student.point_of_contacts.last.address).to eq '5 Smith Street'
+      expect(new_student.point_of_contacts.last.postal_code).to eq '987654'
+      expect(new_student.point_of_contacts.last.race).to eq 'Chinese'
+      expect(new_student.point_of_contacts.last.dialect).to eq 'Teochew'
+      expect(new_student.point_of_contacts.last.languages_spoken).to eq 'English'
+      expect(new_student.point_of_contacts.last.id_number).to eq 'S8888888D'
+      expect(new_student.point_of_contacts.last.id_type).to eq 'blue'
+      expect(new_student.point_of_contacts.last.date_of_birth).to eq Date.new(2000,1,1)
+      expect(new_student.point_of_contacts.last.place_of_birth).to eq 'Singapore'
+      expect(new_student.point_of_contacts.last.nationality).to eq 'Singaporean'
+      expect(new_student.point_of_contacts.last.occupation).to eq 'Clerk'
+      expect(new_student.point_of_contacts.last.home_number).to eq '65556555'
+      expect(new_student.point_of_contacts.last.handphone_number).to eq '87778777'
+      expect(new_student.point_of_contacts.last.office_number).to eq '61116111'
+      expect(new_student.point_of_contacts.last.relationship).to eq 'Mother'
     end
   end
 

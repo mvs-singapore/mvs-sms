@@ -1,37 +1,183 @@
 <div class="container">
   <div class="row">
-    <div class="col-3">
-      <h3>Student Particulars</h3>
+    <div class="col-6">
+      <div class="row">
+        <div class="col-5"><h3>Admission Details</h3></div>
+        <div class="col-7">
+          <%= link_to 'Edit', edit_student_path(@student), class: "edit_student btn btn-primary" %>
+          <%= link_to 'Delete', student_path(@student), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_student btn btn-danger" %>
+        </div>
+      </div>
+
+      <dl class="row">
+        <dt class="col-5">Admission Year</dt>
+        <dd class="col-7" data-for="admission_year"><%= @student.admission_year %></dd>
+
+        <dt class="col-5">Admission No.</dt>
+        <dd class="col-7" data-for="admission_no"><%= @student.admission_no %></dd>
+
+        <dt class="col-5">Date of Registration</dt>
+        <dd class="col-7" data-for="registered_at"><%= @student.registered_at %></dd>
+
+        <dt class="col-5">Status</dt>
+        <dd class="col-7" data-for="status"><%= @student.status %></dd>
+
+        <dt class="col-5">Referred By</dt>
+        <dd class="col-7" data-for="referred_by"><%= @student.referred_by %></dd>
+
+        <dt class="col-5">Name of Referee</dt>
+        <dd class="col-7" data-for="referral_notes"><%= @student.referral_notes %></dd>
+
+      </dl>
+
+      <div class="row">
+        <div class="col-5"><h3>Student Particulars</h3></div>
+      </div>
+
+      <dl class="row">
+        <dt class="col-5">Given Name</dt>
+        <dd class="col-7" data-for="given_name"><%= @student.given_name %></dd>
+
+        <dt class="col-5">Surname</dt>
+        <dd class="col-7" data-for="surname"><%= @student.surname %></dd>
+
+        <dt class="col-5">Date of Birth</dt>
+        <dd class="col-7" data-for="date_of_birth"><%= @student.date_of_birth %></dd>
+
+        <dt class="col-5">Place of Birth</dt>
+        <dd class="col-7" data-for="place_of_birth"><%= @student.place_of_birth %></dd>
+
+        <dt class="col-5">Race</dt>
+        <dd class="col-7" data-for="race"><%= @student.race %></dd>
+
+        <dt class="col-5">NRIC</dt>
+        <dd class="col-7" data-for="nric"><%= @student.nric %></dd>
+
+        <dt class="col-5">Citizenship</dt>
+        <dd class="col-7" data-for="citizenship"><%= @student.citizenship %></dd>
+
+        <dt class="col-5">Gender</dt>
+        <dd class="col-7" data-for="gender"><%= @student.gender %></dd>
+
+        <dt class="col-5">Age</dt>
+        <dd class="col-7" data-for="age"><%= @student.age %></dd>
+
+        <dt class="col-5">SADeaf Client Registration No.</dt>
+        <dd class="col-7" data-for="sadeaf_client_reg_no"><%= @student.sadeaf_client_reg_no %></dd>
+
+        <dt class="col-5">Highest Standard</dt>
+        <dd class="col-7" data-for="highest_standard_passed"><%= @student.highest_standard_passed %></dd>
+
+        <dt class="col-5">Medication Needed</dt>
+        <dd class="col-7" data-for="medication_needed"><%= @student.medication_needed %></dd>
+
+        <dt class="col-5">Allergies</dt>
+        <dd class="col-7" data-for="allergies"><%= @student.allergies %></dd>
+      </dl>
     </div>
-    <div class="col-9 text-right">
-      <%= link_to 'Edit', edit_student_path(@resource), class: "edit_student btn btn-primary" %>
-      <%= link_to 'Delete', student_path(@resource), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_student btn btn-danger" %>
+
+    <br><hr>
+
+    <div class="col-6">
+      <div class="row">
+        <div class="col-6"><h3>Past Education Records</h3></div>
+        <div class="col-6"><%= link_to 'Add', new_student_past_education_record_path(@student), class: "add_student_past_education_record btn btn-primary" %></div>
+      </div>
+
+      <% @student.past_education_records.each do |record| %>
+      <dl class="row" id="record-<%= record.id %>">
+        <dt class="col-3">School Attended</dt>
+        <dd class="col-9" data-for="school_name"><%= record.school_name %></dd>
+
+        <dt class="col-3">From Date</dt>
+        <dd class="col-9" data-for="from_date"><%= record.from_date %></dd>
+
+        <dt class="col-3">To Date</dt>
+        <dd class="col-9" data-for="to_date"><%= record.to_date %></dd>
+
+        <dt class="col-3">Qualifications</dt>
+        <dd class="col-9" data-for="qualification"><%= record.qualification %></dd>
+
+        <div class="col-12">
+          <%= link_to 'Edit', edit_student_past_education_record_path(@student, record), class: "edit_student_past_education_record btn btn-primary" %>
+          <%= link_to 'Delete', student_past_education_record_path(@student, record), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_student_past_education_record btn btn-danger" %>
+        </div>
+      </dl>
+      <% end %>
+
     </div>
+
+    <div class="col-6">
+      <div class="row">
+        <div class="col-6"><h3>Point of Contacts</h3></div>
+        <div class="col-6"><%= link_to 'Add', new_student_point_of_contact_path(@student), class: "add_student_point_of_contact btn btn-primary" %></div>
+      </div>
+
+      <% @student.point_of_contacts.each do |contact| %>
+      <dl class="row" id="contact-<%= contact.id %>">
+        <dt class="col-3">Given Name</dt>
+        <dd class="col-9" data-for="given_name"><%= contact.given_name %></dd>
+
+        <dt class="col-3">Surname</dt>
+        <dd class="col-9" data-for="surname"><%= contact.surname %></dd>
+
+        <dt class="col-3">Given Name</dt>
+        <dd class="col-9" data-for="given_name"><%= contact.given_name %></dd>
+
+        <dt class="col-3">Address</dt>
+        <dd class="col-9" data-for="address"><%= contact.address %></dd>
+
+        <dt class="col-3">Postal Code</dt>
+        <dd class="col-9" data-for="postal_code"><%= contact.postal_code %></dd>
+
+        <dt class="col-3">Race</dt>
+        <dd class="col-9" data-for="race"><%= contact.race %></dd>
+
+        <dt class="col-3">Dialect</dt>
+        <dd class="col-9" data-for="dialect"><%= contact.dialect %></dd>
+
+        <dt class="col-3">Languages Spoken</dt>
+        <dd class="col-9" data-for="languages_spoken"><%= contact.languages_spoken %></dd>
+
+        <dt class="col-3">ID Number</dt>
+        <dd class="col-9" data-for="id_number"><%= contact.id_number %></dd>
+
+        <dt class="col-3">ID Type</dt>
+        <dd class="col-9" data-for="id_type"><%= contact.id_type %></dd>
+
+        <dt class="col-3">Date of Birth</dt>
+        <dd class="col-9" data-for="date_of_birth"><%= contact.date_of_birth %></dd>
+
+        <dt class="col-3">Place of Birth</dt>
+        <dd class="col-9" data-for="place_of_birth"><%= contact.place_of_birth %></dd>
+
+        <dt class="col-3">Nationality</dt>
+        <dd class="col-9" data-for="nationality"><%= contact.nationality %></dd>
+
+        <dt class="col-3">Occupation</dt>
+        <dd class="col-9" data-for="occupation"><%= contact.occupation %></dd>
+
+        <dt class="col-3">Home Number</dt>
+        <dd class="col-9" data-for="home_number"><%= contact.home_number %></dd>
+
+        <dt class="col-3">Mobile Phone</dt>
+        <dd class="col-9" data-for="handphone_number"><%= contact.handphone_number %></dd>
+
+        <dt class="col-3">Office Number</dt>
+        <dd class="col-9" data-for="office_number"><%= contact.office_number %></dd>
+
+        <dt class="col-3">Relationship</dt>
+        <dd class="col-9" data-for="relationship"><%= contact.relationship %></dd>
+
+        <div class="col-12">
+          <%= link_to 'Edit', edit_student_point_of_contact_path(@student, contact), class: "edit_student_point_of_contact btn btn-primary" %>
+          <%= link_to 'Delete', student_point_of_contact_path(@student, contact), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_student_point_of_contact btn btn-danger" %>
+        </div>
+      </dl>
+      <% end %>
+
+    </div>
+
+
   </div>
-
-  <dl class="row">
-    <dt class="col-3">Given Name</dt>
-    <dd class="col-9" data-for="given_name"><%= @resource.given_name %></dd>
-
-    <dt class="col-3">Surname</dt>
-    <dd class="col-9" data-for="surname"><%= @resource.surname %></dd>
-
-    <dt class="col-3">Gender</dt>
-    <dd class="col-9" data-for="gender"><%= @resource.gender %></dd>
-
-    <dt class="col-3">Date of Birth</dt>
-    <dd class="col-9" data-for="date_of_birth"><%= @resource.date_of_birth %></dd>
-
-    <dt class="col-3">Age</dt>
-    <dd class="col-9" data-for="age"><%= @resource.age %></dd>
-
-    <dt class="col-3">Citizenship</dt>
-    <dd class="col-9" data-for="citizenship"><%= @resource.citizenship %></dd>
-
-    <dt class="col-3">Race</dt>
-    <dd class="col-9" data-for="race"><%= @resource.race %></dd>
-
-    <dt class="col-3">NRIC</dt>
-    <dd class="col-9" data-for="nric"><%= @resource.nric %></dd>
-  </dl>
 </div>
