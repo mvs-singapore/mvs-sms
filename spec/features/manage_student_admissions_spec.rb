@@ -126,13 +126,10 @@ describe 'new student admissions', type: :feature do
       expect(new_student.point_of_contacts.last.handphone_number).to eq '87778777'
       expect(new_student.point_of_contacts.last.office_number).to eq '61116111'
       expect(new_student.point_of_contacts.last.relationship).to eq 'Mother'
+      
       expect(new_student.disabilities.first.title).to eq 'Autistic'
       expect(new_student.disability_ids).to include(autistic_disability.id, disability.id)
-      puts "-".*100
-      puts new_student.disability_ids
-      puts "-".*100
       expect(new_student.medical_conditions.first.title).to eq 'Epilepsy'
-      expect(new_student.disability_ids).to include(medical_condition.id, epilepsy_medical_condition.id)
       expect(new_student.medical_condition_ids).to include(medical_condition.id, epilepsy_medical_condition.id)
     end
   end
