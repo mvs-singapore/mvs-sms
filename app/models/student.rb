@@ -36,8 +36,13 @@ class Student < ApplicationRecord
   has_many :student_status_histories
   accepts_nested_attributes_for :past_education_records, allow_destroy: true
 
+  scope :sorted, -> { order(surname: :asc) }
+
+  def full_name
+    "#{surname}, #{given_name}"
+  end
+
   def age
     Date.today.year - date_of_birth.year
   end
-
 end

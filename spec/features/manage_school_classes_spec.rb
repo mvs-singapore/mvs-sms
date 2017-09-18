@@ -60,6 +60,27 @@ describe 'manage school classes', type: :feature do
     end
   end
 
+  describe 'view class' do
+    let!(:fnb_class) { SchoolClass.create(academic_year: 2017,
+                                          name: 'Year 2 Food & Beverages',
+                                          year: 2,
+                                          form_teacher: teacher_user)
+    }
+
+    it 'displays class details' do
+      visit '/admin/school_classes/'
+
+      within("#class-#{fnb_class.id}") do
+        find_link('View').click
+      end
+
+      expect(find('h3')).to have_content 'Year 2 Food & Beverages'
+      expect(find('dd[data-for="academic_year"]')).to have_content '2017'
+      expect(find('dd[data-for="year"]')).to have_content '2'
+      expect(find('dd[data-for="form_teacher"]')).to have_content 'Good Teacher'
+    end
+  end
+
   describe 'delete class', js: true do
     let!(:closed_class) { SchoolClass.create(academic_year: 2017,
                                               name: 'Year 2 Nose Picking',

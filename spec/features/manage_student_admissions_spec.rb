@@ -28,6 +28,7 @@ describe 'new student admissions', type: :feature do
 
       click_link 'Student Particulars'
       within('#student-particulars') do
+
         fill_in 'Surname', with: 'Lee'
         fill_in 'Given Name', with: 'Ali'
         fill_in 'Date of Birth', with: '09/09/1997'
