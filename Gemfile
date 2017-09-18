@@ -56,7 +56,6 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'email_spec'
   gem 'shoulda-matchers', '~> 3.1'
-  gem 'chosen-rails'
 end
 
 group :test do
@@ -68,4 +67,5 @@ end
 
 gem 'devise'
 gem 'bootstrap', '~> 4.0.0.beta'
+gem 'chosen-rails'
 gem 'jquery-rails'
