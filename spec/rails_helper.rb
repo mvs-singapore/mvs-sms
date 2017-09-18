@@ -19,12 +19,16 @@ webdriver_options = {
 # webdriver_options[:url] = 'http://127.0.0.1:9515'
 
 Capybara.register_driver :chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+      chromeOptions: { args: %w(window-size=1280,720) }
+  )
+  webdriver_options[:desired_capabilities] = capabilities
   Capybara::Selenium::Driver.new(app, webdriver_options)
 end
 
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-      chromeOptions: { args: %w(headless disable-gpu) }
+      chromeOptions: { args: %w(headless disable-gpu window-size=1280,720) }
   )
   webdriver_options[:desired_capabilities] = capabilities
 

@@ -125,10 +125,17 @@ describe 'new student admissions', type: :feature do
 
       expect(new_student.medical_conditions.first.title).to eq 'Epilepsy'
       expect(new_student.disability_ids).to include(medical_condition.id, epilepsy_medical_condition.id)
+      expect(new_student.medical_condition_ids).to include(medical_condition.id, epilepsy_medical_condition.id)
     end
   end
 
-  describe 'edit student' do
+  describe 'edit student', js: true do
+    before do
+      student.student_disabilities.create(disability: disability)
+      student.student_disabilities.create(disability: autistic_disability)
+      student.student_medical_conditions.create(medical_condition: medical_condition)
+      student.student_medical_conditions.create(medical_condition: epilepsy_medical_condition)
+    end
 
     it 'edits an existing student' do
       visit students_path
@@ -138,11 +145,20 @@ describe 'new student admissions', type: :feature do
       end
       within('.edit_student') do
         fill_in 'Admission Year', with: 2017
+
+        page.execute_script "window.scrollBy(0,10000)"
+        chosen_unselect('Autistic', from: 'Disabilities')
+        chosen_unselect('Epilepsy', from: 'Medical Conditions')
       end
       click_button 'Update Student'
 
       expect(page).to have_text 'Successfully updated student'
       expect(student.reload.admission_year).to eq 2017
+      expect(student.reload.disabilities.first.title).to eq "Down's Syndrome"
+      expect(student.reload.disability_ids).to include(disability.id, disability.id)
+
+      expect(student.reload.medical_conditions.first.title).to eq 'Asthma'
+      expect(student.reload.medical_condition_ids).to include(medical_condition.id, medical_condition.id)
     end
   end
 
