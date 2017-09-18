@@ -14,7 +14,7 @@ describe 'new student admissions', type: :feature do
     sign_in teacher_user
   end
 
-  describe 'create student' do
+  describe 'create student', js: true do
     it 'creates new student' do
       visit students_path
       click_link 'Add Student'
@@ -26,7 +26,7 @@ describe 'new student admissions', type: :feature do
       select('association_of_persons_with_special_needs', from: 'Referred By')
       fill_in 'Name of Referee', with: 'Mdm Referee'
 
-      within('.student-particulars') do
+      within('#student-particulars') do
         fill_in 'Surname', with: 'Lee'
         fill_in 'Given Name', with: 'Ali'
         fill_in 'Date of Birth', with: '09/09/1997'
@@ -41,14 +41,16 @@ describe 'new student admissions', type: :feature do
         fill_in 'Allergies', with: 'Peanuts'
       end
 
-      within('.student-past-education-records') do
+      within('#past-educations') do
         fill_in 'School Attended', with: 'Northlight'
         fill_in 'From Date', with: '02/03/2016'
         fill_in 'To Date', with: '02/03/2017'
         fill_in 'Qualification', with: 'GCE O Levels'
       end
 
-      within(".contacts") do
+      click_link 'Add Parent / Guardian'
+
+      within('#contacts .nested-fields:nth-of-type(2)') do
         fill_in 'Surname', with: 'Ong'
         fill_in 'Given Name', with: 'Pearly'
         fill_in 'Address', with: '5 Smith Street'
@@ -94,6 +96,7 @@ describe 'new student admissions', type: :feature do
       expect(new_student.highest_standard_passed).to eq 'GCE O Levels'
       expect(new_student.medication_needed).to eq 'Antihistamines'
       expect(new_student.allergies).to eq 'Peanuts'
+      expect(new_student.point_of_contacts.count).to eq 1
       expect(new_student.point_of_contacts.last.surname).to eq 'Ong'
       expect(new_student.point_of_contacts.last.given_name).to eq 'Pearly'
       expect(new_student.point_of_contacts.last.address).to eq '5 Smith Street'
@@ -129,6 +132,20 @@ describe 'new student admissions', type: :feature do
 
       expect(page).to have_text 'Successfully updated student'
       expect(student.reload.admission_year).to eq 2017
+    end
+
+    it 'deletes point of contacts', js: true do
+      papa = { surname: 'Doe', given_name: 'John', handphone_number: '12345678', relationship: 'Father' }
+      mama = { surname: 'Doe', given_name: 'Jean', handphone_number: '12345678', relationship: 'Mother' }
+      student.point_of_contacts.create(papa)
+      student.point_of_contacts.create(mama)
+
+      visit students_path
+      within("#student-#{student.id}") { find_link('Edit').click }
+      within('#contacts .nested-fields:nth-of-type(2)') { find_link('Delete Contact').click }
+
+      click_button 'Update Student'
+      expect(student.reload.point_of_contacts.count).to equal 1
     end
   end
 

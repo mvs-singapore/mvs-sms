@@ -60,7 +60,7 @@ class StudentsController < ApplicationController
                                     past_education_records_attributes: [:id, :school_name, :from_date, :to_date, :qualification],
                                     point_of_contacts_attributes: [:id, :surname, :given_name, :address, :postal_code, :race,
                                     :dialect, :languages_spoken, :id_number, :id_type, :date_of_birth, :place_of_birth,
-                                    :nationality, :occupation, :home_number, :handphone_number, :office_number, :relationship])
+                                    :nationality, :occupation, :home_number, :handphone_number, :office_number, :relationship, :_destroy])
   end
 
 end

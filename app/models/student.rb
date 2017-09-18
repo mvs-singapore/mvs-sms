@@ -24,7 +24,8 @@ class Student < ApplicationRecord
   validates :admission_year, numericality: { only_integer: true }
   has_many :internship_records
   has_many :past_education_records
-  has_many :point_of_contacts
+  has_many :point_of_contacts, inverse_of: :student
+  accepts_nested_attributes_for :point_of_contacts, reject_if: :all_blank, allow_destroy: true
   has_many :remarks
   has_many :student_classes
   has_many :school_classes, through: :student_classes
@@ -34,7 +35,6 @@ class Student < ApplicationRecord
   has_many :medical_conditions, through: :student_medical_conditions
   has_many :student_status_histories
   accepts_nested_attributes_for :past_education_records, allow_destroy: true
-  accepts_nested_attributes_for :point_of_contacts, allow_destroy: true
 
   def age
     Date.today.year - date_of_birth.year
