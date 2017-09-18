@@ -35,4 +35,9 @@ InternshipCompany.where(name: 'Harvard Hotel').first_or_create! do |internship_c
   puts "Default internship company created."
 end
 
+Disability.where(title: 'Autistic').first_or_create! do |disability|
+
+  puts "Default disability created."
+end
+
 puts "Done seeding."

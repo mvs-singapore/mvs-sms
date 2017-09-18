@@ -1,6 +1,7 @@
 class StudentsController < ApplicationController
 
   before_action :fetch_student, only: [:show, :edit, :update, :destroy]
+  before_action :fetch_medical_history_master_list, only: [:new, :edit, :create, :update]
 
   def index
     @students = Student.all
@@ -15,6 +16,14 @@ class StudentsController < ApplicationController
   def create
     @student = Student.new(student_params)
 
+    medical_history_params[:disability_ids].reject(&:blank?).each do |disability_id|
+      @student.student_disabilities.build(disability_id: disability_id)
+    end
+
+    medical_history_params[:medical_condition_ids].reject(&:blank?).each do |condition_id|
+      @student.student_medical_conditions.build(medical_condition_id: condition_id)
+    end
+
     if @student.save
       redirect_to students_path, flash: {notice: 'Successfully created student'}
     else
@@ -23,19 +32,19 @@ class StudentsController < ApplicationController
     end
   end
 
-  def show
-  end
-
-  def edit
-  end
-
   def update
-    if @student.update(student_params)
+    if @student.update(resource_params)
+      update_records(@student.student_disabilities, :disability_id, @student.disability_ids, medical_history_params[:disability_ids])
+      update_records(@student.student_medical_conditions, :medical_condition_id, @student.medical_condition_ids, medical_history_params[:medical_condition_ids])
+
       redirect_to @student, flash: {notice: 'Successfully updated student'}
     else
       flash.now[:alert] = @student.errors.full_messages.join(" ")
       render :edit
     end
+  end
+
+  def edit
   end
 
   def destroy
@@ -46,11 +55,15 @@ class StudentsController < ApplicationController
     end
   end
 
-
   private
 
   def fetch_student
     @student = Student.find(params[:id])
+  end
+
+  def fetch_medical_history_master_list
+    @disabilities = Disability.all
+    @medical_conditions = MedicalCondition.all
   end
 
   def student_params
@@ -63,4 +76,29 @@ class StudentsController < ApplicationController
                                     :nationality, :occupation, :home_number, :handphone_number, :office_number, :relationship])
   end
 
+  def medical_history_params
+    params.require(:student).permit(disability_ids:[], medical_condition_ids:[])
+  end
+
+  def resources_path
+    students_path
+  end
+
+  def update_records(associated_records, search_field, original_list, updated_list)
+    updated_list = updated_list.reject(&:blank?).map(&:to_i).sort
+    original_list = original_list.sort
+
+    unless original_list == updated_list
+      items_to_remove = original_list - updated_list
+      items_to_add = updated_list - original_list
+
+      items_to_remove.each do |item_id|
+        associated_records.where(search_field => item_id).destroy_all
+      end
+
+      items_to_add.each do |item_id|
+        associated_records.create(search_field => item_id)
+      end
+    end
+  end
 end

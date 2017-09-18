@@ -14,4 +14,6 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+//= require chosen-jquery
+//= require scaffold
 //= require_tree .

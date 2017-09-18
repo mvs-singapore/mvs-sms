@@ -29,8 +29,8 @@
         <td data-for="date_of_birth"><%= student.date_of_birth %></td>
         <td data-for="age"><%= student.age %></td>
         <td data-for="gender"><%= student.gender %></td>
-        <td data-for="disability"></td>
-        <td data-for="medical_conditions"></td>
+        <td data-for="disabilities"><%= student.disabilities.map{|d| d.title }.join(', ') %></td>
+        <td data-for="medical_conditions"><%= student.medical_conditions.map{|d| d.title }.join(', ') %></td>
         <td data-for="main_contact"></td>
         <td data-for="status"><%= student.status %></td>
         <td>
