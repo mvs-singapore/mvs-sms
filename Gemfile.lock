@@ -74,6 +74,7 @@ GEM
     chromedriver-helper (1.1.0)
       archive-zip (~> 0.7.0)
       nokogiri (~> 1.6)
+    cocoon (1.2.10)
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     database_cleaner (1.6.1)
@@ -257,6 +258,7 @@ DEPENDENCIES
   capybara
   capybara-selenium
   chromedriver-helper
+  cocoon
   database_cleaner
   devise
   dotenv-rails
