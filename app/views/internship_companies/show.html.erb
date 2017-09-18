@@ -1,12 +1,31 @@
-<h3><%= @resource.name %></h3>
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <h3><%= @resource.name %></h3>
+    </div>
+    <div class="col-9 text-right">
+      <%= link_to 'Edit', edit_internship_company_path(@resource), class: "edit_internship_comapny btn btn-primary" %>
+      <%= link_to 'Delete', internship_company_path(@resource), method: :delete, data: {confirm: 'Are you sure?'}, class: "delete_internship_company btn btn-danger" %>
+    </div>
+  </div>
 
-<h3>Supervisor List</h3>
+  <h5>Company Details</h5>
+  <dl class="row">
+    <dt class="col-3">Address</dt>
+    <dd class="col-9" data-for="address"><%= @resource.address %></dd>
+
+    <dt class="col-3">Postal Code</dt>
+    <dd class="col-9" data-for="postal_code"><%= @resource.postal_code %></dd>
+
+  </dl>
+
+<h4>Supervisor List</h4>
 <table class="table table-bordered table-responsive">
   <thead class="table-primary">
     <tr>
-			<th>Name</th>
+      <th>Name</th>
       <th>Email</th>
-			<th>Contact Number</th>
+      <th>Contact Number</th>
     </tr>
   </thead>
   <tbody class="bg-white">
@@ -20,13 +39,13 @@
       </tbody>
 </table>
 
-<h3>Students Assigned List</h3>
+<h4>Students Assigned List</h4>
 <table class="table table-bordered table-responsive">
   <thead class="table-primary">
     <tr>
-			<th>Student Name</th>
+      <th>Student Name</th>
       <th>Supervisor Name</th>
-			<th>From Date</th>
+      <th>From Date</th>
       <th>To Date</th>
     </tr>
   </thead>
