@@ -26,7 +26,7 @@ class Student < ApplicationRecord
   has_many :point_of_contacts, inverse_of: :student, dependent: :destroy
   accepts_nested_attributes_for :point_of_contacts, reject_if: :all_blank, allow_destroy: true
   has_many :internship_records, dependent: :destroy
-  has_many :past_education_records, dependent: :destroy
+  has_many :past_education_records, inverse_of: :student, dependent: :destroy
   has_many :point_of_contacts, dependent: :destroy
   has_many :remarks, dependent: :destroy
   has_many :student_classes, dependent: :destroy
@@ -36,7 +36,7 @@ class Student < ApplicationRecord
   has_many :student_medical_conditions, dependent: :destroy
   has_many :medical_conditions, through: :student_medical_conditions
   has_many :student_status_histories, dependent: :destroy
-  accepts_nested_attributes_for :past_education_records, allow_destroy: true
+  accepts_nested_attributes_for :past_education_records, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :student_disabilities, allow_destroy: true
   accepts_nested_attributes_for :student_medical_conditions, allow_destroy: true
 

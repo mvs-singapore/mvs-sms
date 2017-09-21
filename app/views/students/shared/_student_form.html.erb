@@ -26,28 +26,12 @@
     </div>
     <div class="tab-pane fade" id="past-educations" role="tabpanel" aria-labelledby="past-educations-tab">
       <%= f.fields_for :past_education_records do |past_education_record| %>
-        <div class="form-group row">
-          <div class="col-4">
-            <%= past_education_record.label :school_name, 'School Attended' %>
-            <%= past_education_record.text_field :school_name, autofocus: true, class: 'form-control' %>
-          </div>
-
-          <div class="col-2">
-            <%= past_education_record.label :from_date, 'From Date' %>
-            <%= past_education_record.date_field :from_date, autofocus: true, class: 'form-control' %>
-          </div>
-
-          <div class="col-2">
-            <%= past_education_record.label :to_date, 'To Date' %>
-            <%= past_education_record.date_field :to_date, autofocus: true, class: 'form-control' %>
-          </div>
-
-          <div class="col-4">
-            <%= past_education_record.label :qualification %>
-            <%= past_education_record.text_field :qualification, autofocus: true, class: 'form-control' %>
-          </div>
-        </div>
+        <%= render '/students/shared/past_education_record_fields', f: past_education_record %>
       <% end %>
+      <div class="form-group row">
+        <%= link_to_add_association 'Add Past Education Record', f, :past_education_records,
+        partial: '/students/shared/past_education_record_fields', class: 'btn btn-primary' %>
+      </div>
     </div>
     <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
       <%= f.fields_for :point_of_contacts do |contacts| %>
@@ -55,7 +39,7 @@
       <% end %>
       <div class='form-group row'>
         <%= link_to_add_association 'Add Parent / Guardian', f, :point_of_contacts,
-                                    partial: '/students/shared/point_of_contact_fields', class: 'btn btn-primary' %>
+        partial: '/students/shared/point_of_contact_fields', class: 'btn btn-primary' %>
       </div>
     </div>
   </div>

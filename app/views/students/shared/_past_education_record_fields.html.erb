@@ -1,0 +1,29 @@
+<div class="nested-fields">
+  <div class="form-group row">
+
+    <div class="col-4">
+      <%= f.label :school_name, 'School Attended' %>
+      <%= f.text_field :school_name, autofocus: true, class: 'form-control' %>
+    </div>
+
+    <div class="col-2">
+      <%= f.label :from_date, 'From Date' %>
+      <%= f.date_field :from_date, autofocus: true, class: 'form-control' %>
+    </div>
+
+    <div class="col-2">
+      <%= f.label :to_date, 'To Date' %>
+      <%= f.date_field :to_date, autofocus: true, class: 'form-control' %>
+    </div>
+
+    <div class="col-4">
+      <%= f.label :qualification %>
+      <%= f.text_field :qualification, autofocus: true, class: 'form-control' %>
+    </div>
+
+    <div class="col-4">
+      <%= link_to_remove_association "Delete Record", f, class: 'btn btn-danger' %>
+    </div>
+    
+  </div>
+</div>

@@ -19,7 +19,7 @@ describe 'new student admissions', type: :feature do
   end
 
   describe 'create student', js: true do
-    fit 'creates new student' do
+    it 'creates new student' do
       visit students_path
       click_link 'Add Student'
 
@@ -49,9 +49,11 @@ describe 'new student admissions', type: :feature do
         chosen_select('Autistic', "Down's Syndrome", from: 'Disabilities')
         chosen_select('Epilepsy', "Asthma", from: 'Medical Conditions')
       end
+      page.execute_script "window.scrollTo(0,0)"
 
       click_link 'Past Education Records'
-      within('#past-educations') do
+      click_link 'Add Past Education Record'
+      within('#past-educations .nested-fields:nth-of-type(2)') do
         fill_in 'School Attended', with: 'Northlight'
         fill_in 'From Date', with: '02/03/2016'
         fill_in 'To Date', with: '02/03/2017'
@@ -92,8 +94,8 @@ describe 'new student admissions', type: :feature do
         expect(find('td[data-for="date_of_birth"]')).to have_content '1997-09-09'
         expect(find('td[data-for="gender"]')).to have_content 'female'
         expect(find('td[data-for="status"]')).to have_content 'new_admission'
-        expect(find('td[data-for="disabilities"]')).to have_content "Autistic, Down's Syndrome"
-        expect(find('td[data-for="medical_conditions"]')).to have_content "Epilepsy, Asthma"
+        expect(find('td[data-for="disabilities"]')).to have_content "Down's Syndrome, Autistic"
+        expect(find('td[data-for="medical_conditions"]')).to have_content "Asthma, Epilepsy"
       end
 
       expect(new_student.admission_no).to eq '16006/2016'
@@ -180,22 +182,50 @@ describe 'new student admissions', type: :feature do
       expect(student.reload.medical_condition_ids).to include(medical_condition.id, medical_condition.id)
     end
 
-    it 'deletes point of contacts' do
-      papa = { surname: 'Doe', given_name: 'John', handphone_number: '12345678', relationship: 'Father' }
-      mama = { surname: 'Doe', given_name: 'Jean', handphone_number: '12345678', relationship: 'Mother' }
-      student.point_of_contacts.create(papa)
-      student.point_of_contacts.create(mama)
+    describe 'deletes past education record' do
+      before do
+        first_record = { school_name: 'Northlight School', from_date: Date.new(1990,1,1), to_date: Date.new(1995,1,1) }
+        second_record = { school_name: 'Primary School', from_date: Date.new(1990,1,1), to_date: Date.new(1995,1,1) }
+        student.past_education_records.create(first_record)
+        student.past_education_records.create(second_record)
+      end
+      it 'deletes past education record from edit page' do
 
-      visit students_path
-      within("#student-#{student.id}") { find_link('Edit').click }
+        visit students_path
+        within("#student-#{student.id}") { find_link('Edit').click }
 
-      click_link 'Parent/Guardian Particulars'
-      within('#contacts .nested-fields:nth-of-type(2)') { find_link('Delete Contact').click }
+        click_link 'Past Education Records'
+        within('#past-educations .nested-fields:nth-of-type(2)') { find_link('Delete Record').click }
+          sleep(1)
+        click_button 'Update Student'
+        student.reload
+        expect(student.past_education_records.count).to eq 1
+      end
+    end
 
-      click_button 'Update Student'
-      expect(student.reload.point_of_contacts.count).to equal 1
+
+    describe 'delete point of contacts' do
+      before do
+        papa = { surname: 'Doe', given_name: 'John', handphone_number: '12345678', relationship: 'Father' }
+        mama = { surname: 'Doe', given_name: 'Jean', handphone_number: '12345678', relationship: 'Mother' }
+        student.point_of_contacts.create(papa)
+        student.point_of_contacts.create(mama)
+      end
+      it 'deletes point of contacts' do
+
+        visit students_path
+        within("#student-#{student.id}") { find_link('Edit').click }
+
+        click_link 'Parent/Guardian Particulars'
+        within('#contacts .nested-fields:nth-of-type(2)') { find_link('Delete Contact').click }
+        sleep(1)
+        click_button 'Update Student'
+        student.reload
+        expect(student.point_of_contacts.count).to equal 1
+      end
     end
   end
+
 
   describe 'view student' do
     it 'displays the details of a student' do
