@@ -49,4 +49,26 @@ class Student < ApplicationRecord
   def age
     Date.today.year - date_of_birth.year
   end
+
+  def self.search(search)
+    where("given_name ILIKE ?", "%#{search}%")
+  end
+
+  def current_class
+    school_classes.order('academic_year DESC').try(:first)
+  end
+
+  def class_for_year(academic_year)
+    school_classes.where(academic_year: academic_year).try(:first)
+  end
+
+  def self.filter_by_cohort_and_classes(year, class_name)
+    filter = { 'school_classes.academic_year' => year }
+
+    if class_name.present?
+      filter['school_classes.name'] = class_name
+    end
+
+    Student.joins(student_classes: :school_class).where(filter)
+  end
 end

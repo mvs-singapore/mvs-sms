@@ -1,5 +1,26 @@
 <h3>Manage Students</h3>
 
+<div>
+  <p>
+    <%= form_tag(students_path, :method => "get", id: "search-cohort-class") do %>
+    <%= label :academic_year, 'Cohort' %>
+    <%= select_tag :academic_year, options_for_select(@cohorts, params[:academic_year]), include_blank: true %>
+    <%= label :class_name, 'Class' %>
+    <%= select_tag :class_name, options_for_select(@class_names, params[:class_name]), include_blank: true %>
+    <%= submit_tag "Search by Class" %>
+    <% end %>
+  </p>
+</div>
+
+<div>
+  <p>
+    <%= form_tag(students_path, :method => "get", id: "search-name") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Student Name" %>
+    <%= submit_tag "Search by Name" %>
+    <% end %>
+  </p>
+</div>
+
 <p><%= link_to('Add Student', new_student_path, class: "btn btn-primary") %></p>
 
 <table class="table table-bordered table-responsive">
@@ -22,8 +43,15 @@
   <tbody class="bg-white">
     <% @students.each do |student| %>
       <tr id="student-<%= student.id %>">
-        <td data-for="academic_year"></td>
-        <td data-for="class"><%= student.current_class %></td>
+        <% if params[:academic_year].present?
+          student_academic_year = student.class_for_year(params[:academic_year]).academic_year
+          student_class_name = student.class_for_year(params[:academic_year]).name
+        else
+          student_academic_year = student.current_class.academic_year
+          student_class_name = student.current_class.name
+        end %>
+        <td data-for="academic_year"><%= student_academic_year %></td>
+        <td data-for="class"><%= student_class_name %></td>
         <td data-for="given_name"><%= student.given_name %></td>
         <td data-for="surname"><%= student.surname %></td>
         <td data-for="date_of_birth"><%= student.date_of_birth %></td>
