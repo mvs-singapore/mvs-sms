@@ -44,6 +44,8 @@ describe 'new student admissions', type: :feature do
         fill_in 'SADeaf Client Registration No.', with: '12345/234'
         fill_in 'Highest Standard Passed', with: 'GCE O Levels'
 
+        find('#student_place_of_birth').click
+
         fill_in 'Medication Needed', with: 'Antihistamines'
         fill_in 'Allergies', with: 'Peanuts'
         chosen_select('Autistic', "Down's Syndrome", from: 'Disabilities')
@@ -91,7 +93,7 @@ describe 'new student admissions', type: :feature do
       within("#student-#{new_student.id}") do
         expect(find('td[data-for="given_name"]')).to have_content 'Ali'
         expect(find('td[data-for="surname"]')).to have_content 'Lee'
-        expect(find('td[data-for="date_of_birth"]')).to have_content '1997-09-09'
+        expect(find('td[data-for="date_of_birth"]')).to have_content Date.new(1997,9,9)
         expect(find('td[data-for="gender"]')).to have_content 'female'
         expect(find('td[data-for="status"]')).to have_content 'new_admission'
         expect(find('td[data-for="disabilities"]')).to have_content "Down's Syndrome"

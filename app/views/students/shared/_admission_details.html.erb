@@ -12,7 +12,7 @@
 
   <div class="col-6">
     <%= f.label :registered_at, 'Date of Registration' %>
-    <%= f.date_field :registered_at, autofocus: true, value: Date.today, class: 'form-control' %>
+    <%= f.text_field :registered_at, value: Date.today, :data => {:provide => 'datepicker', 'date-format' => 'dd/mm/yyyy', 'date-autoclose' => 'true', 'date-orientation' => 'bottom auto'}, class: 'form-control' %>
   </div>
 
   <div class="col-6">

@@ -8,12 +8,12 @@
 
     <div class="col-2">
       <%= f.label :from_date, 'From Date' %>
-      <%= f.date_field :from_date, autofocus: true, class: 'form-control' %>
+      <%= datepicker_input f, :from_date %>
     </div>
 
     <div class="col-2">
       <%= f.label :to_date, 'To Date' %>
-      <%= f.date_field :to_date, autofocus: true, class: 'form-control' %>
+      <%= datepicker_input f, :to_date %>
     </div>
 
     <div class="col-4">

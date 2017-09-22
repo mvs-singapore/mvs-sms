@@ -16,4 +16,10 @@ module ApplicationHelper
         notice: "glyphicon-info-sign"
     }[flash_type.to_sym] || 'glyphicon-screenshot'
   end
+
+  def datepicker_input f, field
+      f.text_field field, class: 'form-control', placeholder: 'DD-MM-YYYY', :data => {:provide => 'datepicker', 'date-format' => 'dd/mm/yyyy',
+                                                                                                  'date-autoclose' => 'true', 'date-orientation' => 'bottom auto'}
+  end
+
 end
