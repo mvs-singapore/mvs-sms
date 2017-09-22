@@ -94,8 +94,10 @@ describe 'new student admissions', type: :feature do
         expect(find('td[data-for="date_of_birth"]')).to have_content '1997-09-09'
         expect(find('td[data-for="gender"]')).to have_content 'female'
         expect(find('td[data-for="status"]')).to have_content 'new_admission'
-        expect(find('td[data-for="disabilities"]')).to have_content "Down's Syndrome, Autistic"
-        expect(find('td[data-for="medical_conditions"]')).to have_content "Asthma, Epilepsy"
+        expect(find('td[data-for="disabilities"]')).to have_content "Down's Syndrome"
+        expect(find('td[data-for="disabilities"]')).to have_content "Autistic"
+        expect(find('td[data-for="medical_conditions"]')).to have_content "Asthma"
+        expect(find('td[data-for="medical_conditions"]')).to have_content "Epilepsy"
       end
 
       expect(new_student.admission_no).to eq '16006/2016'
