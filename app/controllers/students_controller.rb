@@ -10,6 +10,7 @@ class StudentsController < ApplicationController
     @student = Student.new
     @student.past_education_records.new
     @student.point_of_contacts.new
+    @student.remarks.new
   end
 
   def create

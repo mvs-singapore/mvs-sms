@@ -1,0 +1,6 @@
+<div class="container">
+  <h3 class="text-center">Add New Remark</h3>
+  <%= form_for([@student, @user, @remark], url: student_remarks_path) do |f| %>
+  <%= render :partial => 'remarks/shared/remark_form', :locals => {:f => f} %>
+  <% end %>
+</div>
