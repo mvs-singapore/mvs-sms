@@ -53,12 +53,14 @@
     </div>
 
     <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
-      <%= f.fields_for :point_of_contacts do |contacts| %>
-        <%= render '/students/shared/point_of_contact_fields', f: contacts %>
-      <% end %>
-        <%= link_to_add_association 'Add Parent / Guardian', f, :point_of_contacts,
-        data: {"association-insertion-node" => ".nested-fields", "association-insertion-method" => "append"},
-        partial: '/students/shared/point_of_contact_fields', class: 'btn btn-primary' %>
+      <div class="point_of_contact">
+        <%= f.fields_for :point_of_contacts do |contacts| %>
+          <%= render '/students/shared/point_of_contact_fields', f: contacts %>
+        <% end %>
+      </div>
+      <%= link_to_add_association 'Add Parent / Guardian', f, :point_of_contacts,
+      data: {"association-insertion-node" => ".point_of_contact", "association-insertion-method" => "append"},
+      partial: '/students/shared/point_of_contact_fields', class: 'btn btn-primary' %>
     </div>
 
   </div>
