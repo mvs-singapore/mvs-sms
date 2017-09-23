@@ -18,7 +18,7 @@ module ApplicationHelper
   end
 
   def datepicker_input f, field
-      f.text_field field, class: 'form-control', placeholder: 'DD-MM-YYYY', :data => {:provide => 'datepicker', 'date-format' => 'dd/mm/yyyy',
+      f.text_field field, class: 'form-control form-control-sm', placeholder: 'DD-MM-YYYY', :data => {:provide => 'datepicker', 'date-format' => 'dd/mm/yyyy',
                                                                                                   'date-autoclose' => 'true', 'date-orientation' => 'bottom auto'}
   end
 

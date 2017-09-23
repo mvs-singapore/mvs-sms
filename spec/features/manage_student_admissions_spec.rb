@@ -56,10 +56,10 @@ describe 'new student admissions', type: :feature do
       click_link 'Past Education Records'
       click_link 'Add Past Education Record'
       within('#past-educations .nested-fields:nth-of-type(2)') do
-        fill_in 'School Attended', with: 'Northlight'
-        fill_in 'From Date', with: '02/03/2016'
-        fill_in 'To Date', with: '02/03/2017'
-        fill_in 'Qualification', with: 'GCE O Levels'
+        find('td[data-for="school_name').set('Northlight')
+        find('td[data-for="from_date').set('02/03/2016')
+        find('td[data-for="to_date').set('02/03/2017')
+        find('td[data-for="qualification').set('GCE O Levels')
       end
 
       click_link 'Parent/Guardian Particulars'

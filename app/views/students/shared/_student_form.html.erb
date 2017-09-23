@@ -18,36 +18,54 @@
 
 <div class="row">
   <div class="tab-content" id="pills-tabContent">
+
     <div class="tab-pane fade show active" id="admission" role="tabpanel" aria-labelledby="admission-tab">
       <%= render '/students/shared/admission_details', f: f %>
     </div>
+
     <div class="tab-pane fade" id="student-particulars" role="tabpanel" aria-labelledby="student-particulars-tab">
       <%= render '/students/shared/student_particulars', f: f %>
     </div>
+
     <div class="tab-pane fade" id="past-educations" role="tabpanel" aria-labelledby="past-educations-tab">
-      <%= f.fields_for :past_education_records do |past_education_record| %>
-        <%= render '/students/shared/past_education_record_fields', f: past_education_record %>
-      <% end %>
       <div class="form-group row">
-        <%= link_to_add_association 'Add Past Education Record', f, :past_education_records,
-        partial: '/students/shared/past_education_record_fields', class: 'btn btn-primary' %>
+        <table class="table">
+          <thead>
+            <tr>
+              <th><%= f.label :school_name, 'School Attended' %></th>
+              <th><%= f.label :from_date, 'From Date' %></th>
+              <th><%= f.label :to_date, 'To Date' %></th>
+              <th><%= f.label :qualification, 'Qualification' %></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="past_education_record">
+            <%= f.fields_for :past_education_records do |past_education_record| %>
+              <%= render '/students/shared/past_education_record_fields', f: past_education_record %>
+            <% end %>
+          </tbody>
+        </table>
       </div>
+
+      <%= link_to_add_association 'Add Past Education Record', f, :past_education_records,
+      data: {"association-insertion-node" => "tbody.past_education_record", "association-insertion-method" => "append"},
+      partial: '/students/shared/past_education_record_fields', class: 'btn btn-primary' %>
     </div>
+
     <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
       <%= f.fields_for :point_of_contacts do |contacts| %>
         <%= render '/students/shared/point_of_contact_fields', f: contacts %>
       <% end %>
-      <div class='form-group row'>
         <%= link_to_add_association 'Add Parent / Guardian', f, :point_of_contacts,
+        data: {"association-insertion-node" => ".nested-fields", "association-insertion-method" => "append"},
         partial: '/students/shared/point_of_contact_fields', class: 'btn btn-primary' %>
-      </div>
     </div>
+
   </div>
 </div>
+
 <br>
 
-<div class="form-group row">
-  <div class="col-4">
+<div class="row">
     <%= f.submit :class => 'btn btn-primary' %>
-  </div>
 </div>
