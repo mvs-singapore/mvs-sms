@@ -47,8 +47,8 @@
           student_academic_year = student.class_for_year(params[:academic_year]).academic_year
           student_class_name = student.class_for_year(params[:academic_year]).name
         else
-          student_academic_year = student.current_class.academic_year
-          student_class_name = student.current_class.name
+          student_academic_year = student.current_class.try(:academic_year)
+          student_class_name = student.current_class.try(:name)
         end %>
         <td data-for="academic_year"><%= student_academic_year %></td>
         <td data-for="class"><%= student_class_name %></td>
