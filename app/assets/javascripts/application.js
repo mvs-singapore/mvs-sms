@@ -18,8 +18,6 @@
 //= require scaffold
 //= require_tree .
 
-$(document).ready(function () {
-    $('i.fa-plus').click(function () {
-        $(this).toggleClass('fa-minus');
-    });
+$('.collapse').on('show.bs.collapse', function () {
+  $('.collapse').collapse('hide');
 });

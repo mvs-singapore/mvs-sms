@@ -33,7 +33,7 @@ class StudentsController < ApplicationController
   end
 
   def update
-    if @student.update(resource_params)
+    if @student.update(student_params)
       update_records(@student.student_disabilities, :disability_id, @student.disability_ids, medical_history_params[:disability_ids])
       update_records(@student.student_medical_conditions, :medical_condition_id, @student.medical_condition_ids, medical_history_params[:medical_condition_ids])
 

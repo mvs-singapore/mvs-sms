@@ -9,6 +9,14 @@ nav {
   margin-bottom: 10px;
 }
 
-i {
+[data-toggle="collapse"] {
   cursor: pointer;
+}
+
+[data-toggle="collapse"] i:before{
+  content: "\f068";
+}
+
+[data-toggle="collapse"].collapsed i:before{
+  content: "\f067";
 }
