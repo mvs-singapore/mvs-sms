@@ -67,4 +67,7 @@ end
 
 gem 'devise'
 gem 'bootstrap', '~> 4.0.0.beta'
+gem 'chosen-rails'
 gem 'jquery-rails'
+gem 'cocoon'
+gem 'bootstrap-datepicker-rails'

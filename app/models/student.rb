@@ -22,19 +22,23 @@ class Student < ApplicationRecord
 
   validates :admission_year, :registered_at, :status, :referred_by, :surname, :given_name, :date_of_birth, :place_of_birth, :race, :nric, :citizenship, :gender, presence: true
   validates :admission_year, numericality: { only_integer: true }
-  has_many :internship_records
-  has_many :past_education_records
-  has_many :point_of_contacts
-  has_many :remarks
-  has_many :student_classes
+
+  has_many :point_of_contacts, inverse_of: :student, dependent: :destroy
+  accepts_nested_attributes_for :point_of_contacts, reject_if: :all_blank, allow_destroy: true
+  has_many :internship_records, dependent: :destroy
+  has_many :past_education_records, inverse_of: :student, dependent: :destroy
+  has_many :point_of_contacts, dependent: :destroy
+  has_many :remarks, dependent: :destroy
+  has_many :student_classes, dependent: :destroy
   has_many :school_classes, through: :student_classes
-  has_many :student_disabilities
+  has_many :student_disabilities, dependent: :destroy
   has_many :disabilities, through: :student_disabilities
-  has_many :student_medical_conditions
+  has_many :student_medical_conditions, dependent: :destroy
   has_many :medical_conditions, through: :student_medical_conditions
-  has_many :student_status_histories
-  accepts_nested_attributes_for :past_education_records, allow_destroy: true
-  accepts_nested_attributes_for :point_of_contacts, allow_destroy: true
+  has_many :student_status_histories, dependent: :destroy
+  accepts_nested_attributes_for :past_education_records, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :student_disabilities, allow_destroy: true
+  accepts_nested_attributes_for :student_medical_conditions, allow_destroy: true
 
   scope :sorted, -> { order(surname: :asc) }
 

@@ -1,0 +1,7 @@
+<tr class="nested-fields">
+  <td data-for="school_name"><%= f.text_field :school_name, autofocus: true, class: 'form-control form-control-sm' %></td>
+  <td data-for="from_date"><%= datepicker_input f, :from_date %></td>
+  <td data-for="to_date"><%= datepicker_input f, :to_date %></td>
+  <td data-for="qualification"><%= f.text_field :qualification, class: 'form-control form-control-sm' %></td>
+  <td><%= link_to_remove_association "Delete Record", f, class: 'btn btn-danger btn-sm' %></td>
+</tr>

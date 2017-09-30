@@ -9,12 +9,16 @@ describe 'new student admissions', type: :feature do
                                   nric: 'S8888888D', citizenship: 'Singaporean', gender: 'female', sadeaf_client_reg_no: '12345/234',
                                   highest_standard_passed: 'GCE O Levels', medication_needed: 'Antihistamines', allergies: 'Peanuts')
   }
+  let!(:autistic_disability) { Disability.create(title: "Autistic")}
+  let!(:disability) { Disability.create(title: "Down's Syndrome")}
+  let!(:epilepsy_medical_condition) {MedicalCondition.create(title: "Epilepsy")}
+  let!(:medical_condition) {MedicalCondition.create(title: "Asthma")}
 
   before do
     sign_in teacher_user
   end
 
-  describe 'create student' do
+  describe 'create student', js: true do
     it 'creates new student' do
       visit students_path
       click_link 'Add Student'
@@ -26,7 +30,9 @@ describe 'new student admissions', type: :feature do
       select('association_of_persons_with_special_needs', from: 'Referred By')
       fill_in 'Name of Referee', with: 'Mdm Referee'
 
-      within('.student-particulars') do
+      click_link 'Student Particulars'
+      within('#student-particulars') do
+
         fill_in 'Surname', with: 'Lee'
         fill_in 'Given Name', with: 'Ali'
         fill_in 'Date of Birth', with: '09/09/1997'
@@ -37,18 +43,28 @@ describe 'new student admissions', type: :feature do
         select('female', from: 'Gender')
         fill_in 'SADeaf Client Registration No.', with: '12345/234'
         fill_in 'Highest Standard Passed', with: 'GCE O Levels'
+
+        find('#student_place_of_birth').click
+
         fill_in 'Medication Needed', with: 'Antihistamines'
         fill_in 'Allergies', with: 'Peanuts'
+        chosen_select('Autistic', "Down's Syndrome", from: 'Disabilities')
+        chosen_select('Epilepsy', "Asthma", from: 'Medical Conditions')
+      end
+      page.execute_script "window.scrollTo(0,0)"
+
+      click_link 'Past Education Records'
+      click_link 'Add Past Education Record'
+      within('#past-educations .nested-fields:nth-of-type(2)') do
+        find('td[data-for="school_name').set('Northlight')
+        find('td[data-for="from_date').set('02/03/2016')
+        find('td[data-for="to_date').set('02/03/2017')
+        find('td[data-for="qualification').set('GCE O Levels')
       end
 
-      within('.student-past-education-records') do
-        fill_in 'School Attended', with: 'Northlight'
-        fill_in 'From Date', with: '02/03/2016'
-        fill_in 'To Date', with: '02/03/2017'
-        fill_in 'Qualification', with: 'GCE O Levels'
-      end
-
-      within(".contacts") do
+      click_link 'Parent/Guardian Particulars'
+      click_link 'Add Parent / Guardian'
+      within('#contacts .nested-fields:nth-of-type(2)') do
         fill_in 'Surname', with: 'Ong'
         fill_in 'Given Name', with: 'Pearly'
         fill_in 'Address', with: '5 Smith Street'
@@ -77,9 +93,13 @@ describe 'new student admissions', type: :feature do
       within("#student-#{new_student.id}") do
         expect(find('td[data-for="given_name"]')).to have_content 'Ali'
         expect(find('td[data-for="surname"]')).to have_content 'Lee'
-        expect(find('td[data-for="date_of_birth"]')).to have_content '1997-09-09'
+        expect(find('td[data-for="date_of_birth"]')).to have_content Date.new(1997,9,9)
         expect(find('td[data-for="gender"]')).to have_content 'female'
         expect(find('td[data-for="status"]')).to have_content 'new_admission'
+        expect(find('td[data-for="disabilities"]')).to have_content "Down's Syndrome"
+        expect(find('td[data-for="disabilities"]')).to have_content "Autistic"
+        expect(find('td[data-for="medical_conditions"]')).to have_content "Asthma"
+        expect(find('td[data-for="medical_conditions"]')).to have_content "Epilepsy"
       end
 
       expect(new_student.admission_no).to eq '16006/2016'
@@ -94,6 +114,7 @@ describe 'new student admissions', type: :feature do
       expect(new_student.highest_standard_passed).to eq 'GCE O Levels'
       expect(new_student.medication_needed).to eq 'Antihistamines'
       expect(new_student.allergies).to eq 'Peanuts'
+      expect(new_student.point_of_contacts.count).to eq 1
       expect(new_student.point_of_contacts.last.surname).to eq 'Ong'
       expect(new_student.point_of_contacts.last.given_name).to eq 'Pearly'
       expect(new_student.point_of_contacts.last.address).to eq '5 Smith Street'
@@ -111,12 +132,23 @@ describe 'new student admissions', type: :feature do
       expect(new_student.point_of_contacts.last.handphone_number).to eq '87778777'
       expect(new_student.point_of_contacts.last.office_number).to eq '61116111'
       expect(new_student.point_of_contacts.last.relationship).to eq 'Mother'
+      
+      expect(new_student.disabilities.first.title).to eq 'Autistic'
+      expect(new_student.disability_ids).to include(autistic_disability.id, disability.id)
+      expect(new_student.medical_conditions.first.title).to eq 'Epilepsy'
+      expect(new_student.medical_condition_ids).to include(medical_condition.id, epilepsy_medical_condition.id)
     end
   end
 
-  describe 'edit student' do
+  describe 'edit student', js: true do
+    before do
+      student.student_disabilities.create(disability: disability)
+      student.student_disabilities.create(disability: autistic_disability)
+      student.student_medical_conditions.create(medical_condition: medical_condition)
+      student.student_medical_conditions.create(medical_condition: epilepsy_medical_condition)
+    end
 
-    it 'edits an existing student' do
+    it 'edits admission details' do
       visit students_path
 
       within("#student-#{student.id}") do
@@ -130,7 +162,74 @@ describe 'new student admissions', type: :feature do
       expect(page).to have_text 'Successfully updated student'
       expect(student.reload.admission_year).to eq 2017
     end
+
+    it 'edits medical conditions in student details' do
+      visit students_path
+
+      within("#student-#{student.id}") do
+        find_link('Edit').click
+      end
+
+      click_link 'Student Particulars'
+      within('#student-particulars') do
+        page.execute_script "window.scrollBy(0,10000)"
+        chosen_unselect('Autistic', from: 'Disabilities')
+        chosen_unselect('Epilepsy', from: 'Medical Conditions')
+      end
+      click_button 'Update Student'
+
+      expect(page).to have_text 'Successfully updated student'
+      expect(student.reload.disabilities.first.title).to eq "Down's Syndrome"
+      expect(student.reload.disability_ids).to include(disability.id, disability.id)
+
+      expect(student.reload.medical_conditions.first.title).to eq 'Asthma'
+      expect(student.reload.medical_condition_ids).to include(medical_condition.id, medical_condition.id)
+    end
+
+    describe 'deletes past education record' do
+      before do
+        first_record = { school_name: 'Northlight School', from_date: Date.new(1990,1,1), to_date: Date.new(1995,1,1) }
+        second_record = { school_name: 'Primary School', from_date: Date.new(1990,1,1), to_date: Date.new(1995,1,1) }
+        student.past_education_records.create(first_record)
+        student.past_education_records.create(second_record)
+      end
+      it 'deletes past education record from edit page' do
+
+        visit students_path
+        within("#student-#{student.id}") { find_link('Edit').click }
+
+        click_link 'Past Education Records'
+        within('#past-educations .nested-fields:nth-of-type(2)') { find_link('Delete Record').click }
+          sleep(1)
+        click_button 'Update Student'
+        student.reload
+        expect(student.past_education_records.count).to eq 1
+      end
+    end
+
+
+    describe 'delete point of contacts' do
+      before do
+        papa = { surname: 'Doe', given_name: 'John', handphone_number: '12345678', relationship: 'Father' }
+        mama = { surname: 'Doe', given_name: 'Jean', handphone_number: '12345678', relationship: 'Mother' }
+        student.point_of_contacts.create(papa)
+        student.point_of_contacts.create(mama)
+      end
+      it 'deletes point of contacts' do
+
+        visit students_path
+        within("#student-#{student.id}") { find_link('Edit').click }
+
+        click_link 'Parent/Guardian Particulars'
+        within('#contacts .nested-fields:nth-of-type(2)') { find_link('Delete Contact').click }
+        sleep(1)
+        click_button 'Update Student'
+        student.reload
+        expect(student.point_of_contacts.count).to equal 1
+      end
+    end
   end
+
 
   describe 'view student' do
     it 'displays the details of a student' do

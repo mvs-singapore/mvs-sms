@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'point of contacts', type: :feature do
+xdescribe 'point of contacts', type: :feature do
   let!(:teacher_role) { Role.create(name: 'teacher', super_admin: false) }
   let!(:teacher_user) { User.create(email: 'teacher1@example.com', password: 'password', name: 'Good Teacher', role: teacher_role) }
   let!(:student) { Student.create(admission_year: 2016, admission_no: '16006/2016', registered_at: Date.parse('09/09/2017'), current_class: 'Food & Beverage',
@@ -13,7 +13,7 @@ describe 'point of contacts', type: :feature do
                                                   dialect: 'Teochew', languages_spoken: 'English', id_number: 'S8888888D', id_type: 'blue',
                                                   date_of_birth: Date.new(2000,1,1), place_of_birth: 'Singapore', nationality: 'Singaporean',
                                                   occupation: 'Clerk', home_number: '65556555', handphone_number: '87778777', office_number: '61116111',
-                                                  relationship: 'Mother', student: student) }
+                                                  relationship: 'Guardian', student: student) }
 
   before do
     sign_in teacher_user

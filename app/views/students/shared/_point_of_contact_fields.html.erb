@@ -1,0 +1,98 @@
+<div class="nested-fields">
+  <div class="card border-secondary mb-3">
+    <div class="card-body">
+      <div class="form-group row">
+
+        <div class="col-3">
+          <%= f.label :surname %>
+          <%= f.text_field :surname, class: 'form-control form-control-sm' %>
+        </div>
+
+        <div class="col-3">
+          <%= f.label :given_name, 'Given Name' %>
+          <%= f.text_field :given_name, class: 'form-control form-control-sm' %>
+        </div>
+
+        <div class="col-6">
+          <%= f.label :address %>
+          <%= f.text_field :address, class: 'form-control form-control-sm' %>
+        </div>
+
+        <div class="col-3">
+          <%= f.label :postal_code, 'Postal Code' %>
+          <%= f.text_field :postal_code, class: 'form-control form-control-sm' %>
+        </div>
+
+        <div class="col-3">
+          <%= f.label :race %>
+          <%= f.text_field :race, class: 'form-control form-control-sm' %>
+        </div>
+
+        <div class="col-3">
+          <%= f.label :dialect %>
+          <%= f.text_field :dialect, class: 'form-control form-control-sm' %>
+        </div>
+
+        <div class="col-3">
+          <%= f.label :languages_spoken, 'Languages Spoken' %>
+          <%= f.text_field :languages_spoken, class: 'form-control form-control-sm' %>
+        </div>
+
+        <div class="col-3">
+          <%= f.label :id_number, 'ID Number' %>
+          <%= f.text_field :id_number, class: 'form-control form-control-sm' %>
+        </div>
+
+        <div class="col-3">
+          <%= f.label :id_type, 'ID Type' %>
+          <%= f.select :id_type, PointOfContact.id_types.keys, {prompt: 'Select ID Type'}, class: 'form-control form-control-sm' %>
+        </div>
+
+        <div class="col-3">
+          <%= f.label :date_of_birth, 'Date of Birth' %>
+          <%= datepicker_input f, :date_of_birth %>
+        </div>
+
+        <div class="col-3">
+          <%= f.label :place_of_birth, 'Place of Birth' %>
+          <%= f.text_field :place_of_birth, class: 'form-control form-control-sm' %>
+        </div>
+
+        <div class="col-3">
+          <%= f.label :nationality %>
+          <%= f.text_field :nationality, class: 'form-control form-control-sm' %>
+        </div>
+
+        <div class="col-3">
+          <%= f.label :occupation %>
+          <%= f.text_field :occupation, class: 'form-control form-control-sm' %>
+        </div>
+
+        <div class="col-3">
+          <%= f.label :home_number, 'Home Number' %>
+          <%= f.text_field :home_number, class: 'form-control form-control-sm' %>
+        </div>
+
+        <div class="col-3">
+          <%= f.label :handphone_number, 'Handphone Number' %>
+          <%= f.text_field :handphone_number, class: 'form-control form-control-sm' %>
+        </div>
+
+        <div class="col-3">
+          <%= f.label :office_number, 'Office Number' %>
+          <%= f.text_field :office_number, class: 'form-control form-control-sm' %>
+        </div>
+
+        <div class="col-3">
+          <%= f.label :relationship %>
+          <%= f.text_field :relationship, class: 'form-control form-control-sm' %>
+        </div>
+
+        <div class="col-12">
+          <%= link_to_remove_association "Delete Contact", f, class: 'btn btn-danger float-right' %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
