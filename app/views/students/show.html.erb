@@ -106,6 +106,34 @@
       <% end %>
     </div>
 
+    <div class="col-6" id="student_remarks">
+      <div class="row">
+        <div class="col-6"><h3>Remarks</h3></div>
+        <div class="col-6"><%= link_to 'Add', new_student_remark_path(@student), class: "add_student_remark btn btn-primary" %></div>
+      </div>
+
+      <% @student.remarks.each do |remark| %>
+      <dl class="row" id="remark-<%= remark.id %>">
+        <dt class="col-3">Event Date</dt>
+        <dd class="col-9" data-for="event_date"><%= remark.event_date %></dd>
+
+        <dt class="col-3">Category</dt>
+        <dd class="col-9" data-for="category"><%= remark.category %></dd>
+
+        <dt class="col-3">Details</dt>
+        <dd class="col-9" data-for="details"><%= remark.details %></dd>
+
+        <dt class="col-3">Added By</dt>
+        <dd class="col-9" data-for="user"><%= remark.user.name %></dd>
+
+        <div class="col-12">
+          <%= link_to 'Edit', edit_student_remark_path(@student, remark), class: "edit_student_remark btn btn-primary" %>
+          <%= link_to 'Delete', student_remark_path(@student, remark), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_student_remark btn btn-danger" %>
+        </div>
+      </dl>
+      <% end %>
+    </div>
+
     <div class="col-9 text-right">
       <%= link_to 'Edit', edit_student_path(@student), class: "edit_student btn btn-primary" %>
       <%= link_to 'Delete', student_path(@student), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_student btn btn-danger" %>
