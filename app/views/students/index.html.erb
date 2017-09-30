@@ -7,7 +7,7 @@
     <%= select_tag :academic_year, options_for_select(@cohorts, params[:academic_year]), include_blank: true %>
     <%= label_tag :class_name, 'Class' %>
     <%= select_tag :class_name, options_for_select(@class_names, params[:class_name]), include_blank: true %>
-    <%= submit_tag "Search by Class" %>
+    <%= submit_tag "Search by Class", class: 'btn btn-primary btn-sm' %>
     <% end %>
   </p>
 </div>
@@ -16,7 +16,7 @@
   <p>
     <%= form_tag(students_path, :method => "get", id: "search-name") do %>
     <%= text_field_tag :search, params[:search], placeholder: "Student Name" %>
-    <%= submit_tag "Search by Name" %>
+    <%= submit_tag "Search by Name", class: 'btn btn-primary btn-sm' %>
     <% end %>
   </p>
 </div>
