@@ -104,7 +104,7 @@
         </div>
       </dl>
       <% end %>
-
+    </div>
 
     <div class="col-9 text-right">
       <%= link_to 'Edit', edit_student_path(@student), class: "edit_student btn btn-primary" %>
@@ -114,7 +114,6 @@
     <div class="col-6">
       <div class="row">
         <div class="col-6"><h3>Point of Contacts</h3></div>
-        <div class="col-6"><%= link_to 'Add', new_student_point_of_contact_path(@student), class: "add_student_point_of_contact btn btn-primary" %></div>
       </div>
 
       <% @student.point_of_contacts.each do |contact| %>
@@ -172,43 +171,12 @@
 
         <dt class="col-3">Relationship</dt>
         <dd class="col-9" data-for="relationship"><%= contact.relationship %></dd>
-
-        <div class="col-12">
-          <%= link_to 'Edit', edit_student_point_of_contact_path(@student, contact), class: "edit_student_point_of_contact btn btn-primary" %>
-          <%= link_to 'Delete', student_point_of_contact_path(@student, contact), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_student_point_of_contact btn btn-danger" %>
-        </div>
       </dl>
       <% end %>
 
     </div>
-
-
   </div>
-  <dl class="row">
-    <dt class="col-3">Given Name</dt>
-    <dd class="col-9" data-for="given_name"><%= @student.given_name %></dd>
-
-    <dt class="col-3">Surname</dt>
-    <dd class="col-9" data-for="surname"><%= @student.surname %></dd>
-
-    <dt class="col-3">Gender</dt>
-    <dd class="col-9" data-for="gender"><%= @student.gender %></dd>
-
-    <dt class="col-3">Date of Birth</dt>
-    <dd class="col-9" data-for="date_of_birth"><%= @student.date_of_birth %></dd>
-
-    <dt class="col-3">Age</dt>
-    <dd class="col-9" data-for="age"><%= @student.age %></dd>
-
-    <dt class="col-3">Citizenship</dt>
-    <dd class="col-9" data-for="citizenship"><%= @student.citizenship %></dd>
-
-    <dt class="col-3">Race</dt>
-    <dd class="col-9" data-for="race"><%= @student.race %></dd>
-
-    <dt class="col-3">NRIC</dt>
-    <dd class="col-9" data-for="nric"><%= @student.nric %></dd>
-  </dl>
+</div>
 
 <div class="row">
   <div class="col-12">
@@ -223,5 +191,3 @@
   <dt class="col-3">Medical Conditions</dt>
   <dd class="col-9" data-for="medical_conditions"><%= @student.medical_conditions.map(&:title).join(", ") %></dd>
 </dl>
-
-</div>

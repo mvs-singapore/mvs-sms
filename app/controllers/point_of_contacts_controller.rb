@@ -9,7 +9,7 @@ class PointOfContactsController < ApplicationController
 
   def create
     @student = Student.find(params[:student_id])
-    @point_of_contact = @student.point_contacts.new(point_of_contact_params)
+    @point_of_contact = @student.point_of_contacts.new(point_of_contact_params)
 
     if @point_of_contact.save
       redirect_to @student, flash: {notice: 'Successfully created point of contact' }
