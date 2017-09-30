@@ -16,7 +16,7 @@ describe 'add remarks to student profile', type: :feature do
 
   describe 'add remarks to student profile within edit student page' do
     it 'adds a remark to student profile' do
-      visit students_path 
+      visit students_path
 
       within("#student-#{default_student.id}") do
         find_link('View').click
@@ -82,7 +82,7 @@ describe 'add remarks to student profile', type: :feature do
       within("#student-#{default_student.id}") do
         find_link('View').click
       end
-
+      page.execute_script "window.scrollBy(0,10000)"
       within("#remark-#{remark.id}") do
         accept_confirm_dialog {
           find('.delete_student_remark', visible: true).click
