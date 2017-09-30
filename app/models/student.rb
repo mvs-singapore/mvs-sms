@@ -1,4 +1,7 @@
 class Student < ApplicationRecord
+  include PgSearch
+  pg_search_scope :search_by_full_name, :against => [:given_name, :surname]
+
   enum status: {
     new_admission: 'New Admission',
     year1: 'Year 1',
@@ -51,7 +54,7 @@ class Student < ApplicationRecord
   end
 
   def self.search(search)
-    where("given_name ILIKE ?", "%#{search}%")
+    self.search_by_full_name(search)
   end
 
   def current_class
