@@ -3,9 +3,9 @@
 <div>
   <p>
     <%= form_tag(students_path, :method => "get", id: "search-cohort-class") do %>
-    <%= label :academic_year, 'Cohort' %>
+    <%= label_tag :academic_year, 'Cohort' %>
     <%= select_tag :academic_year, options_for_select(@cohorts, params[:academic_year]), include_blank: true %>
-    <%= label :class_name, 'Class' %>
+    <%= label_tag :class_name, 'Class' %>
     <%= select_tag :class_name, options_for_select(@class_names, params[:class_name]), include_blank: true %>
     <%= submit_tag "Search by Class" %>
     <% end %>

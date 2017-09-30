@@ -270,5 +270,30 @@ describe 'new student admissions', type: :feature do
     end
   end
 
+  describe 'search student', js: true do
+    let!(:student2) { Student.create(admission_year: 2016, admission_no: '16006/2016', registered_at: Date.parse('09/09/2017'), current_class: 'Food & Beverage',
+                                status: 'new_admission', referred_by: 'association_of_persons_with_special_needs', referral_notes: 'Mdm Referee',
+                                surname: 'Lee', given_name: 'Robin', date_of_birth: Date.parse('09/09/1997'), place_of_birth: 'Singapore', race: 'Chinese',
+                                nric: 'S8888888D', citizenship: 'Singaporean', gender: 'female', sadeaf_client_reg_no: '12345/234',
+                                highest_standard_passed: 'GCE O Levels', medication_needed: 'Antihistamines', allergies: 'Peanuts')
+    }
 
+    it 'searches students by cohort and class' do
+      visit students_path
+      select('2016', from: 'Cohort')
+      select('Class 1.1', from: 'Class')
+      click_on 'Search by Class'
+
+      expect(find('td[data-for="given_name"]')).to have_content 'Ali'
+      expect(find('td[data-for="given_name"]')).to_not have_content 'Robin'
+    end
+
+    it 'searches students by name' do
+      visit students_path
+      fill_in "search", with: "Robin"
+      click_on 'Search by Name'
+
+      expect(find('td[data-for="given_name"]')).to have_content 'Robin'
+    end
+  end
 end
