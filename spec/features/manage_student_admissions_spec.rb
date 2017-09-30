@@ -13,6 +13,8 @@ describe 'new student admissions', type: :feature do
   let!(:disability) { Disability.create(title: "Down's Syndrome")}
   let!(:epilepsy_medical_condition) {MedicalCondition.create(title: "Epilepsy")}
   let!(:medical_condition) {MedicalCondition.create(title: "Asthma")}
+  let!(:cohort) {SchoolClass.create(academic_year: 2016, name: 'Class 1.1', year: 1, form_teacher_id: teacher_user.id)}
+  let!(:student_class) {StudentClass.create(student_id: student.id, school_class_id: cohort.id)}
 
   before do
     sign_in teacher_user
@@ -63,8 +65,7 @@ describe 'new student admissions', type: :feature do
       end
 
       click_link 'Parent/Guardian Particulars'
-      click_link 'Add Parent / Guardian'
-      within('#contacts .nested-fields:nth-of-type(2)') do
+      within('#contacts .nested-fields:nth-of-type(1)') do
         fill_in 'Surname', with: 'Ong'
         fill_in 'Given Name', with: 'Pearly'
         fill_in 'Address', with: '5 Smith Street'
@@ -84,6 +85,7 @@ describe 'new student admissions', type: :feature do
         fill_in 'Relationship', with: 'Mother'
       end
 
+      page.execute_script "window.scrollBy(0,10000)"
       click_button 'Create Student'
 
       expect(page).to have_text 'Successfully created student'
@@ -132,7 +134,7 @@ describe 'new student admissions', type: :feature do
       expect(new_student.point_of_contacts.last.handphone_number).to eq '87778777'
       expect(new_student.point_of_contacts.last.office_number).to eq '61116111'
       expect(new_student.point_of_contacts.last.relationship).to eq 'Mother'
-      
+
       expect(new_student.disabilities.first.title).to eq 'Autistic'
       expect(new_student.disability_ids).to include(autistic_disability.id, disability.id)
       expect(new_student.medical_conditions.first.title).to eq 'Epilepsy'
@@ -221,8 +223,9 @@ describe 'new student admissions', type: :feature do
         within("#student-#{student.id}") { find_link('Edit').click }
 
         click_link 'Parent/Guardian Particulars'
-        within('#contacts .nested-fields:nth-of-type(2)') { find_link('Delete Contact').click }
+        within('#contacts .nested-fields:nth-of-type(1)') { find_link('Delete Contact').click }
         sleep(1)
+        page.execute_script "window.scrollBy(0,10000)"
         click_button 'Update Student'
         student.reload
         expect(student.point_of_contacts.count).to equal 1
@@ -270,5 +273,30 @@ describe 'new student admissions', type: :feature do
     end
   end
 
+  describe 'search student', js: true do
+    let!(:student2) { Student.create(admission_year: 2016, admission_no: '16006/2016', registered_at: Date.parse('09/09/2017'), current_class: 'Food & Beverage',
+                                status: 'new_admission', referred_by: 'association_of_persons_with_special_needs', referral_notes: 'Mdm Referee',
+                                surname: 'Lee', given_name: 'Robin', date_of_birth: Date.parse('09/09/1997'), place_of_birth: 'Singapore', race: 'Chinese',
+                                nric: 'S8888888D', citizenship: 'Singaporean', gender: 'female', sadeaf_client_reg_no: '12345/234',
+                                highest_standard_passed: 'GCE O Levels', medication_needed: 'Antihistamines', allergies: 'Peanuts')
+    }
 
+    it 'searches students by cohort and class' do
+      visit students_path
+      select('2016', from: 'Cohort')
+      select('Class 1.1', from: 'Class')
+      click_on 'Search by Class'
+
+      expect(find('td[data-for="given_name"]')).to have_content 'Ali'
+      expect(find('td[data-for="given_name"]')).to_not have_content 'Robin'
+    end
+
+    it 'searches students by name' do
+      visit students_path
+      fill_in "search", with: "Robin"
+      click_on 'Search by Name'
+
+      expect(find('td[data-for="given_name"]')).to have_content 'Robin'
+    end
+  end
 end

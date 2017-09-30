@@ -2,9 +2,16 @@ class StudentsController < ApplicationController
 
   before_action :fetch_student, only: [:show, :edit, :update, :destroy]
   before_action :fetch_medical_history_master_list, only: [:new, :edit, :create, :update]
+  before_action :fetch_cohort_classes, only: [:index]
 
   def index
-    @students = Student.all
+    if params[:search].present?
+      @students = Student.search(params[:search]).order("created_at DESC")
+    elsif params[:academic_year].present?
+      @students = Student.filter_by_cohort_and_classes(params[:academic_year], params[:class_name])
+    else
+      @students = Student.all.order('created_at DESC')
+    end
   end
 
   def new
@@ -65,6 +72,11 @@ class StudentsController < ApplicationController
   def fetch_medical_history_master_list
     @disabilities = Disability.all
     @medical_conditions = MedicalCondition.all
+  end
+
+  def fetch_cohort_classes
+    @cohorts = SchoolClass.distinct.pluck(:academic_year)
+    @class_names = SchoolClass.distinct.pluck(:name)
   end
 
   def student_params
