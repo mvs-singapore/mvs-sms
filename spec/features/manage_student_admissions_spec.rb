@@ -63,8 +63,7 @@ describe 'new student admissions', type: :feature do
       end
 
       click_link 'Parent/Guardian Particulars'
-      click_link 'Add Parent / Guardian'
-      within('#contacts .nested-fields:nth-of-type(2)') do
+      within('#contacts .nested-fields:nth-of-type(1)') do
         fill_in 'Surname', with: 'Ong'
         fill_in 'Given Name', with: 'Pearly'
         fill_in 'Address', with: '5 Smith Street'
@@ -84,6 +83,7 @@ describe 'new student admissions', type: :feature do
         fill_in 'Relationship', with: 'Mother'
       end
 
+      page.execute_script "window.scrollBy(0,10000)"
       click_button 'Create Student'
 
       expect(page).to have_text 'Successfully created student'
@@ -221,7 +221,7 @@ describe 'new student admissions', type: :feature do
         within("#student-#{student.id}") { find_link('Edit').click }
 
         click_link 'Parent/Guardian Particulars'
-        within('#contacts .nested-fields:nth-of-type(2)') { find_link('Delete Contact').click }
+        within('#contacts .nested-fields:nth-of-type(1)') { find_link('Delete Contact').click }
         sleep(1)
         click_button 'Update Student'
         student.reload
