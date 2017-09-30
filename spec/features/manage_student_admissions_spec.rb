@@ -98,10 +98,25 @@ describe 'new student admissions', type: :feature do
         expect(find('td[data-for="date_of_birth"]')).to have_content Date.new(1997,9,9)
         expect(find('td[data-for="gender"]')).to have_content 'female'
         expect(find('td[data-for="status"]')).to have_content 'new_admission'
-        expect(find('td[data-for="disabilities"]')).to have_content "Down's Syndrome"
-        expect(find('td[data-for="disabilities"]')).to have_content "Autistic"
-        expect(find('td[data-for="medical_conditions"]')).to have_content "Asthma"
-        expect(find('td[data-for="medical_conditions"]')).to have_content "Epilepsy"
+        expect(find('td[data-for="disabilities"]')).to have_content("Autistic")
+        expect(find('td[data-for="medical_conditions"]')).to have_content("Asthma")
+      end
+
+      within("#student-#{new_student.id}") do
+        find('td[data-for="view"]').find(".fa").click
+      end
+
+      within("#student-details-#{new_student.id}") do
+        expect(find('dd[data-for="medical_conditions"]')).to have_content "Epilepsy"
+        expect(find('dd[data-for="medical_conditions"]')).to have_content "Asthma"
+        expect(find('dd[data-for="disabilities"]')).to have_content "Down's Syndrome"
+        expect(find('dd[data-for="disabilities"]')).to have_content "Autistic"
+        expect(find('dd[data-for="medication_needed"]')).to have_content "Antihistamines"
+        expect(find('dd[data-for="allergies"]')).to have_content "Peanuts"
+        expect(find('dd[data-for="relationship"]')).to have_content "Mother"
+        expect(find('dd[data-for="home_number"]')).to have_content "65556555"
+        expect(find('dd[data-for="handphone_number"]')).to have_content "87778777"
+        expect(find('dd[data-for="office_number"]')).to have_content "61116111"
       end
 
       expect(new_student.admission_no).to eq '16006/2016'
@@ -154,6 +169,9 @@ describe 'new student admissions', type: :feature do
       visit students_path
 
       within("#student-#{student.id}") do
+        find('td[data-for="view"]').find(".fa").click
+      end
+      within("#student-details-#{student.id}") do
         find_link('Edit').click
       end
       within('.edit_student') do
@@ -169,6 +187,9 @@ describe 'new student admissions', type: :feature do
       visit students_path
 
       within("#student-#{student.id}") do
+        find('td[data-for="view"]').find(".fa").click
+      end
+      within("#student-details-#{student.id}") do
         find_link('Edit').click
       end
 
@@ -198,7 +219,12 @@ describe 'new student admissions', type: :feature do
       it 'deletes past education record from edit page' do
 
         visit students_path
-        within("#student-#{student.id}") { find_link('Edit').click }
+        within("#student-#{student.id}") do
+          find('td[data-for="view"]').find(".fa").click
+        end
+        within("#student-details-#{student.id}") do
+          find_link('Edit').click
+        end
 
         click_link 'Past Education Records'
         within('#past-educations .nested-fields:nth-of-type(2)') { find_link('Delete Record').click }
@@ -220,7 +246,12 @@ describe 'new student admissions', type: :feature do
       it 'deletes point of contacts' do
 
         visit students_path
-        within("#student-#{student.id}") { find_link('Edit').click }
+        within("#student-#{student.id}") do
+          find('td[data-for="view"]').find(".fa").click
+        end
+        within("#student-details-#{student.id}") do
+          find_link('Edit').click
+        end
 
         click_link 'Parent/Guardian Particulars'
         within('#contacts .nested-fields:nth-of-type(1)') { find_link('Delete Contact').click }
@@ -239,6 +270,9 @@ describe 'new student admissions', type: :feature do
       visit students_path
 
       within("#student-#{student.id}") do
+        find('td[data-for="view"]').find(".fa").click
+      end
+      within("#student-details-#{student.id}") do
         find_link('View').click
       end
 
@@ -263,6 +297,9 @@ describe 'new student admissions', type: :feature do
       visit students_path
 
       within("#student-#{student.id}") do
+        find('td[data-for="view"]').find(".fa").click
+      end
+      within("#student-details-#{student.id}") do
         accept_confirm_dialog {
           find('.delete_student', visible: true).click
         }

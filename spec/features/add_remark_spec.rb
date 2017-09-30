@@ -19,6 +19,9 @@ describe 'add remarks to student profile', type: :feature do
       visit students_path
 
       within("#student-#{default_student.id}") do
+        find('td[data-for="view"]').find(".fa").click
+      end
+      within("#student-details-#{default_student.id}") do
         find_link('View').click
       end
 
@@ -36,12 +39,15 @@ describe 'add remarks to student profile', type: :feature do
     end
   end
 
-  describe 'edit remark within edit student page' do
+  xdescribe 'edit remark within edit student page', js: true do
     it 'edits an existing remark' do
       visit students_path
 
       within("#student-#{default_student.id}") do
-        find_link('View').click
+        find('td[data-for="view"]').find(".fa").click
+      end
+      within("#student-details-#{default_student.id}") do
+        find_link('Edit').click
       end
       within("#remark-#{remark.id}") do
         find_link('Edit').click
@@ -62,6 +68,9 @@ describe 'add remarks to student profile', type: :feature do
       visit students_path
 
       within("#student-#{default_student.id}") do
+        find('td[data-for="view"]').find(".fa").click
+      end
+      within("#student-details-#{default_student.id}") do
         find_link('View').click
       end
       remarks = page.find '#student_remarks'
@@ -80,6 +89,9 @@ describe 'add remarks to student profile', type: :feature do
       visit students_path
 
       within("#student-#{default_student.id}") do
+        find('td[data-for="view"]').find(".fa").click
+      end
+      within("#student-details-#{default_student.id}") do
         find_link('View').click
       end
       page.execute_script "window.scrollBy(0,10000)"

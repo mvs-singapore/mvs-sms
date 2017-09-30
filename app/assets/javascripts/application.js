@@ -19,3 +19,7 @@
 //= require bootstrap-datepicker
 //= require scaffold
 //= require_tree .
+
+$('.collapse').on('show.bs.collapse', function () {
+  $('.collapse').collapse('hide');
+});

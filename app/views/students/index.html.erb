@@ -23,10 +23,10 @@
 
 <p><%= link_to('Add Student', new_student_path, class: "btn btn-primary") %></p>
 
-<table class="table table-bordered table-responsive">
+<table class="table table-bordered table-sm table-responsive">
   <thead class="table-primary">
     <tr>
-      <th>Academic Year</th>
+      <th>Cohort</th>
       <th>Class</th>
       <th>Given Name</th>
       <th>Surname</th>
@@ -37,12 +37,12 @@
       <th>Medical Condition</th>
       <th>Main Contact</th>
       <th>Status</th>
-      <th>Actions</th>
+      <th>View</th>
     </tr>
   </thead>
   <tbody class="bg-white">
     <% @students.each do |student| %>
-      <tr id="student-<%= student.id %>">
+      <tr id="student-<%= student.id %>" data-toggle="collapse" data-target="#student-details-<%= student.id %>" class="collapsed">
         <% if params[:academic_year].present?
           student_academic_year = student.class_for_year(params[:academic_year]).academic_year
           student_class_name = student.class_for_year(params[:academic_year]).name
@@ -57,16 +57,64 @@
         <td data-for="date_of_birth"><%= student.date_of_birth %></td>
         <td data-for="age"><%= student.age %></td>
         <td data-for="gender"><%= student.gender %></td>
-        <td data-for="disabilities"><%= student.disabilities.map{|d| d.title }.join(', ') %></td>
-        <td data-for="medical_conditions"><%= student.medical_conditions.map{|d| d.title }.join(', ') %></td>
-        <td data-for="main_contact"></td>
+        <td data-for="disabilities"><%= student.disabilities.order('title').pluck('title').first %></td>
+        <td data-for="medical_conditions"><%= student.medical_conditions.order('title').pluck('title').first %></td>
+        <td data-for="main_contact"><%= student.point_of_contacts.map(&:contact_full_name).first %></td>
         <td data-for="status"><%= student.status %></td>
-        <td>
-          <%= link_to 'View', student_path(student), class: "view_student btn btn-primary" %>
-          <%= link_to 'Edit', edit_student_path(student), class: "edit_student btn btn-primary" %>
-          <%= link_to 'Delete', student_path(student), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_student btn btn-danger" %>
-        </td>
+        <td data-for="view" class="text-center"><i class="fa"></td>
       </tr>
+      <tr>
+      <td colspan="100%" class="table-active p-0">
+        <div class="collapse" id="student-details-<%= student.id %>">
+          <div class="row p-2">
+            <div class="col-3">
+              <dl class="row">
+                <dt class="col-4">Disabilities</dt>
+                <dd class="col-8" data-for="disabilities"><%= student.disabilities.map{|d| d.title }.join(', ') %></dd>
+
+                <dt class="col-4">Medical Conditions</dt>
+                <dd class="col-8" data-for="medical_conditions"><%= student.medical_conditions.map{|d| d.title }.join(', ') %></dd>
+              </dl>
+            </div>
+
+            <div class="col-4">
+              <dl class="row">
+                <dt class="col-4">Medication</dt>
+                <dd class="col-8" data-for="medication_needed"><%= student.medication_needed %></dd>
+
+                <dt class="col-4">Allergies</dt>
+                <dd class="col-8" data-for="allergies"><%= student.allergies %></dd>
+              </dl>
+            </div>
+
+            <div class="col-3">
+              <dl class="row">
+                <dt class="col-4">Relationship</dt>
+                <dd class="col-8" data-for="relationship"><%= student.point_of_contacts.pluck(:relationship).first %></dd>
+
+                <dt class="col-4">Mobile</dt>
+                <dd class="col-8" data-for="handphone_number"><%= student.point_of_contacts.pluck(:handphone_number).first %></dd>
+
+                <dt class="col-4">Home</dt>
+                <dd class="col-8" data-for="home_number"><%= student.point_of_contacts.pluck(:home_number).first %></dd>
+
+                <dt class="col-4">Office</dt>
+                <dd class="col-8" data-for="office_number"><%= student.point_of_contacts.pluck(:office_number).first %></dd>
+              </dl>
+            </div>
+
+            <div class="col-2 text-right">
+                <%= link_to 'View', student_path(student), class: "view_student btn btn-primary" %>
+                <%= link_to 'Edit', edit_student_path(student), class: "edit_student btn btn-primary" %>
+                <%= link_to 'Delete', student_path(student), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_student btn btn-danger" %>
+              </dl>
+            </div>
+
+          </div>
+        </div>
+      </td>
+    </tr>
+
   <% end %>
   </tbody>
 </table>

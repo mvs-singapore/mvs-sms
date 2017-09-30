@@ -4,7 +4,20 @@
 */
 
 @import "bootstrap";
+@import "font-awesome";
 
 nav {
   margin-bottom: 10px;
+}
+
+[data-toggle="collapse"] {
+  cursor: pointer;
+}
+
+[data-toggle="collapse"] i:before{
+  content: "\f068";
+}
+
+[data-toggle="collapse"].collapsed i:before{
+  content: "\f067";
 }
