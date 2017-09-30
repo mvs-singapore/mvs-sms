@@ -13,6 +13,8 @@ describe 'new student admissions', type: :feature do
   let!(:disability) { Disability.create(title: "Down's Syndrome")}
   let!(:epilepsy_medical_condition) {MedicalCondition.create(title: "Epilepsy")}
   let!(:medical_condition) {MedicalCondition.create(title: "Asthma")}
+  let!(:cohort) {SchoolClass.create(academic_year: 2016, name: 'Class 1.1', year: 1, form_teacher_id: teacher_user.id)}
+  let!(:student_class) {StudentClass.create(student_id: student.id, school_class_id: cohort.id)}
 
   before do
     sign_in teacher_user
@@ -132,7 +134,7 @@ describe 'new student admissions', type: :feature do
       expect(new_student.point_of_contacts.last.handphone_number).to eq '87778777'
       expect(new_student.point_of_contacts.last.office_number).to eq '61116111'
       expect(new_student.point_of_contacts.last.relationship).to eq 'Mother'
-      
+
       expect(new_student.disabilities.first.title).to eq 'Autistic'
       expect(new_student.disability_ids).to include(autistic_disability.id, disability.id)
       expect(new_student.medical_conditions.first.title).to eq 'Epilepsy'
@@ -223,6 +225,7 @@ describe 'new student admissions', type: :feature do
         click_link 'Parent/Guardian Particulars'
         within('#contacts .nested-fields:nth-of-type(1)') { find_link('Delete Contact').click }
         sleep(1)
+        page.execute_script "window.scrollBy(0,10000)"
         click_button 'Update Student'
         student.reload
         expect(student.point_of_contacts.count).to equal 1
