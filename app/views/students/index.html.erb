@@ -29,8 +29,8 @@
         <td data-for="date_of_birth"><%= student.date_of_birth %></td>
         <td data-for="age"><%= student.age %></td>
         <td data-for="gender"><%= student.gender %></td>
-        <td data-for="disabilities"><%= student.disabilities.map(&:title).first %></td>
-        <td data-for="medical_conditions"><%= student.medical_conditions.map(&:title).first %></td>
+        <td data-for="disabilities"><%= student.disabilities.order('title').pluck('title').first %></td>
+        <td data-for="medical_conditions"><%= student.medical_conditions.order('title').pluck('title').first %></td>
         <td data-for="main_contact"><%= student.point_of_contacts.map(&:contact_full_name).first %></td>
         <td data-for="status"><%= student.status %></td>
         <td data-for="view" class="text-center"><i class="fa"></td>

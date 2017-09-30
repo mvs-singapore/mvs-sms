@@ -96,8 +96,8 @@ describe 'new student admissions', type: :feature do
         expect(find('td[data-for="date_of_birth"]')).to have_content Date.new(1997,9,9)
         expect(find('td[data-for="gender"]')).to have_content 'female'
         expect(find('td[data-for="status"]')).to have_content 'new_admission'
-        expect(find('td[data-for="disabilities"]').text).to include("Down's Syndrome")
-        expect(find('td[data-for="medical_conditions"]').text).to include("Asthma")
+        expect(find('td[data-for="disabilities"]')).to have_content("Autistic")
+        expect(find('td[data-for="medical_conditions"]')).to have_content("Asthma")
       end
 
       within("#student-#{new_student.id}") do
