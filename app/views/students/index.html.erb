@@ -22,8 +22,8 @@
   <tbody class="bg-white">
     <% @students.each do |student| %>
       <tr id="student-<%= student.id %>" data-toggle="collapse" data-target="#student-details-<%= student.id %>" class="collapsed">
-        <td data-for="academic_year"></td>
-        <td data-for="class"><%= student.current_class %></td>
+        <td data-for="academic_year"><%= student.school_classes.map(&:academic_year).first %></td>
+        <td data-for="class"><%= student.school_classes.map(&:name).first %></td>
         <td data-for="given_name"><%= student.given_name %></td>
         <td data-for="surname"><%= student.surname %></td>
         <td data-for="date_of_birth"><%= student.date_of_birth %></td>
@@ -31,7 +31,7 @@
         <td data-for="gender"><%= student.gender %></td>
         <td data-for="disabilities"><%= student.disabilities.map(&:title).first %></td>
         <td data-for="medical_conditions"><%= student.medical_conditions.map(&:title).first %></td>
-        <td data-for="main_contact"></td>
+        <td data-for="main_contact"><%= student.point_of_contacts.map(&:contact_full_name).first %></td>
         <td data-for="status"><%= student.status %></td>
         <td data-for="view" class="text-center"><i class="fa"></td>
       </tr>
@@ -42,36 +42,36 @@
             <div class="col-3">
               <dl class="row">
                 <dt class="col-4">Disabilities</dt>
-                <dd class="col-8"><%= student.disabilities.map{|d| d.title }.join(', ') %></dd>
+                <dd class="col-8" data-for="disabilities"><%= student.disabilities.map{|d| d.title }.join(', ') %></dd>
 
                 <dt class="col-4">Medical Conditions</dt>
-                <dd class="col-8"><%= student.medical_conditions.map{|d| d.title }.join(', ') %></dd>
+                <dd class="col-8" data-for="medical_conditions"><%= student.medical_conditions.map{|d| d.title }.join(', ') %></dd>
               </dl>
             </div>
 
             <div class="col-4">
               <dl class="row">
                 <dt class="col-4">Medication</dt>
-                <dd class="col-8"><%= student.medication_needed %></dd>
+                <dd class="col-8" data-for="medication_needed"><%= student.medication_needed %></dd>
 
                 <dt class="col-4">Allergies</dt>
-                <dd class="col-8"><%= student.allergies %></dd>
+                <dd class="col-8" data-for="allergies"><%= student.allergies %></dd>
               </dl>
             </div>
 
             <div class="col-3">
               <dl class="row">
                 <dt class="col-4">Relationship</dt>
-                <dd class="col-8"></dd>
+                <dd class="col-8" data-for="relationship"><%= student.point_of_contacts.pluck(:relationship).first %></dd>
 
                 <dt class="col-4">Mobile</dt>
-                <dd class="col-8"></dd>
+                <dd class="col-8" data-for="handphone_number"><%= student.point_of_contacts.pluck(:handphone_number).first %></dd>
 
                 <dt class="col-4">Home</dt>
-                <dd class="col-8"></dd>
+                <dd class="col-8" data-for="home_number"><%= student.point_of_contacts.pluck(:home_number).first %></dd>
 
                 <dt class="col-4">Office</dt>
-                <dd class="col-8"></dd>
+                <dd class="col-8" data-for="office_number"><%= student.point_of_contacts.pluck(:office_number).first %></dd>
               </dl>
             </div>
 
