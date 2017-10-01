@@ -1,27 +1,21 @@
-<h3>Manage Students</h3>
+<h3 class="text-center m-4">Manage Students</h3>
 
-<div>
-  <p>
-    <%= form_tag(students_path, :method => "get", id: "search-cohort-class") do %>
-    <%= label_tag :academic_year, 'Cohort' %>
-    <%= select_tag :academic_year, options_for_select(@cohorts, params[:academic_year]), include_blank: true %>
-    <%= label_tag :class_name, 'Class' %>
-    <%= select_tag :class_name, options_for_select(@class_names, params[:class_name]), include_blank: true %>
-    <%= submit_tag "Search by Class", class: 'btn btn-primary btn-sm' %>
+<div class="container mb-3">
+  <div class="form-row justify-content-center">
+    <%= form_tag(students_path, :method => "get", id: "search-cohort-class", class: 'form-group row justify-content-center') do %>
+    <%= select_tag :academic_year, options_for_select(@cohorts, params[:academic_year]), include_blank: true, prompt: "Select Cohort", class: 'custom-select mb-2 mr-2 mb-sm-0' %>
+    <%= select_tag :class_name, options_for_select(@class_names, params[:class_name]), include_blank: true, prompt: "Select Class", class: 'custom-select mb-2 mr-sm-2 mb-sm-0' %>
+    <%= submit_tag "Search by Cohort or Class", class: 'btn btn-primary' %>
     <% end %>
-  </p>
-</div>
+  </div>
 
-<div>
-  <p>
-    <%= form_tag(students_path, :method => "get", id: "search-name") do %>
-    <%= text_field_tag :search, params[:search], placeholder: "Student Name" %>
-    <%= submit_tag "Search by Name", class: 'btn btn-primary btn-sm' %>
+  <div class="form-row justify-content-center">
+    <%= form_tag(students_path, :method => "get", id: "search-name", class: 'form-inline') do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Student Name", class: 'form-control mb-2 mr-2 mb-sm-0' %>
+    <%= submit_tag "Search by Name", class: 'btn btn-primary' %>
     <% end %>
-  </p>
+  </div>
 </div>
-
-<p><%= link_to('Add Student', new_student_path, class: "btn btn-primary") %></p>
 
 <table class="table table-bordered table-sm table-responsive">
   <thead class="table-primary">

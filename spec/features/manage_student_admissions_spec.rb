@@ -23,7 +23,8 @@ describe 'new student admissions', type: :feature do
   describe 'create student', js: true do
     it 'creates new student' do
       visit students_path
-      click_link 'Add Student'
+      click_link 'Students'
+      click_link 'Add New Student'
 
       fill_in 'Admission Year', with: '2017'
       fill_in 'Admission No.', with: '16006/2016'
@@ -277,7 +278,6 @@ describe 'new student admissions', type: :feature do
       end
 
       expect(page).to have_link 'Edit'
-      expect(page).to have_link 'Delete'
 
       expect(find('dd[data-for="given_name"]')).to have_content 'Ali'
       expect(find('dd[data-for="surname"]')).to have_content 'Lee'
@@ -320,9 +320,9 @@ describe 'new student admissions', type: :feature do
 
     it 'searches students by cohort and class' do
       visit students_path
-      select('2016', from: 'Cohort')
-      select('Class 1.1', from: 'Class')
-      click_on 'Search by Class'
+      select('2016', from: 'academic_year')
+      select('Class 1.1', from: 'class_name')
+      click_on 'Search by Cohort or Class'
 
       expect(find('td[data-for="given_name"]')).to have_content 'Ali'
       expect(find('td[data-for="given_name"]')).to_not have_content 'Robin'
