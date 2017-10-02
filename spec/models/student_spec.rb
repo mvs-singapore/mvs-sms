@@ -113,4 +113,39 @@ RSpec.describe Student, type: :model do
       expect(student.full_name).to eq 'Li, Ah Hock'
     end
   end
+
+  describe 'generate csv' do
+    it 'creates a CSV for the specified content' do
+      teacher_role = Role.create(name: 'teacher', super_admin: false)
+      teacher_user = User.create(email: 'teacher1@example.com', password: 'password', name: 'Good Teacher', role: teacher_role)
+      disabilities = Disability.create(title: "Autistic")
+      medical_conditions = MedicalCondition.create(title: "Epilepsy")
+      cohort = SchoolClass.create(academic_year: 2016, name: 'Class 1.1', year: 1, form_teacher_id: teacher_user.id)
+      student = Student.create(
+          admission_year: 2017,
+          admission_no: '16006/2016',
+          registered_at: Date.today,
+          status: :new_admission,
+          referred_by: 'association_of_persons_with_special_needs',
+          surname: 'Li',
+          given_name: 'Ah Hock',
+          date_of_birth: Date.today,
+          place_of_birth: 'Singapore',
+          race: 'Chinese',
+          nric: 'S80888888D',
+          citizenship: 'Singaporean',
+          gender: :male,
+          sadeaf_client_reg_no: '12345/234',
+          medication_needed: 'Antihistamines',
+          allergies: 'Peanuts'
+      )
+      student.student_disabilities.create(disability: disabilities)
+      student.student_medical_conditions.create(medical_condition: medical_conditions)
+      student.student_classes.create(school_class_id: cohort.id)
+      record = [student]
+      expect(Student.as_csv(record)).to eq 'given_name,surname,admission_year,admission_no,registered_at,current_class,status,date_of_birth,place_of_birth,race,nric,citizenship,gender,sadeaf_client_reg_no,disabilities,medical_conditions,medication,allergies,referred_by
+Ah Hock,Li,2017,16006/2016,2017-10-02,Class 1.1 (2016),new_admission,2017-10-02,Singapore,Chinese,S80888888D,Singaporean,male,12345/234,Autistic,Epilepsy,Antihistamines,Peanuts,association_of_persons_with_special_needs
+'
+    end
+  end
 end

@@ -74,4 +74,19 @@ class Student < ApplicationRecord
 
     Student.joins(student_classes: :school_class).where(filter)
   end
+
+  def self.as_csv(records, options = {})
+    attributes = %w{given_name surname admission_year admission_no registered_at current_class status date_of_birth
+                    place_of_birth race nric citizenship gender sadeaf_client_reg_no disabilities medical_conditions
+                    medication allergies referred_by }
+    CSV.generate(options) do |csv|
+      csv << attributes
+      records.each do |item|
+        csv << [item.given_name, item.surname, item.admission_year, item.admission_no, item.registered_at,
+                item.current_class.try(:display_name), item.status, item.date_of_birth, item.place_of_birth, item.race, item.nric,
+                item.citizenship, item.gender, item.sadeaf_client_reg_no, item.disabilities.pluck(:title).join(','),
+                item.medical_conditions.pluck(:title).join(','), item.medication_needed, item.allergies, item.referred_by]
+      end
+    end
+  end
 end
