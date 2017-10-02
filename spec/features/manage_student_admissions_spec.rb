@@ -318,11 +318,11 @@ describe 'new student admissions', type: :feature do
                                 highest_standard_passed: 'GCE O Levels', medication_needed: 'Antihistamines', allergies: 'Peanuts')
     }
 
-    it 'searches students by cohort and class' do
+    it 'searches students by academic year and class' do
       visit students_path
       select('2016', from: 'academic_year')
       select('Class 1.1', from: 'class_name')
-      click_on 'Search by Cohort or Class'
+      click_on 'Search by Academic Year or Class'
 
       expect(find('td[data-for="given_name"]')).to have_content 'Ali'
       expect(find('td[data-for="given_name"]')).to_not have_content 'Robin'
