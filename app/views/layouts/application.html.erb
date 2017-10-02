@@ -22,13 +22,24 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <% if user_signed_in? %>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarSettingsDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Students
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarSettingsDropdownMenuLink">
+              <%= link_to 'View All Students', students_path, class: 'dropdown-item' %>
+              <%= link_to 'Add New Student', new_student_path, class: 'dropdown-item' %>
+            </div>
+          </li>
+
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarSettingsDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Settings
               </a>
 
               <div class="dropdown-menu" aria-labelledby="navbarSettingsDropdownMenuLink">
-                <%= link_to 'Manage Students', students_path, class: 'dropdown-item' %>
                 <%= link_to 'Internship Companies', internship_companies_path, class: 'dropdown-item' %>
                 <%= link_to 'Internship Supervisors', internship_supervisors_path, class: 'dropdown-item' %>
                 <%= link_to 'Medical Conditions List', medical_conditions_path, class: 'dropdown-item' %>
