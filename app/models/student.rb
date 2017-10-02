@@ -88,5 +88,5 @@ class Student < ApplicationRecord
                 item.medical_conditions.pluck(:title).join(','), item.medication_needed, item.allergies, item.referred_by]
       end
     end
-end
+  end
 end
