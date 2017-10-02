@@ -22,4 +22,15 @@ module ApplicationHelper
                                                                                                   'date-autoclose' => 'true', 'date-orientation' => 'bottom auto'}
   end
 
+  def csv_download_options(current_params)
+    link_options = {format: "csv"}
+    if current_params[:search].present?
+      link_options.merge!(search: current_params[:search])
+    elsif current_params[:academic_year].present?
+      link_options.merge!(academic_year: current_params[:academic_year], class_name: current_params[:class_name])
+    end
+
+    link_options
+  end
+
 end

@@ -112,4 +112,4 @@
   <% end %>
   </tbody>
 </table>
-<p><%= link_to("Generate Report", students_path(format: "csv", search: params[:search], academic_year: params[:academic_year]), class: "btn btn-primary btn-sm",) %></p>
+<p><%= link_to("Download CSV", students_path(csv_download_options(params)), class: "btn btn-primary btn-sm",) %></p>
