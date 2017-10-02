@@ -83,7 +83,7 @@ class Student < ApplicationRecord
       csv << attributes
       records.each do |item|
         csv << [item.given_name, item.surname, item.admission_year, item.admission_no, item.registered_at,
-                item.current_class, item.status, item.date_of_birth, item.place_of_birth, item.race, item.nric,
+                item.current_class.try(:display_name), item.status, item.date_of_birth, item.place_of_birth, item.race, item.nric,
                 item.citizenship, item.gender, item.sadeaf_client_reg_no, item.disabilities.pluck(:title).join(','),
                 item.medical_conditions.pluck(:title).join(','), item.medication_needed, item.allergies, item.referred_by]
       end
