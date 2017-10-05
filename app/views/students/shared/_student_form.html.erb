@@ -122,6 +122,17 @@
                                   partial: '/students/shared/internship_record_fields', class: 'btn btn-primary' %>
     </div>
 
+    <div class="tab-pane fade" id="internship-records" role="tabpanel" aria-labelledby="internship-records-tab">
+      <div class="internship_record">
+        <%= f.fields_for :internship_records do |internship_records| %>
+          <%= render '/students/shared/internship_record_fields', f: internship_records %>
+        <% end %>
+      </div>
+      <%= link_to_add_association 'Add Internship Record', f, :internship_records,
+      data: {"association-insertion-node" => ".internship_record", "association-insertion-method" => "append"},
+      partial: '/students/shared/internship_record_fields', class: 'btn btn-primary' %>
+    </div>
+
   </div>
 </div>
 

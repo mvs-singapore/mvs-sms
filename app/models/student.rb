@@ -50,6 +50,7 @@ class Student < ApplicationRecord
   accepts_nested_attributes_for :financial_assistance_records, reject_if: :all_blank, allow_destroy: true
 
 
+
   scope :sorted, -> { order(surname: :asc) }
 
   def full_name
