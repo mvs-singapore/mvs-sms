@@ -7,7 +7,7 @@ describe 'new student admissions', type: :feature do
                                   status: 'new_admission', referred_by: 'association_of_persons_with_special_needs', referral_notes: 'Mdm Referee',
                                   surname: 'Lee', given_name: 'Ali', date_of_birth: Date.parse('09/09/1997'), place_of_birth: 'Singapore', race: 'Chinese',
                                   nric: 'S8888888D', citizenship: 'Singaporean', gender: 'female', sadeaf_client_reg_no: '12345/234',
-                                  highest_standard_passed: 'GCE O Levels', medication_needed: 'Antihistamines', allergies: 'Peanuts')
+                                  medication_needed: 'Antihistamines', allergies: 'Peanuts')
   }
   let!(:autistic_disability) { Disability.create(title: "Autistic")}
   let!(:disability) { Disability.create(title: "Down's Syndrome")}
@@ -45,7 +45,6 @@ describe 'new student admissions', type: :feature do
         fill_in 'Citizenship', with: 'Singaporean'
         select('female', from: 'Gender')
         fill_in 'SADeaf Client Registration No.', with: '12345/234'
-        fill_in 'Highest Standard Passed', with: 'GCE O Levels'
 
         find('#student_place_of_birth').click
 
@@ -57,12 +56,12 @@ describe 'new student admissions', type: :feature do
       page.execute_script "window.scrollTo(0,0)"
 
       click_link 'Past Education Records'
-      click_link 'Add Past Education Record'
-      within('#past-educations .nested-fields:nth-of-type(2)') do
-        find('td[data-for="school_name').set('Northlight')
-        find('td[data-for="from_date').set('02/03/2016')
-        find('td[data-for="to_date').set('02/03/2017')
-        find('td[data-for="qualification').set('GCE O Levels')
+      within('#past-educations .nested-fields:nth-of-type(1)') do
+        find('td[data-for="school_name"] input').set('Northlight')
+        find('td[data-for="from_date"] input').set('02/03/2016')
+        find('td[data-for="to_date"] input').set('02/03/2017')
+        find('td[data-for="qualification"] input').set('GCE O Levels')
+        find('td[data-for="highest_qualification"] input').set(true)
       end
 
       click_link 'Parent/Guardian Particulars'
@@ -129,7 +128,6 @@ describe 'new student admissions', type: :feature do
       expect(new_student.nric).to eq 'S8888888D'
       expect(new_student.citizenship).to eq 'Singaporean'
       expect(new_student.sadeaf_client_reg_no).to eq '12345/234'
-      expect(new_student.highest_standard_passed).to eq 'GCE O Levels'
       expect(new_student.medication_needed).to eq 'Antihistamines'
       expect(new_student.allergies).to eq 'Peanuts'
       expect(new_student.point_of_contacts.count).to eq 1
@@ -212,8 +210,8 @@ describe 'new student admissions', type: :feature do
 
     describe 'deletes past education record' do
       before do
-        first_record = { school_name: 'Northlight School', from_date: Date.new(1990,1,1), to_date: Date.new(1995,1,1) }
-        second_record = { school_name: 'Primary School', from_date: Date.new(1990,1,1), to_date: Date.new(1995,1,1) }
+        first_record = { school_name: 'Northlight School', from_date: Date.new(1990,1,1), to_date: Date.new(1995,1,1), highest_qualification: true }
+        second_record = { school_name: 'Primary School', from_date: Date.new(1990,1,1), to_date: Date.new(1995,1,1), highest_qualification: false }
         student.past_education_records.create(first_record)
         student.past_education_records.create(second_record)
       end
@@ -315,7 +313,7 @@ describe 'new student admissions', type: :feature do
                                 status: 'new_admission', referred_by: 'association_of_persons_with_special_needs', referral_notes: 'Mdm Referee',
                                 surname: 'Lee', given_name: 'Robin', date_of_birth: Date.parse('09/09/1997'), place_of_birth: 'Singapore', race: 'Chinese',
                                 nric: 'S8888888D', citizenship: 'Singaporean', gender: 'female', sadeaf_client_reg_no: '12345/234',
-                                highest_standard_passed: 'GCE O Levels', medication_needed: 'Antihistamines', allergies: 'Peanuts')
+                                medication_needed: 'Antihistamines', allergies: 'Peanuts')
     }
 
     it 'searches students by academic year and class' do

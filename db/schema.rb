@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170930075914) do
+ActiveRecord::Schema.define(version: 20171005052446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20170930075914) do
     t.integer "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "highest_qualification"
     t.index ["student_id"], name: "index_past_education_records_on_student_id"
   end
 
@@ -187,7 +188,6 @@ ActiveRecord::Schema.define(version: 20170930075914) do
     t.string "citizenship", default: "Singaporean", null: false
     t.integer "gender", null: false
     t.string "sadeaf_client_reg_no"
-    t.string "highest_standard_passed"
     t.text "medication_needed"
     t.text "allergies"
   end

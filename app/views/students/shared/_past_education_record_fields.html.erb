@@ -3,5 +3,6 @@
   <td data-for="from_date"><%= datepicker_input f, :from_date %></td>
   <td data-for="to_date"><%= datepicker_input f, :to_date %></td>
   <td data-for="qualification"><%= f.text_field :qualification, class: 'form-control form-control-sm' %></td>
+  <td data-for="highest_qualification"><%= f.check_box :highest_qualification, class: 'form-control form-control-sm' %></td>
   <td><%= link_to_remove_association "Delete Record", f, class: 'btn btn-danger btn-sm' %></td>
 </tr>
