@@ -1,0 +1,30 @@
+<div class="nested-fields">
+  <div class="card border-secondary mb-3">
+    <div class="card-body">
+      <div class="form-group row">
+		  <div class="col-6">
+		  	<label for="internship_company">Select internship company</label>
+			  <td data-for="internship_company"><%= f.collection_select :internship_company_id, InternshipCompany.all, :id, :name, 
+			  	{prompt: "Select a company..."}%></td>
+			 </div>
+			 <div class="col-6">
+			 	<label for="internship_company">Select internship supervisor</label>
+			  <td data-for="internship_supervisor"><%= f.collection_select :internship_supervisor_id, InternshipSupervisor.all, :id, :name, 
+			  	{prompt: "Select a supervisor..."}%></td>
+			  </div>
+			  <div class="col-6">
+			  <td data-for="from_date"><%= datepicker_input f, :from_date %></td>
+			</div>
+			<div class="col-6">
+			  <td data-for="to_date"><%= datepicker_input f, :to_date %></td>
+			 </div>
+			 <div class="col-12">
+			 	<label for="comments">Add comments</label>
+			  <td data-for="comments"><%= f.text_area :comments, class: 'form-control form-control-sm' %></td>
+			</div>
+			  <td><%= link_to_remove_association "Delete Internship", f, class: 'btn btn-danger btn-sm' %></td>
+			</tr>
+</div>
+</div>
+
+

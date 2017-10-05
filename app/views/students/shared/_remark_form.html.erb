@@ -1,0 +1,23 @@
+<div class="nested-fields">
+  <div class="card border-secondary mb-3">
+    <div class="card-body">
+      <div class="form-group row">
+		  <div class="col-6">
+		    <%= f.label :event_date, 'Event Date' %>
+		    <%= f.date_field :event_date, autofocus: true, class: 'form-control' %>
+		  </div>
+
+		  <div class="col-6">
+		    <%= f.label :category, 'Category' %>
+		    <%= f.text_field :category, autofocus: true, class: 'form-control' %>
+		  </div>
+
+		  <div class="col-6">
+		    <%= f.label :details %>
+		    <%= f.text_area :details, autofocus: true, class: 'form-control' %>
+		  </div>
+		</div>
+	</div>
+</div>
+</div>
+
