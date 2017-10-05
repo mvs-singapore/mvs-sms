@@ -3,10 +3,12 @@ class RemarksController < ApplicationController
   before_action :set_remark, only: [:edit, :update, :destroy]
 
   def new
+    @student = Student.find(params[:student_id])
     @remark = @student.remarks.new
   end
 
   def create
+    @student = Student.find(params[:student_id])
     @remark = @student.remarks.new(remark_params)
     @remark.user = current_user
 
@@ -43,14 +45,11 @@ class RemarksController < ApplicationController
 
   def set_student
     @student = Student.find(params[:student_id])
-  end
-
-  def set_remark
-    @remark = @student.remarks.find(params[:id])
+    @remark = @student.remark.find(params[:id])
   end
 
   def remark_params
-    params.require(:remark).permit(:student_id, :event_date, :category, :details)
+    params.require(:remark).permit(:event_date, :category, :details)
   end
 
 end

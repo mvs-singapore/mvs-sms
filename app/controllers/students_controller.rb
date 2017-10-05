@@ -23,6 +23,7 @@ class StudentsController < ApplicationController
     @student.past_education_records.new
     @student.point_of_contacts.new
     @student.remarks.new
+    @student.internship_records.new
   end
 
   def create
@@ -90,7 +91,10 @@ class StudentsController < ApplicationController
                                     past_education_records_attributes: [:id, :school_name, :from_date, :to_date, :qualification, :highest_qualification, :_destroy],
                                     point_of_contacts_attributes: [:id, :surname, :given_name, :address, :postal_code, :race,
                                     :dialect, :languages_spoken, :id_number, :id_type, :date_of_birth, :place_of_birth,
-                                    :nationality, :occupation, :home_number, :handphone_number, :office_number, :relationship, :_destroy])
+                                    :nationality, :occupation, :home_number, :handphone_number, :office_number, :relationship, :_destroy],
+                                    internship_records_attributes: [:id, :student_id, :internship_company_id, :internship_supervisor_id, :from_date,
+                                    :to_date, :comments, :_destroy],
+                                    remarks_attributes: [:id,:student_id, :user_id, :event_date, :category, :details, :created_at, :updated_at, :_destroy])
   end
 
   def medical_history_params
