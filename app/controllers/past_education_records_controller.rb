@@ -49,7 +49,7 @@ class PastEducationRecordsController < ApplicationController
   end
 
   def past_education_record_params
-    params.require(:past_education_record).permit(:student_id, :school_name, :from_date, :to_date, :qualification)
+    params.require(:past_education_record).permit(:student_id, :school_name, :from_date, :to_date, :qualification, :highest_qualification)
   end
 
 end

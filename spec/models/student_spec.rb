@@ -124,12 +124,12 @@ RSpec.describe Student, type: :model do
       student = Student.create(
           admission_year: 2017,
           admission_no: '16006/2016',
-          registered_at: Date.today,
+          registered_at: '2017-10-02',
           status: :new_admission,
           referred_by: 'association_of_persons_with_special_needs',
           surname: 'Li',
           given_name: 'Ah Hock',
-          date_of_birth: Date.today,
+          date_of_birth: '2000-05-06',
           place_of_birth: 'Singapore',
           race: 'Chinese',
           nric: 'S80888888D',
@@ -144,7 +144,7 @@ RSpec.describe Student, type: :model do
       student.student_classes.create(school_class_id: cohort.id)
       record = [student]
       expect(Student.as_csv(record)).to eq 'given_name,surname,admission_year,admission_no,registered_at,current_class,status,date_of_birth,place_of_birth,race,nric,citizenship,gender,sadeaf_client_reg_no,disabilities,medical_conditions,medication,allergies,referred_by
-Ah Hock,Li,2017,16006/2016,2017-10-02,Class 1.1 (2016),new_admission,2017-10-02,Singapore,Chinese,S80888888D,Singaporean,male,12345/234,Autistic,Epilepsy,Antihistamines,Peanuts,association_of_persons_with_special_needs
+Ah Hock,Li,2017,16006/2016,2017-10-02,Class 1.1 (2016),new_admission,2000-05-06,Singapore,Chinese,S80888888D,Singaporean,male,12345/234,Autistic,Epilepsy,Antihistamines,Peanuts,association_of_persons_with_special_needs
 '
     end
   end

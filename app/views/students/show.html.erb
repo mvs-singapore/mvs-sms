@@ -1,4 +1,4 @@
-<div class="container">
+  <div class="container">
 
   <div class="row">
     <div class="col-12">
@@ -59,9 +59,6 @@
           <dt class="col-5">SADeaf Client Registration No.</dt>
           <dd class="col-7" data-for="sadeaf_client_reg_no"><%= @student.sadeaf_client_reg_no %></dd>
 
-          <dt class="col-5">Highest Standard</dt>
-          <dd class="col-7" data-for="highest_standard_passed"><%= @student.highest_standard_passed %></dd>
-
           <dt class="col-5">Disabilities</dt>
           <dd class="col-7" data-for="disabilities"><%= @student.disabilities.map(&:title).join(", ") %></dd>
 
@@ -110,6 +107,7 @@
               <th>From Date</th>
               <th>To Date</th>
               <th>Qualification</th>
+              <th>Highest Qualification</th>
             </tr>
           </thead>
           <tbody>
@@ -119,6 +117,11 @@
               <td data-for="from_date"><%= record.from_date %></td>
               <td data-for="to_date"><%= record.to_date %></td>
               <td data-for="qualification"><%= record.qualification %></td>
+              <td data-for="highest_qualification">
+                <% if record.highest_qualification %>
+                  <i class="fa fa-check-circle" aria-hidden="true"></i>
+                <% end %>
+              </td>
             </tr>
             <% end %>
           </tbody>
