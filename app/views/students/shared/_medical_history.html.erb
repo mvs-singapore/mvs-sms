@@ -1,0 +1,30 @@
+<div class="form-group row">
+  <div class="col-6">
+    <%= f.label :disability_ids, 'Disabilities' %>
+    <br>
+    <%= f.collection_select :disability_ids,
+                            @disabilities ,:id,:title, { selected: @student.disability_ids },
+                            { class: 'chosen-select', :multiple=>true, :data => { :placeholder => 'Select Disabilities' }}
+    %>
+  </div>
+
+  <div class="col-6">
+    <%= f.label :medical_condition_ids , 'Medical Conditions' %>
+    <br>
+    <%= f.collection_select :medical_condition_ids,
+                            @medical_conditions ,:id,:title, { selected: @student.medical_condition_ids },
+                            { class: 'chosen-select', :multiple=>true, :data => { :placeholder => 'Select Medical conditions' }}
+    %>
+  </div>
+</div>
+<div class="form-group row">
+  <div class="col-6">
+    <%= f.label :medication_needed, 'Medication Needed' %>
+    <%= f.text_area :medication_needed, class: 'form-control form-control-sm', rows: 3 %>
+  </div>
+
+  <div class="col-6">
+    <%= f.label :allergies %>
+    <%= f.text_area :allergies, class: 'form-control form-control-sm', rows: 3 %>
+  </div>
+</div>
