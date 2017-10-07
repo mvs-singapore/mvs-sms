@@ -17,29 +17,35 @@ describe 'add internship records to student profile', type: :feature do
     sign_in teacher_user
   end
 
-  fdescribe 'add internship records to student profile within edit student page', js: true do
+  describe 'add internship records to student profile within edit student page', js: true do
     it 'adds an internship record to student profile' do
-      visit students_path 
-      
+      visit students_path
+
       within("#student-#{default_student.id}") do
-        click_link 'Edit'
+        find('td[data-for="view"]').find(".fa").click
+      end
+      within("#student-details-#{default_student.id}") do
+        find_link('Edit').click
       end
 
+      page.execute_script "window.scrollTo(0,0)"
+
       click_link 'Internship Records'
-      within("#internships .nested-fields:nth-of-type(1)") do
+
+      within("#internship-records .nested-fields:nth-of-type(1)") do
         select('Milton Hotel', from: 'student_internship_records_attributes_0_internship_company_id')
         select('aaaa', from: 'student_internship_records_attributes_0_internship_supervisor_id')
-        byebug
         fill_in 'student_internship_records_attributes_0_from_date', with: '01/02/2017'
-        byebug
         fill_in 'student_internship_records_attributes_0_to_date', with: '03/02/2017'
         fill_in 'student_internship_records_attributes_0_comments', with: 'Good boy'
       end
 
+      page.execute_script "window.scrollBy(0,10000)"
+
       click_button 'Update Student'
 
       expect(page).to have_text 'Successfully updated student'
-      expect(internship.where(category: 3).count).to eq 1
+      expect(default_student.internship_records.count).to eq 1
     end
   end
 end
