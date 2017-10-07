@@ -1,74 +1,107 @@
 <div class="row">
   <ul class="nav nav-tabs nav-justified mb-3 w-100" id="student-form-tab" role="tablist">
     <li class="nav-item">
-      <a class="nav-link active" id="admission-tab" data-toggle="tab" href="#admission" role="tab" aria-controls="admission" aria-expanded="true">Admission Details</a>
+      <a class="nav-link active" id="admission-tab" data-toggle="tab" href="#admission" role="tab" aria-controls="admission" aria-expanded="true">Particulars & Admission Details</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" id="student-particulars-tab" data-toggle="tab" href="#student-particulars" role="tab" aria-controls="student-particulars" aria-expanded="true">Student Particulars</a>
-    </li>
+
     <li class="nav-item">
       <a class="nav-link" id="past-educations-tab" data-toggle="tab" href="#past-educations" role="tab" aria-controls="past-educations" aria-expanded="true">Past Education Records</a>
     </li>
+
     <li class="nav-item">
       <a class="nav-link" id="contacts-tab" data-toggle="tab" href="#contacts" role="tab" aria-controls="contacts" aria-expanded="true">Parent/Guardian Particulars</a>
     </li>
+
+    <li class="nav-item">
+      <a class="nav-link" id="student-particulars-tab" data-toggle="tab" href="#internship-records" role="tab" aria-controls="internship-records" aria-expanded="true">Internship Records</a>
     </li>
+
   </ul>
 </div>
 
 <div class="row">
   <div class="tab-content w-100" id="tabContent">
-
     <div class="tab-pane fade show active" id="admission" role="tabpanel" aria-labelledby="admission-tab">
-      <%= render '/students/shared/admission_details', f: f %>
-    </div>
-
-    <div class="tab-pane fade" id="student-particulars" role="tabpanel" aria-labelledby="student-particulars-tab">
+      <br>
+      <h4 class="card-title">Student Particulars</h4>
       <%= render '/students/shared/student_particulars', f: f %>
+      <hr>
+
+      <h4 class="card-title">Medical History</h4>
+      <%= render '/students/shared/medical_history', f: f %>
+      <hr>
+
+      <h4 class="card-title">Admission Details</h4>
+      <%= render '/students/shared/admission_details', f: f %>
+      <hr>
+
+      <h4 class="card-title">Remarks</h4>
+
+      <div class="remarks">
+        <%= f.fields_for :remarks do |remarks| %>
+            <%= render '/students/shared/remark_form', f: remarks %>
+        <% end %>
+      </div>
+
+      <%= link_to_add_association 'Add Remark', f, :remarks,
+                                  data: {'association-insertion-node' => '.remarks', 'association-insertion-method' => 'append'},
+                                  partial: '/students/shared/remark_form', class: 'btn btn-primary' %>
+
     </div>
 
     <div class="tab-pane fade" id="past-educations" role="tabpanel" aria-labelledby="past-educations-tab">
       <div class="form-group row">
         <table class="table">
           <thead>
-            <tr>
-              <th><%= f.label :school_name, 'School Attended' %></th>
-              <th><%= f.label :from_date, 'From Date' %></th>
-              <th><%= f.label :to_date, 'To Date' %></th>
-              <th><%= f.label :qualification, 'Qualification' %></th>
-              <th><%= f.label :highest_qualification, 'Highest Qualification' %></th>
-              <th></th>
-            </tr>
+          <tr>
+            <th><%= f.label :school_name, 'School Attended' %></th>
+            <th><%= f.label :from_date, 'From Date' %></th>
+            <th><%= f.label :to_date, 'To Date' %></th>
+            <th><%= f.label :qualification, 'Qualification' %></th>
+            <th><%= f.label :highest_qualification, 'Highest Qualification' %></th>
+            <th></th>
+          </tr>
           </thead>
           <tbody class="past_education_record">
-            <%= f.fields_for :past_education_records do |past_education_record| %>
+          <%= f.fields_for :past_education_records do |past_education_record| %>
               <%= render '/students/shared/past_education_record_fields', f: past_education_record %>
-            <% end %>
+          <% end %>
           </tbody>
         </table>
       </div>
 
       <%= link_to_add_association 'Add Past Education Record', f, :past_education_records,
-      data: {"association-insertion-node" => "tbody.past_education_record", "association-insertion-method" => "append"},
-      partial: '/students/shared/past_education_record_fields', class: 'btn btn-primary' %>
+                                  data: {"association-insertion-node" => "tbody.past_education_record", "association-insertion-method" => "append"},
+                                  partial: '/students/shared/past_education_record_fields', class: 'btn btn-primary' %>
     </div>
 
     <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
       <div class="point_of_contact">
-        <%= f.fields_for :point_of_contacts do |contacts| %>
-          <%= render '/students/shared/point_of_contact_fields', f: contacts %>
+        <%= f.fields_for :point_of_contacts do |contact| %>
+            <%= render '/students/shared/point_of_contact_fields', f: contact %>
         <% end %>
       </div>
       <%= link_to_add_association 'Add Parent / Guardian', f, :point_of_contacts,
-      data: {"association-insertion-node" => ".point_of_contact", "association-insertion-method" => "append"},
-      partial: '/students/shared/point_of_contact_fields', class: 'btn btn-primary' %>
+                                  data: {"association-insertion-node" => ".point_of_contact", "association-insertion-method" => "append"},
+                                  partial: '/students/shared/point_of_contact_fields', class: 'btn btn-primary' %>
+    </div>
+
+    <div class="tab-pane fade" id="internship-records" role="tabpanel" aria-labelledby="internship-records-tab">
+      <div class="internship_record">
+        <%= f.fields_for :internship_records do |internship_record| %>
+            <%= render '/students/shared/internship_record_fields', f: internship_record %>
+        <% end %>
+      </div>
+      <%= link_to_add_association 'Add Internship Record', f, :internship_records,
+                                  data: {"association-insertion-node" => ".internship_record", "association-insertion-method" => "append"},
+                                  partial: '/students/shared/internship_record_fields', class: 'btn btn-primary' %>
     </div>
 
   </div>
 </div>
 
-<br>
+<hr>
 
 <div class="row">
-    <%= f.submit :class => 'btn btn-primary' %>
+  <%= f.submit :class => 'btn btn-primary' %>
 </div>

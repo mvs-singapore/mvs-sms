@@ -1,74 +1,52 @@
-<div class="form-group row">
+<div id="student-particulars">
+  <div class="form-group row">
+    <div class="col-4">
+      <%= f.label :given_name, 'Given Name' %>
+      <%= f.text_field :given_name, class: 'form-control form-control-sm' %>
+    </div>
 
-  <div class="col-3">
-    <%= f.label :given_name, 'Given Name' %>
-    <%= f.text_field :given_name, class: 'form-control form-control-sm' %>
+    <div class="col-4">
+      <%= f.label :surname %>
+      <%= f.text_field :surname, class: 'form-control form-control-sm' %>
+    </div>
+
+    <div class="col-4">
+      <%= f.label :date_of_birth, 'Date of Birth' %>
+      <%= datepicker_input f, :date_of_birth %>
+    </div>
   </div>
 
-  <div class="col-3">
-    <%= f.label :surname %>
-    <%= f.text_field :surname, class: 'form-control form-control-sm' %>
+  <div class="form-group row">
+    <div class="col-4">
+      <%= f.label :place_of_birth, 'Place of Birth' %>
+      <%= f.text_field :place_of_birth, class: 'form-control form-control-sm' %>
+    </div>
+
+    <div class="col-4">
+      <%= f.label :race %>
+      <%= f.text_field :race, class: 'form-control form-control-sm' %>
+    </div>
+
+    <div class="col-4">
+      <%= f.label :nric, 'NRIC' %>
+      <%= f.text_field :nric, class: 'form-control form-control-sm' %>
+    </div>
   </div>
 
-  <div class="col-3">
-    <%= f.label :date_of_birth, 'Date of Birth' %>
-    <%= datepicker_input f, :date_of_birth %>
-  </div>
+  <div class="form-group row">
+    <div class="col-4">
+      <%= f.label :citizenship %>
+      <%= f.text_field :citizenship, class: 'form-control form-control-sm' %>
+    </div>
 
-  <div class="col-3">
-    <%= f.label :place_of_birth, 'Place of Birth' %>
-    <%= f.text_field :place_of_birth, class: 'form-control form-control-sm' %>
-  </div>
+    <div class="col-4">
+      <%= f.label :gender %>
+      <%= f.select :gender, Student.genders.keys, {prompt: 'Select Gender'}, class: 'form-control form-control-sm' %>
+    </div>
 
-  <div class="col-3">
-    <%= f.label :race %>
-    <%= f.text_field :race, class: 'form-control form-control-sm' %>
+    <div class="col-4">
+      <%= f.label :sadeaf_client_reg_no, 'SADeaf Client Registration No.' %>
+      <%= f.text_field :sadeaf_client_reg_no, class: 'form-control form-control-sm' %>
+    </div>
   </div>
-
-  <div class="col-3">
-    <%= f.label :nric, 'NRIC' %>
-    <%= f.text_field :nric, class: 'form-control form-control-sm' %>
-  </div>
-
-  <div class="col-3">
-    <%= f.label :citizenship %>
-    <%= f.text_field :citizenship, class: 'form-control form-control-sm' %>
-  </div>
-
-  <div class="col-3">
-    <%= f.label :gender %>
-    <%= f.select :gender, Student.genders.keys, {prompt: 'Select Gender'}, class: 'form-control form-control-sm' %>
-  </div>
-
-  <div class="col-3">
-    <%= f.label :sadeaf_client_reg_no, 'SADeaf Client Registration No.' %>
-    <%= f.text_field :sadeaf_client_reg_no, class: 'form-control form-control-sm' %>
-  </div>
-
-  <div class="col-3">
-    <%= f.label :disability_ids, 'Disabilities' %>
-    <%= f.collection_select :disability_ids,
-                            @disabilities ,:id,:title, { selected: @student.disability_ids },
-                            { class: 'chosen-select', :multiple=>true, :data => { :placeholder => 'Select Disabilities' }}
-    %>
-  </div>
-
-  <div class="col-3">
-    <%= f.label :medical_condition_ids , 'Medical Conditions' %>
-    <%= f.collection_select :medical_condition_ids,
-                            @medical_conditions ,:id,:title, { selected: @student.medical_condition_ids },
-                            { class: 'chosen-select', :multiple=>true, :data => { :placeholder => 'Select Medical conditions' }}
-    %>
-  </div>
-
-  <div class="col-3">
-    <%= f.label :medication_needed, 'Medication Needed' %>
-    <%= f.text_field :medication_needed, class: 'form-control form-control-sm' %>
-  </div>
-
-  <div class="col-3">
-    <%= f.label :allergies %>
-    <%= f.text_field :allergies, class: 'form-control form-control-sm' %>
-  </div>
-
 </div>

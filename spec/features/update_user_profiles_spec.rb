@@ -17,6 +17,8 @@ describe 'update user profiles', type: :feature do
         fill_in 'Current password', with: 'password'
       end
 
+      page.execute_script "window.scrollBy(0,10000)"
+
       click_button 'Update'
 
       expect(page).to have_text 'Your account has been updated successfully.'

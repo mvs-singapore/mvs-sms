@@ -33,9 +33,9 @@ describe 'new student admissions', type: :feature do
       select('association_of_persons_with_special_needs', from: 'Referred By')
       fill_in 'Name of Referee', with: 'Mdm Referee'
 
-      click_link 'Student Particulars'
-      within('#student-particulars') do
+      page.execute_script "window.scrollTo(0,0)"
 
+      within('#student-particulars') do
         fill_in 'Surname', with: 'Lee'
         fill_in 'Given Name', with: 'Ali'
         fill_in 'Date of Birth', with: '09/09/1997'
@@ -45,14 +45,18 @@ describe 'new student admissions', type: :feature do
         fill_in 'Citizenship', with: 'Singaporean'
         select('female', from: 'Gender')
         fill_in 'SADeaf Client Registration No.', with: '12345/234'
-
         find('#student_place_of_birth').click
+      end
 
+      page.execute_script "window.scrollBy(0,400)"
+
+      within('#student-medical-history') do
         fill_in 'Medication Needed', with: 'Antihistamines'
         fill_in 'Allergies', with: 'Peanuts'
         chosen_select('Autistic', "Down's Syndrome", from: 'Disabilities')
         chosen_select('Epilepsy', "Asthma", from: 'Medical Conditions')
       end
+
       page.execute_script "window.scrollTo(0,0)"
 
       click_link 'Past Education Records'
@@ -192,12 +196,14 @@ describe 'new student admissions', type: :feature do
         find_link('Edit').click
       end
 
-      click_link 'Student Particulars'
-      within('#student-particulars') do
-        page.execute_script "window.scrollBy(0,10000)"
+      page.execute_script "window.scrollTo(0,400)"
+
+      within('#student-medical-history') do
         chosen_unselect('Autistic', from: 'Disabilities')
         chosen_unselect('Epilepsy', from: 'Medical Conditions')
       end
+
+      page.execute_script "window.scrollBy(0,10000)"
       click_button 'Update Student'
 
       expect(page).to have_text 'Successfully updated student'
@@ -224,6 +230,7 @@ describe 'new student admissions', type: :feature do
         within("#student-details-#{student.id}") do
           find_link('Edit').click
         end
+        page.execute_script "window.scrollTo(0,0)"
 
         click_link 'Past Education Records'
         within('#past-educations .nested-fields:nth-of-type(2)') { find_link('Delete Record').click }
@@ -251,6 +258,7 @@ describe 'new student admissions', type: :feature do
         within("#student-details-#{student.id}") do
           find_link('Edit').click
         end
+        page.execute_script "window.scrollTo(0,0)"
 
         click_link 'Parent/Guardian Particulars'
         within('#contacts .nested-fields:nth-of-type(1)') { find_link('Delete Contact').click }
