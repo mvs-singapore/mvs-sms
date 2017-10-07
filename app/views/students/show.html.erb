@@ -192,6 +192,34 @@
   <div class="row">
     <div class="col-12">
       <div class="card bg-light mb-3">
+        <h4 class="card-header">Financial Assistance</h4>
+        <div class="card-body">
+          <table class="table table-sm">
+            <thead>
+              <tr class="d-flex">
+                <th class="col-3">Type</th>
+                <th class="col-3">Year Obtained</th>
+                <th class="col-6">Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @student.financial_assistance_records.each do |financial_assistance_record| %>
+              <tr id="financial_assistance_record-<%= financial_assistance_record.id %>" class="d-flex">
+                <td class="col-3" data-for="assistance_type"><%= financial_assistance_record.assistance_type %></td>
+                <td class="col-3" data-for="year_obtained"><%= financial_assistance_record.year_obtained %></td>
+                <td class="col-6" data-for="duration"><%= financial_assistance_record.duration %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card bg-light mb-3">
         <h4 class="card-header">Remarks</h4>
         <div class="card-body">
           <table class="table table-sm">

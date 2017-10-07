@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   end
 
   resources :students do
-    resources :past_education_records, except: [:index, :show]
+    #resources :past_education_records, except: [:index, :show]
     resources :point_of_contacts, except: [:index, :show]
     resources :remarks, except: [:index, :show]
   end
