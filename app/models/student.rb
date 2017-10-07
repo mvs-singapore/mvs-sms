@@ -23,6 +23,8 @@ class Student < ApplicationRecord
 
   enum gender: [:female, :male]
 
+  enum tshirt_size: [:XS, :S, :M, :L, :XL, :XXL, :other_size]
+
   validates :admission_year, :registered_at, :status, :referred_by, :surname, :given_name, :date_of_birth, :place_of_birth, :race, :nric, :citizenship, :gender, presence: true
   validates :admission_year, numericality: { only_integer: true }
 
