@@ -49,4 +49,11 @@
       <%= f.text_field :sadeaf_client_reg_no, class: 'form-control form-control-sm' %>
     </div>
   </div>
+
+  <div class="form-group row">
+    <div class="col-4">
+      <%= f.label :tshirt_size, 'T-shirt Size' %>
+      <%= f.select :tshirt_size, Student.tshirt_sizes.keys, {prompt: 'Select t-shirt size'}, class: 'form-control form-control-sm' %>
+    </div>
+  </div>
 </div>
