@@ -28,16 +28,23 @@ User.where(email: 'teacher@mvs.edu.sg').first_or_create! do |user|
   puts "Default teacher account created."
 end
 
-InternshipCompany.where(name: 'Harvard Hotel').first_or_create! do |internship_company|
-  internship_company.address = '1, Merlion Avenue, Singapore'
-  internship_company.postal_code = '123456'
-
-  puts "Default internship company created."
+puts "Seeding disabilities"
+['Hearing Impaired', 'Intellectual', 'Autism', 'Visually Impaired', 'Mild Learning Disability'].each do |disability|
+  Disability.where(title: disability).first_or_create!
 end
 
-Disability.where(title: 'Autistic').first_or_create! do |disability|
+puts "Seeding medical conditions"
+['Schizophrenia', 'ASD', 'Allergies', 'Hyperactive', 'Epilepsy', "Down's Syndrome", 'ADHD', 'Schizophrenia'].each do |medical_condition|
+  MedicalCondition.where(title: medical_condition).first_or_create!
+end
 
-  puts "Default disability created."
+if Rails.env.development?
+  InternshipCompany.where(name: 'Harvard Hotel').first_or_create! do |internship_company|
+    internship_company.address = '1, Merlion Avenue, Singapore'
+    internship_company.postal_code = '123456'
+
+    puts "Default internship company created."
+  end
 end
 
 puts "Done seeding."
