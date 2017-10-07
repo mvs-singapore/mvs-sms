@@ -36,6 +36,8 @@ describe 'new student admissions', type: :feature do
       page.execute_script "window.scrollTo(0,0)"
 
       within('#student-particulars') do
+        # attach_file('file', Rails.root + 'spec/support/images/student-upload-photo-test.png', visible: false)
+        # find('input[type="file"]').set(Rails.root + 'spec/support/images/student-upload-photo-test.png', visible: false)
         fill_in 'Surname', with: 'Lee'
         fill_in 'Given Name', with: 'Ali'
         fill_in 'Date of Birth', with: '09/09/1997'
