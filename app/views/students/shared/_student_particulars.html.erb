@@ -1,58 +1,52 @@
 <div id="student-particulars">
-  <div class="form-group row">
-    <div class="col-4">
-      <%= f.label :given_name, 'Given Name', class: "required-field" %>
+  <div class="row">
+    <div class="form-group col-md-4">
+      <%= f.label :given_name, 'Given Name', class: "col-form-label required-field" %>
       <%= f.text_field :given_name, class: 'form-control form-control-sm' %>
     </div>
 
-    <div class="col-4">
-      <%= f.label :surname, class: "required-field" %>
+    <div class="form-group col-md-4">
+      <%= f.label :surname, class: "col-form-label required-field" %>
       <%= f.text_field :surname, class: 'form-control form-control-sm' %>
     </div>
 
-    <div class="col-4">
-      <%= f.label :date_of_birth, 'Date of Birth', class: "required-field" %>
+    <div class="form-group col-md-4">
+      <%= f.label :date_of_birth, 'Date of Birth', class: "col-form-label required-field" %>
       <%= datepicker_input f, :date_of_birth %>
     </div>
-  </div>
 
-  <div class="form-group row">
-    <div class="col-4">
-      <%= f.label :place_of_birth, 'Place of Birth', class: "required-field" %>
+    <div class="form-group col-md-4">
+      <%= f.label :place_of_birth, 'Place of Birth', class: "col-form-label required-field" %>
       <%= f.text_field :place_of_birth, class: 'form-control form-control-sm' %>
     </div>
 
-    <div class="col-4">
-      <%= f.label :race, class: "required-field" %>
+    <div class="form-group col-md-4">
+      <%= f.label :race, class: "col-form-label required-field" %>
       <%= f.text_field :race, class: 'form-control form-control-sm' %>
     </div>
 
-    <div class="col-4">
-      <%= f.label :nric, 'NRIC', class: "required-field" %>
+    <div class="form-group col-md-4">
+      <%= f.label :nric, 'NRIC', class: "col-form-label required-field" %>
       <%= f.text_field :nric, class: 'form-control form-control-sm' %>
     </div>
-  </div>
 
-  <div class="form-group row">
-    <div class="col-4">
-      <%= f.label :citizenship, class: "required-field" %>
+    <div class="form-group col-md-4">
+      <%= f.label :citizenship, class: "col-form-label required-field" %>
       <%= f.text_field :citizenship, class: 'form-control form-control-sm' %>
     </div>
 
-    <div class="col-4">
-      <%= f.label :gender, class: "required-field" %>
+    <div class="form-group col-md-4">
+      <%= f.label :gender, class: "col-form-label required-field" %>
       <%= f.select :gender, Student.genders.keys, {prompt: 'Select Gender'}, class: 'form-control form-control-sm' %>
     </div>
 
-    <div class="col-4">
-      <%= f.label :sadeaf_client_reg_no, 'SADeaf Client Registration No.' %>
+    <div class="form-group col-md-4">
+      <%= f.label :sadeaf_client_reg_no, 'SADeaf Client Registration No.', class: 'col-form-label' %>
       <%= f.text_field :sadeaf_client_reg_no, class: 'form-control form-control-sm' %>
     </div>
-  </div>
 
-  <div class="form-group row">
-    <div class="col-4">
-      <%= f.label :tshirt_size, 'T-shirt Size' %>
+    <div class="form-group col-md-4">
+      <%= f.label :tshirt_size, 'T-shirt Size', class: 'col-form-label' %>
       <%= f.select :tshirt_size, Student.tshirt_sizes.keys, {prompt: 'Select t-shirt size'}, class: 'form-control form-control-sm' %>
     </div>
   </div>

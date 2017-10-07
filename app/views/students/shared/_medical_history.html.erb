@@ -1,7 +1,7 @@
 <div id="student-medical-history">
-  <div class="form-group row">
-    <div class="col-6">
-      <%= f.label :disability_ids, 'Disabilities' %>
+  <div class="row">
+    <div class="form-group form-group col-md-6">
+      <%= f.label :disability_ids, 'Disabilities', class: 'col-form-label' %>
       <br>
       <%= f.collection_select :disability_ids,
                               @disabilities ,:id,:title, { selected: @student.disability_ids },
@@ -9,8 +9,8 @@
       %>
     </div>
 
-    <div class="col-6">
-      <%= f.label :medical_condition_ids , 'Medical Conditions' %>
+    <div class="form-group col-md-6">
+      <%= f.label :medical_condition_ids , 'Medical Conditions', class: 'col-form-label'  %>
       <br>
       <%= f.collection_select :medical_condition_ids,
                               @medical_conditions ,:id,:title, { selected: @student.medical_condition_ids },
@@ -19,13 +19,13 @@
     </div>
   </div>
   <div class="form-group row">
-    <div class="col-6">
-      <%= f.label :medication_needed, 'Medication Needed' %>
+    <div class="form-group col-md-6">
+      <%= f.label :medication_needed, 'Medication Needed', class: 'col-form-label'  %>
       <%= f.text_area :medication_needed, class: 'form-control form-control-sm', rows: 3 %>
     </div>
 
-    <div class="col-6">
-      <%= f.label :allergies %>
+    <div class="form-group col-md-6">
+      <%= f.label :allergies, class: 'col-form-label'  %>
       <%= f.text_area :allergies, class: 'form-control form-control-sm', rows: 3 %>
     </div>
   </div>

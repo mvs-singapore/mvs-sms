@@ -20,7 +20,7 @@ describe 'new student admissions', type: :feature do
     sign_in teacher_user
   end
 
-  fdescribe 'create student', js: true do
+  describe 'create student', js: true do
     it 'creates new student' do
       visit students_path
       click_link 'Students'
@@ -263,6 +263,8 @@ describe 'new student admissions', type: :feature do
         page.execute_script "window.scrollTo(0,0)"
 
         click_link 'Parent/Guardian Particulars'
+
+        page.execute_script "window.scrollBy(0,10000)"
         within('#contacts .nested-fields:nth-of-type(1)') { find_link('Delete Contact').click }
         sleep(1)
         page.execute_script "window.scrollBy(0,10000)"
