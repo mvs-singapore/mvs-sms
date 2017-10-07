@@ -1,7 +1,7 @@
 <div class="form-group row">
 
   <div class="col-4">
-    <%= f.label :admission_year, 'Admission Year' %>
+    <%= f.label :admission_year, 'Admission Year', class: "required-field" %>
     <%= f.text_field :admission_year, autofocus: true, class: 'form-control form-control-sm' %>
   </div>
 
@@ -11,19 +11,19 @@
   </div>
 
   <div class="col-4">
-    <%= f.label :registered_at, 'Date of Registration' %>
+    <%= f.label :registered_at, 'Date of Registration', class: "required-field" %>
     <%= f.text_field :registered_at, value: Date.today, :data =>
                     {:provide => 'datepicker', 'date-format' => 'dd/mm/yyyy', 'date-autoclose' => 'true', 'date-orientation' => 'bottom auto'},
                     class: 'form-control form-control-sm' %>
   </div>
 
   <div class="col-4">
-    <%= f.label :status %>
+    <%= f.label :status, class: "required-field" %>
     <%= f.select :status, Student.statuses.keys, {selected: 'new_admission'}, class: 'form-control form-control-sm' %>
   </div>
 
   <div class="col-4">
-    <%= f.label :referred_by, 'Referred By' %>
+    <%= f.label :referred_by, 'Referred By', class: "required-field" %>
     <%= f.select :referred_by, Student.institutions.keys, {prompt: 'Select Institution'}, class: 'form-control form-control-sm' %>
   </div>
 
