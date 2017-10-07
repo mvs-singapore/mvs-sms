@@ -21,3 +21,10 @@ nav {
 [data-toggle="collapse"].collapsed i:before{
   content: "\f067";
 }
+
+.required-field:after{
+   color: red;
+   content: "*";
+   position: absolute;
+   margin-left: 5px;
+}
