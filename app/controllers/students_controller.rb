@@ -38,6 +38,12 @@ class StudentsController < ApplicationController
       @student.student_medical_conditions.build(medical_condition_id: condition_id)
     end
 
+    if params[:image_id].present?
+      preloaded = Cloudinary::PreloadedFile.new(params[:image_id])
+      raise "Invalid upload signature" if !preloaded.valid?
+      @student.image_id = preloaded.identifier
+    end
+
     if @student.save
       redirect_to students_path, flash: {notice: 'Successfully created student'}
     else
@@ -47,6 +53,12 @@ class StudentsController < ApplicationController
   end
 
   def update
+    if params[:image_id].present?
+      preloaded = Cloudinary::PreloadedFile.new(params[:image_id])
+      raise "Invalid upload signature" if !preloaded.valid?
+      @student.image_id = preloaded.identifier
+    end
+
     if @student.update(student_params)
       update_records(@student.student_disabilities, :disability_id, @student.disability_ids, medical_history_params[:disability_ids])
       update_records(@student.student_medical_conditions, :medical_condition_id, @student.medical_condition_ids, medical_history_params[:medical_condition_ids])
