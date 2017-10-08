@@ -3,5 +3,16 @@ class Remark < ApplicationRecord
   belongs_to :student
   belongs_to :user
 
-  enum category: [:incident, :new_admission, :promoted, :retained, :internship_notes, :graduated, :dropped_out, :awarded, :withdrew]
+  enum category: {
+    incident: 'Incident',
+    new_admission: 'New Admission',
+    promoted: 'Promoted',
+    retained: 'Retained',
+    internship_notes: 'Internship Notes',
+    graduated: 'Graduated',
+    dropped_out: 'Dropped Out',
+    awarded: 'Awarded',
+    withdrew: 'Withdrew',
+    financial_assistance: 'Financial Assistance',
+  }
 end

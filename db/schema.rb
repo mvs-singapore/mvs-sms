@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171007072917) do
+ActiveRecord::Schema.define(version: 20171007142014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,10 +108,10 @@ ActiveRecord::Schema.define(version: 20171007072917) do
     t.bigint "student_id"
     t.bigint "user_id"
     t.date "event_date", null: false
-    t.integer "category", default: 0, null: false
     t.text "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "category", null: false
     t.index ["student_id"], name: "index_remarks_on_student_id"
     t.index ["user_id"], name: "index_remarks_on_user_id"
   end
@@ -207,8 +207,6 @@ ActiveRecord::Schema.define(version: 20171007072917) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", default: "MVS User", null: false
-    t.boolean "email_confirmed", default: false
-    t.string "confirm_token"
     t.bigint "role_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
