@@ -118,10 +118,10 @@ ActiveRecord::Schema.define(version: 20171007145700) do
     t.bigint "student_id"
     t.bigint "user_id"
     t.date "event_date", null: false
-    t.integer "category", default: 0, null: false
     t.text "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "category", null: false
     t.index ["student_id"], name: "index_remarks_on_student_id"
     t.index ["user_id"], name: "index_remarks_on_user_id"
   end
@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(version: 20171007145700) do
     t.string "sadeaf_client_reg_no"
     t.text "medication_needed"
     t.text "allergies"
+    t.integer "tshirt_size"
   end
 
   create_table "users", force: :cascade do |t|

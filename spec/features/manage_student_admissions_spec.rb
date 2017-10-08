@@ -44,6 +44,7 @@ describe 'new student admissions', type: :feature do
         fill_in 'NRIC', with: 'S8888888D'
         fill_in 'Citizenship', with: 'Singaporean'
         select('female', from: 'Gender')
+        select('M', from: 'T-shirt Size')
         fill_in 'SADeaf Client Registration No.', with: '12345/234'
         find('#student_place_of_birth').click
       end
@@ -110,7 +111,7 @@ describe 'new student admissions', type: :feature do
         find('td[data-for="view"]').find(".fa").click
       end
 
-      within("#student-details-#{new_student.id}") do
+      within("#student-details-#{new_student.id}") do 
         expect(find('dd[data-for="medical_conditions"]')).to have_content "Epilepsy"
         expect(find('dd[data-for="medical_conditions"]')).to have_content "Asthma"
         expect(find('dd[data-for="disabilities"]')).to have_content "Down's Syndrome"
@@ -134,6 +135,7 @@ describe 'new student admissions', type: :feature do
       expect(new_student.sadeaf_client_reg_no).to eq '12345/234'
       expect(new_student.medication_needed).to eq 'Antihistamines'
       expect(new_student.allergies).to eq 'Peanuts'
+      expect(new_student.tshirt_size).to eq 'M'
       expect(new_student.point_of_contacts.count).to eq 1
       expect(new_student.point_of_contacts.last.surname).to eq 'Ong'
       expect(new_student.point_of_contacts.last.given_name).to eq 'Pearly'
@@ -262,6 +264,8 @@ describe 'new student admissions', type: :feature do
         page.execute_script "window.scrollTo(0,0)"
 
         click_link 'Parent/Guardian Particulars'
+
+        page.execute_script "window.scrollBy(0,10000)"
         within('#contacts .nested-fields:nth-of-type(1)') { find_link('Delete Contact').click }
         sleep(1)
         page.execute_script "window.scrollBy(0,10000)"

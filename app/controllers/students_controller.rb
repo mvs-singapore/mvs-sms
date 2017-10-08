@@ -86,17 +86,25 @@ class StudentsController < ApplicationController
   end
 
   def student_params
-    params.require(:student).permit(:admission_year, :admission_no, :registered_at, :current_class, :status, :referred_by, :referral_notes,
+    student_params = params.require(:student).permit(:admission_year, :admission_no, :registered_at, :current_class, :status, :referred_by, :referral_notes,
                                     :surname, :given_name, :date_of_birth, :place_of_birth, :race, :nric, :citizenship, :gender, :sadeaf_client_reg_no,
-                                    :medication_needed, :allergies,
+                                    :tshirt_size, :medication_needed, :allergies,
                                     past_education_records_attributes: [:id, :school_name, :from_date, :to_date, :qualification, :highest_qualification, :_destroy],
                                     point_of_contacts_attributes: [:id, :surname, :given_name, :address, :postal_code, :race,
                                     :dialect, :languages_spoken, :id_number, :id_type, :date_of_birth, :place_of_birth,
                                     :nationality, :occupation, :home_number, :handphone_number, :office_number, :relationship, :_destroy],
                                     internship_records_attributes: [:id, :student_id, :internship_company_id, :internship_supervisor_id, :from_date,
                                     :to_date, :comments, :_destroy],
-                                    remarks_attributes: [:id,:student_id, :user_id, :event_date, :category, :details, :created_at, :updated_at, :_destroy],
-                                    financial_assistance_records_attributes: [:id, :assistance_type, :year_obtained, :duration, :_destroy])
+                                    financial_assistance_records_attributes: [:id, :assistance_type, :year_obtained, :duration, :_destroy],
+                                    remarks_attributes: [:id, :student_id, :user_id, :event_date, :category, :details, :created_at, :updated_at, :_destroy])
+
+    if student_params[:remarks_attributes].present?
+      student_params[:remarks_attributes].each do |_, remark|
+        remark[:user_id] = current_user.id if remark[:user_id].blank?
+      end
+    end
+
+    student_params
   end
 
   def medical_history_params

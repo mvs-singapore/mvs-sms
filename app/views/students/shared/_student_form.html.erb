@@ -60,7 +60,6 @@
       <hr>
 
       <h4 class="card-title">Remarks</h4>
-
       <div class="remarks">
         <%= f.fields_for :remarks do |remarks| %>
             <%= render '/students/shared/remark_form', f: remarks %>
@@ -100,7 +99,7 @@
     </div>
 
     <div class="tab-pane fade" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
-      <div class="point_of_contact">
+      <div class="point_of_contact row">
         <%= f.fields_for :point_of_contacts do |contact| %>
             <%= render '/students/shared/point_of_contact_fields', f: contact %>
         <% end %>
@@ -127,5 +126,7 @@
 <hr>
 
 <div class="row">
-  <%= f.submit :class => 'btn btn-primary' %>
+  <div class="form-group">
+    <%= f.submit :class => 'btn btn-primary btn-lg' %>
+  </div>
 </div>
