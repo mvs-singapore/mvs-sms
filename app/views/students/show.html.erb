@@ -5,7 +5,7 @@
       <div class="card bg-light mb-3">
         <div class="card-body">
           <div class="card-img-left mr-3 float-left">
-            <img src="http://lorempixel.com/200/200/" />
+            <%= cl_image_tag(@student.image_id, :crop => 'fill', :width => 150, :height => 150) %>
           </div>
           <ul class="list-inline h1">
             <li class="list-inline-item display-4" data-for="given_name"><%= @student.given_name %></li>

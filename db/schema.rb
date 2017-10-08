@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(version: 20171007145700) do
     t.string "sadeaf_client_reg_no"
     t.text "medication_needed"
     t.text "allergies"
+    t.string "image_id"
     t.integer "tshirt_size"
   end
 
