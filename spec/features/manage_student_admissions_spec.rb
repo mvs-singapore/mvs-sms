@@ -58,6 +58,11 @@ describe 'new student admissions', type: :feature do
         chosen_select('Epilepsy', "Asthma", from: 'Medical Conditions')
       end
 
+      within('#student-remarks') do
+        select('Incident', from: 'Category')
+        fill_in 'Details', with: 'Student pushed another student'
+      end
+
       page.execute_script "window.scrollTo(0,0)"
 
       click_link 'Past Education Records'
@@ -111,7 +116,7 @@ describe 'new student admissions', type: :feature do
         find('td[data-for="view"]').find(".fa").click
       end
 
-      within("#student-details-#{new_student.id}") do 
+      within("#student-details-#{new_student.id}") do
         expect(find('dd[data-for="medical_conditions"]')).to have_content "Epilepsy"
         expect(find('dd[data-for="medical_conditions"]')).to have_content "Asthma"
         expect(find('dd[data-for="disabilities"]')).to have_content "Down's Syndrome"
@@ -159,6 +164,9 @@ describe 'new student admissions', type: :feature do
       expect(new_student.disability_ids).to include(autistic_disability.id, disability.id)
       expect(new_student.medical_conditions.first.title).to eq 'Epilepsy'
       expect(new_student.medical_condition_ids).to include(medical_condition.id, epilepsy_medical_condition.id)
+
+      expect(new_student.remarks.last.category).to eq 'incident'
+      expect(new_student.remarks.last.details).to eq 'Student pushed another student'
     end
   end
 
@@ -216,66 +224,7 @@ describe 'new student admissions', type: :feature do
       expect(student.reload.medical_conditions.first.title).to eq 'Asthma'
       expect(student.reload.medical_condition_ids).to include(medical_condition.id, medical_condition.id)
     end
-
-    describe 'deletes past education record' do
-      before do
-        first_record = { school_name: 'Northlight School', from_date: Date.new(1990,1,1), to_date: Date.new(1995,1,1), highest_qualification: true }
-        second_record = { school_name: 'Primary School', from_date: Date.new(1990,1,1), to_date: Date.new(1995,1,1), highest_qualification: false }
-        student.past_education_records.create(first_record)
-        student.past_education_records.create(second_record)
-      end
-      it 'deletes past education record from edit page' do
-
-        visit students_path
-        within("#student-#{student.id}") do
-          find('td[data-for="view"]').find(".fa").click
-        end
-        within("#student-details-#{student.id}") do
-          find_link('Edit').click
-        end
-        page.execute_script "window.scrollTo(0,0)"
-
-        click_link 'Past Education Records'
-        within('#past-educations .nested-fields:nth-of-type(2)') { find_link('Delete Record').click }
-          sleep(1)
-        click_button 'Update Student'
-        student.reload
-        expect(student.past_education_records.count).to eq 1
-      end
-    end
-
-
-    describe 'delete point of contacts' do
-      before do
-        papa = { surname: 'Doe', given_name: 'John', handphone_number: '12345678', relationship: 'Father' }
-        mama = { surname: 'Doe', given_name: 'Jean', handphone_number: '12345678', relationship: 'Mother' }
-        student.point_of_contacts.create(papa)
-        student.point_of_contacts.create(mama)
-      end
-      it 'deletes point of contacts' do
-
-        visit students_path
-        within("#student-#{student.id}") do
-          find('td[data-for="view"]').find(".fa").click
-        end
-        within("#student-details-#{student.id}") do
-          find_link('Edit').click
-        end
-        page.execute_script "window.scrollTo(0,0)"
-
-        click_link 'Parent/Guardian Particulars'
-
-        page.execute_script "window.scrollBy(0,10000)"
-        within('#contacts .nested-fields:nth-of-type(1)') { find_link('Delete Contact').click }
-        sleep(1)
-        page.execute_script "window.scrollBy(0,10000)"
-        click_button 'Update Student'
-        student.reload
-        expect(student.point_of_contacts.count).to equal 1
-      end
-    end
   end
-
 
   describe 'view student' do
     it 'displays the details of a student' do
