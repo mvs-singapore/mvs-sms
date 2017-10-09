@@ -11,7 +11,7 @@
             <li class="list-inline-item display-4" data-for="given_name"><%= @student.given_name %></li>
             <li class="list-inline-item display-4" data-for="surname"><u><%= @student.surname %></u></li>
             <li class="list-inline-item small text-muted" data-for="admission_no"><%= @student.admission_no %></li>
-            <li class="list-inline-item small text-muted" data-for="current_class">Class <%= @student.school_classes.map(&:name).join %></li>
+            <li class="list-inline-item small text-muted" data-for="current_class"><%= @student.current_class.try(:name) %></li>
           </ul>
           <ul class="list-inline">
             <li class="list-inline-item" data-for="gender"><%= @student.gender %></li>
