@@ -41,7 +41,7 @@ class StudentsController < ApplicationController
     if @student.save
       redirect_to students_path, flash: {notice: 'Successfully created student'}
     else
-      flash.now[:alert] = @student.errors.full_messages.join(" ")
+      flash.now[:alert] = @student.errors.full_messages.join("<br/>").html_safe
       render :new
     end
   end
@@ -53,7 +53,7 @@ class StudentsController < ApplicationController
 
       redirect_to @student, flash: {notice: 'Successfully updated student'}
     else
-      flash.now[:alert] = @student.errors.full_messages.join(" ")
+      flash.now[:alert] = @student.errors.full_messages.join("<br/>").html_safe
       render :edit
     end
   end
@@ -65,7 +65,7 @@ class StudentsController < ApplicationController
     if @student.destroy
       redirect_to students_path, flash: {notice: 'Successfully deleted student'}
     else
-      redirect_to students_path, flash: {alert: @student.errors.full_messages.join(" ") }
+      redirect_to students_path, flash: {alert: @student.errors.full_messages.join("<br/>").html_safe }
     end
   end
 
