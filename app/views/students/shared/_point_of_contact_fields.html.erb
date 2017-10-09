@@ -92,7 +92,10 @@
         </div>
 
         <div class="form-group col-12">
-          <%= link_to_remove_association "Delete Contact", f, class: 'btn btn-danger btn-sm float-right' %>
+          <%= link_to_remove_association "Delete Contact", f, class: 'delete_contact_record btn btn-danger btn-sm float-right',
+          data: {confirm:
+'Should you proceed to delete, you will lose this Contact Record of the student. This action is not reversible.
+Please confirm that you would like to delete by clicking OK.'} %>
         </div>
       </div>
     </div>
