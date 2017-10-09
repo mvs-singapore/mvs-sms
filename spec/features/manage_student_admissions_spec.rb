@@ -182,6 +182,7 @@ describe 'new student admissions', type: :feature do
       within('.edit_student') do
         fill_in 'Admission Year', with: 2017
       end
+      page.execute_script "window.scrollBy(0,10000)"
       click_button 'Update Student'
 
       expect(page).to have_text 'Successfully updated student'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171007142014) do
+ActiveRecord::Schema.define(version: 20171007145700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(version: 20171007142014) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "financial_assistance_records", force: :cascade do |t|
+    t.string "assistance_type"
+    t.string "year_obtained"
+    t.string "duration"
+    t.bigint "student_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_financial_assistance_records_on_student_id"
   end
 
   create_table "internship_companies", force: :cascade do |t|
@@ -206,13 +216,14 @@ ActiveRecord::Schema.define(version: 20171007142014) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name", default: "MVS User", null: false
+    t.string "name", null: false
     t.bigint "role_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "financial_assistance_records", "students"
   add_foreign_key "internship_records", "internship_companies"
   add_foreign_key "internship_records", "internship_supervisors"
   add_foreign_key "internship_records", "students"

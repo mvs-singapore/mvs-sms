@@ -1,6 +1,0 @@
-<div class="container">
-  <h3 class="text-center">Edit Education Record</h3>
-  <%= form_for([@student, @past_education_record], url: student_past_education_record_path(@student)) do |f| %>
-  <%= render :partial => 'past_education_records/shared/past_education_record_form', :locals => {:f => f} %>
-  <% end %>
-</div>

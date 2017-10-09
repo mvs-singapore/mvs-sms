@@ -46,6 +46,8 @@ class Student < ApplicationRecord
   accepts_nested_attributes_for :past_education_records, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :student_disabilities, allow_destroy: true
   accepts_nested_attributes_for :student_medical_conditions, allow_destroy: true
+  has_many :financial_assistance_records, inverse_of: :student, dependent: :destroy
+  accepts_nested_attributes_for :financial_assistance_records, reject_if: :all_blank, allow_destroy: true
 
 
   scope :sorted, -> { order(surname: :asc) }

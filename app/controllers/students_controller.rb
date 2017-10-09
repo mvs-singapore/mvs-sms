@@ -23,6 +23,8 @@ class StudentsController < ApplicationController
     @student.past_education_records.new
     @student.point_of_contacts.new
     @student.internship_records.new
+    # @student.remarks.new
+    @student.financial_assistance_records.new
   end
 
   def create
@@ -93,6 +95,7 @@ class StudentsController < ApplicationController
                                     :nationality, :occupation, :home_number, :handphone_number, :office_number, :relationship, :_destroy],
                                     internship_records_attributes: [:id, :student_id, :internship_company_id, :internship_supervisor_id, :from_date,
                                     :to_date, :comments, :_destroy],
+                                    financial_assistance_records_attributes: [:id, :assistance_type, :year_obtained, :duration, :_destroy],
                                     remarks_attributes: [:id, :student_id, :user_id, :event_date, :category, :details, :created_at, :updated_at, :_destroy])
 
     if student_params[:remarks_attributes].present?

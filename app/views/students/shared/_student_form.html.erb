@@ -35,6 +35,30 @@
       <%= render '/students/shared/admission_details', f: f %>
       <hr>
 
+      <h4 class="card-title">Financial Assistance</h4>
+      <div class="form-group row">
+        <table class="table">
+          <thead>
+          <tr>
+            <th><%= f.label :assistance_type, 'Assistance Type' %></th>
+            <th><%= f.label :year_obtained, 'Year Obtained' %></th>
+            <th><%= f.label :duration, 'Duration' %></th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody class="financial_assistance_records">
+          <%= f.fields_for :financial_assistance_records do |financial_assistance_record| %>
+              <%= render '/students/shared/financial_assistance_record_form', f: financial_assistance_record %>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <%= link_to_add_association 'Add Financial Assistance Details', f, :financial_assistance_records,
+                                  data: {"association-insertion-node" => "tbody.financial_assistance_records", "association-insertion-method" => "append"},
+                                  partial: '/students/shared/financial_assistance_record_form', class: 'btn btn-primary' %>
+      <hr>
+
       <h4 class="card-title">Remarks</h4>
       <div class="remarks">
         <%= f.fields_for :remarks do |remarks| %>
