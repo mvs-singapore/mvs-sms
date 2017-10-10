@@ -23,7 +23,7 @@ class StudentsController < ApplicationController
     @student.past_education_records.new
     @student.point_of_contacts.new
     @student.internship_records.new
-    @student.remarks.new
+    # @student.remarks.new
     @student.financial_assistance_records.new
   end
 

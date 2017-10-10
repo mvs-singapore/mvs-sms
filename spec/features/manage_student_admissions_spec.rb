@@ -58,6 +58,9 @@ describe 'new student admissions', type: :feature do
         chosen_select('Epilepsy', "Asthma", from: 'Medical Conditions')
       end
 
+      page.execute_script "window.scrollBy(0,1000)"
+
+      click_link 'Add Remark'
       within('#student-remarks') do
         select('Incident', from: 'Category')
         fill_in 'Details', with: 'Student pushed another student'
