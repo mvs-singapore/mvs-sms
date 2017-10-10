@@ -173,7 +173,7 @@ describe 'new student admissions', type: :feature do
     end
   end
 
-  describe 'edit student', js: true do
+  describe 'edit student' do
     before do
       student.student_disabilities.create(disability: disability)
       student.student_disabilities.create(disability: autistic_disability)
@@ -181,7 +181,7 @@ describe 'new student admissions', type: :feature do
       student.student_medical_conditions.create(medical_condition: epilepsy_medical_condition)
     end
 
-    it 'edits admission details' do
+    it 'edits admission details', js: true do
       visit students_path
 
       within("#student-#{student.id}") do
@@ -200,7 +200,7 @@ describe 'new student admissions', type: :feature do
       expect(student.reload.admission_year).to eq 2017
     end
 
-    it 'edits medical conditions in student details' do
+    it 'edits medical conditions in student details', js: true do
       visit students_path
 
       within("#student-#{student.id}") do
