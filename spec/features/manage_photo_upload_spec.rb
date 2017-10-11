@@ -32,8 +32,6 @@ describe 'student photo upload', type: :feature do
         fill_in 'NRIC', with: 'S8888888D'
         fill_in 'Citizenship', with: 'Singaporean'
         select('female', from: 'Gender')
-        sleep(10)
-
       end
 
       page.execute_script "window.scrollBy(0,200)"
