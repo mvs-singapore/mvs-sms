@@ -19,7 +19,7 @@ module Crudable
     if @resource.save
       redirect_to resources_path, flash: {notice: 'Successfully created ' + self.class::RESOURCE_CLASS.to_s.titleize.downcase}
     else
-      flash.now[:alert] = @resource.errors.full_messages.join(" ")
+      flash.now[:alert] = @resource.errors.full_messages.join("<br/>").html_safe
       render :new
     end
   end
@@ -31,7 +31,7 @@ module Crudable
     if @resource.update(resource_params)
       redirect_to resources_path, flash: {notice: 'Successfully updated ' + self.class::RESOURCE_CLASS.to_s.titleize.downcase }
     else
-      flash.now[:alert] = @resource.errors.full_messages.join(" ")
+      flash.now[:alert] = @resource.errors.full_messages.join("<br/>").html_safe
       render :edit
     end
   end
@@ -40,7 +40,7 @@ module Crudable
     if @resource.destroy
       redirect_to resources_path, flash: {notice: 'Successfully deleted ' + self.class::RESOURCE_CLASS.to_s.titleize.downcase }
     else
-      redirect_to resources_path, flash: {alert: @resource.errors.full_messages.join(" ") }
+      redirect_to resources_path, flash: {alert: @resource.errors.full_messages.join("<br/>").html_safe }
     end
   end
 
