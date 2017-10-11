@@ -173,7 +173,7 @@ describe 'new student admissions', type: :feature do
     end
   end
 
-  describe 'edit student' do
+  describe 'edit student', js: true do
     before do
       student.student_disabilities.create(disability: disability)
       student.student_disabilities.create(disability: autistic_disability)
