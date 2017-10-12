@@ -56,6 +56,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'email_spec'
   gem 'shoulda-matchers', '~> 3.1'
+  gem "factory_girl_rails", "~> 4.0"
 end
 
 group :test do
