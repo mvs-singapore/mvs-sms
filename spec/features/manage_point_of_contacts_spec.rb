@@ -18,7 +18,6 @@ describe 'manage point of contacts', type: :feature do
   describe 'edit student point of contacts', js: true do
     it 'edits point of contact' do
       visit students_path
-
       within("#student-#{student.id}") do
         find('td[data-for="view"]').find(".fa").click
       end
@@ -26,13 +25,12 @@ describe 'manage point of contacts', type: :feature do
         find_link('Edit').click
       end
 
-      page.execute_script "window.scrollTo(0,0)"
-
       click_link 'Parent/Guardian Particulars'
       within('#contacts .nested-fields:nth-of-type(1)') do
         fill_in 'Given Name', with: 'Joan'
       end
 
+      page.execute_script "window.scrollBy(0,1000)"
       click_button 'Update Student'
 
       expect(page).to have_text 'Successfully updated student'
@@ -53,14 +51,15 @@ describe 'manage point of contacts', type: :feature do
       within("#student-details-#{student.id}") do
         find_link('Edit').click
       end
-      page.execute_script "window.scrollTo(0,0)"
 
       click_link 'Parent/Guardian Particulars'
       within('#contacts .nested-fields:nth-of-type(1)') do
         accept_confirm_dialog {
+          page.execute_script "window.scrollBy(0,1000)"
           find('.delete_contact_record', visible: true).click
         }
       end
+
       click_button 'Update Student'
       student.reload
       expect(student.point_of_contacts.count).to equal 1
