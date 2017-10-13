@@ -100,7 +100,10 @@
             <div class="col-2 text-right">
                 <%= link_to 'View', student_path(student), class: "view_student btn btn-primary" %>
                 <%= link_to 'Edit', edit_student_path(student), class: "edit_student btn btn-primary" %>
-                <%= link_to 'Delete', student_path(student), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_student btn btn-danger" %>
+                <%= link_to 'Delete', student_path(student), method: :delete, class: "delete_student btn btn-danger",
+                data: {confirm:
+'Should you proceed to delete, you will lose the entire record of the student. This action is not reversible.
+Please confirm that you would like to delete by clicking OK.'} %>
               </dl>
             </div>
 
