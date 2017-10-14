@@ -3,6 +3,7 @@ class StudentsController < ApplicationController
   before_action :fetch_student, only: [:show, :edit, :update, :destroy]
   before_action :fetch_medical_history_master_list, only: [:new, :edit, :create, :update]
   before_action :fetch_cohort_classes, only: [:index]
+  before_action :fetch_cloudinary, only: [:create, :update]
 
   def index
     if params[:search].present?
@@ -38,12 +39,6 @@ class StudentsController < ApplicationController
       @student.student_medical_conditions.build(medical_condition_id: condition_id)
     end
 
-    if params[:image_id].present?
-      preloaded = Cloudinary::PreloadedFile.new(params[:image_id])
-      raise "Invalid upload signature" if !preloaded.valid?
-      @student.image_id = preloaded.identifier
-    end
-
     if @student.save
       redirect_to students_path, flash: {notice: 'Successfully created student'}
     else
@@ -53,12 +48,6 @@ class StudentsController < ApplicationController
   end
 
   def update
-    if params[:image_id].present?
-      preloaded = Cloudinary::PreloadedFile.new(params[:image_id])
-      raise "Invalid upload signature" if !preloaded.valid?
-      @student.image_id = preloaded.identifier
-    end
-
     if @student.update(student_params)
       update_records(@student.student_disabilities, :disability_id, @student.disability_ids, medical_history_params[:disability_ids])
       update_records(@student.student_medical_conditions, :medical_condition_id, @student.medical_condition_ids, medical_history_params[:medical_condition_ids])
@@ -121,6 +110,14 @@ class StudentsController < ApplicationController
 
   def medical_history_params
     params.require(:student).permit(disability_ids:[], medical_condition_ids:[])
+  end
+
+  def fetch_cloudinary
+    if params[:image_id].present?
+      preloaded = Cloudinary::PreloadedFile.new(params[:image_id])
+      raise "Invalid upload signature" if !preloaded.valid?
+      @student.image_id = preloaded.identifier
+    end
   end
 
   def resources_path
