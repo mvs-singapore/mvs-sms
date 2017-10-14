@@ -11,6 +11,9 @@ require 'capybara/rspec'
 require 'selenium/webdriver'
 require 'chosen-rails/rspec'
 require 'support/factory_girl'
+ENV['CLOUD_NAME'] = 'techladies-mvs'
+ENV['API_KEY'] = 'cloudinary-api-key'
+ENV['CLOUD_NAME'] = 'cloudinary-api-secret'
 
 webdriver_options = {
   browser: :chrome
