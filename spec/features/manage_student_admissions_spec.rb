@@ -234,10 +234,7 @@ describe 'new student admissions', type: :feature do
       visit students_path
 
       within("#student-#{student.id}") do
-        find('td[data-for="view"]').find(".fa").click
-      end
-      within("#student-details-#{student.id}") do
-        find_link('View').click
+        find('td[data-for="given_name"]').find(".student-given-name").click
       end
 
       expect(page).to have_link 'Edit'

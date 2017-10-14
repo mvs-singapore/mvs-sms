@@ -36,7 +36,7 @@
   </thead>
   <tbody class="bg-white">
     <% @students.each do |student| %>
-      <tr id="student-<%= student.id %>" data-toggle="collapse" data-target="#student-details-<%= student.id %>" class="collapsed">
+      <tr id="student-<%= student.id %>">
         <% if params[:academic_year].present?
           student_academic_year = student.class_for_year(params[:academic_year]).academic_year
           student_class_name = student.class_for_year(params[:academic_year]).name
@@ -46,7 +46,7 @@
         end %>
         <td data-for="academic_year"><%= student_academic_year %></td>
         <td data-for="class"><%= student_class_name %></td>
-        <td data-for="given_name"><%= student.given_name %></td>
+        <td data-for="given_name"><%= link_to "#{student.given_name}", student_path(student), class: 'student-given-name' %></td>
         <td data-for="surname"><%= student.surname %></td>
         <td data-for="date_of_birth"><%= student.date_of_birth %></td>
         <td data-for="age"><%= student.age %></td>
@@ -55,7 +55,7 @@
         <td data-for="medical_conditions"><%= student.medical_conditions.order('title').pluck('title').first %></td>
         <td data-for="main_contact"><%= student.point_of_contacts.map(&:contact_full_name).first %></td>
         <td data-for="status"><%= student.status %></td>
-        <td data-for="view" class="text-center"><i class="fa"></td>
+        <td data-for="view" class="text-center collapsed" data-toggle="collapse" data-target="#student-details-<%= student.id %>"><i class="fa fa-plus"></td>
       </tr>
       <tr>
       <td colspan="100%" class="table-active p-0">
@@ -98,7 +98,6 @@
             </div>
 
             <div class="col-2 text-right">
-                <%= link_to 'View', student_path(student), class: "view_student btn btn-primary" %>
                 <%= link_to 'Edit', edit_student_path(student), class: "edit_student btn btn-primary" %>
                 <%= link_to 'Delete', student_path(student), method: :delete, class: "delete_student btn btn-danger",
                 data: {confirm:
