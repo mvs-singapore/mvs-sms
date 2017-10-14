@@ -36,6 +36,7 @@
       <hr>
 
       <h4 class="card-title">Financial Assistance</h4>
+      <div id="student-financial assistance">
       <div class="form-group row">
         <table class="table">
           <thead>
@@ -53,6 +54,7 @@
           </tbody>
         </table>
       </div>
+    </div>
 
       <%= link_to_add_association 'Add Financial Assistance Details', f, :financial_assistance_records,
                                   data: {"association-insertion-node" => "tbody.financial_assistance_records", "association-insertion-method" => "append"},
@@ -60,14 +62,14 @@
       <hr>
 
       <h4 class="card-title">Remarks</h4>
-      <div class="remarks">
+      <div id="student-remarks">
         <%= f.fields_for :remarks do |remarks| %>
             <%= render '/students/shared/remark_form', f: remarks %>
         <% end %>
       </div>
 
       <%= link_to_add_association 'Add Remark', f, :remarks,
-                                  data: {'association-insertion-node' => '.remarks', 'association-insertion-method' => 'append'},
+                                  data: {'association-insertion-node' => '#student-remarks', 'association-insertion-method' => 'append'},
                                   partial: '/students/shared/remark_form', class: 'btn btn-primary' %>
 
     </div>

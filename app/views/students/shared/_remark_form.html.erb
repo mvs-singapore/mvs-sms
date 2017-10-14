@@ -28,10 +28,12 @@
 
       <div class="row">
         <div class="col-md-12">
-          <%= link_to_remove_association "Delete Record", f, class: 'btn btn-danger btn-sm float-right' %>
+          <%= link_to_remove_association "Delete Remark", f, class: 'delete_remark btn btn-danger btn-sm float-right',
+          data: {confirm:
+'Should you proceed to delete, you will lose this Student Remark. This action is not reversible.
+Please confirm that you would like to delete by clicking OK.'} %>
         </div>
       </div>
     </div>
   </div>
 </div>
-
