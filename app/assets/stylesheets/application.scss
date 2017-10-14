@@ -25,6 +25,24 @@ nav {
 .required-field:after{
    color: red;
    content: "*";
-   position: absolute;
-   margin-left: 5px;
+}
+.student-profile {
+  width: 150px;
+}
+
+.chosen-container {
+  width: 100% !important;
+}
+
+.student-upload-button {
+  position: relative;
+  overflow: hidden;
+}
+.student-upload-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  -ms-filter:'alpha(opacity=0)';
+  cursor: pointer;
 }

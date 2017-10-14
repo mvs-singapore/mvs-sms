@@ -201,6 +201,7 @@ ActiveRecord::Schema.define(version: 20171014081600) do
     t.text "medication_needed"
     t.text "allergies"
     t.integer "tshirt_size"
+    t.string "image_id"
   end
 
   create_table "users", force: :cascade do |t|

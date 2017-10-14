@@ -1,9 +1,24 @@
 <div id="student-particulars">
-  <div class="row">
-    <div class="form-group col-md-4">
-      <%= f.label :given_name, 'Given Name', class: "col-form-label required-field" %>
-      <%= f.text_field :given_name, autofocus: true, class: 'form-control form-control-sm' %>
+  <div class="form-group row">
+    <div class="student-profile mx-4">
+      <div class="preview">
+        <%= cl_image_tag(@student.image_id, :crop => 'fill', :width => 150, :height => 150) %>
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated bg-success"></div>
+        </div>
+      </div>
+
+      <span class="btn btn-success student-upload-button w-100">
+        <span><i class="fa fa-plus"></i> Upload Photo</span>
+        <%= cl_image_upload_tag :image_id %>
+      </span>
     </div>
+
+    <div class="col row">
+      <div class="form-group col-md-4">
+        <%= f.label :given_name, 'Given Name', class: "required-field" %>
+        <%= f.text_field :given_name, class: 'form-control form-control-sm' %>
+      </div>
 
     <div class="form-group col-md-4">
       <%= f.label :surname, class: "col-form-label required-field" %>
@@ -50,4 +65,5 @@
       <%= f.select :tshirt_size, Student.tshirt_sizes.keys, {prompt: 'Select t-shirt size'}, class: 'form-control form-control-sm' %>
     </div>
   </div>
+</div>
 </div>
