@@ -58,10 +58,6 @@ describe 'new student admissions', type: :feature do
         chosen_select('Epilepsy', "Asthma", from: 'Medical Conditions')
       end
 
-      within("#student-financial-assistance .nested-fields:nth-of-type(1)") do
-        fill_in 'Assistance Type', with: 'Straits Times'
-
-      end
       page.execute_script "window.scrollBy(0,1000)"
 
       click_link 'Add Remark'
