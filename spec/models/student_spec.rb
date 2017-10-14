@@ -29,6 +29,7 @@ RSpec.describe Student, type: :model do
     it { is_expected.to have_many(:student_medical_conditions) }
     it { is_expected.to have_many(:medical_conditions).through(:student_medical_conditions) }
     it { is_expected.to have_many(:student_status_histories) }
+    it { is_expected.to have_many(:financial_assistance_records) }
   end
 
   describe 'scopes' do
