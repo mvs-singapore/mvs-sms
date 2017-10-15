@@ -1,1 +1,30 @@
-<p><%= DateTime.now.strftime('%a, %-d %b %Y') %></p>
+<% if user_signed_in? && is_admin? %>
+  <p><%= DateTime.now.strftime('%a, %-d %b %Y') %></p>
+<% end %>
+
+<% if current_user.role.name == "teacher" %>
+  <div class="container mt-5">
+    <h1 class="display-4">Hello, <%= current_user.name %>!</h1>
+    <h5 class="pt-2 pb-2 d-inline">Access your class details below.</h5>
+    <%= link_to '<i class="fa fa-plus"></i> Register New Student'.html_safe, new_student_path(@student),
+                  class: "new_student btn btn-primary float-right d-inline mb-3" %>
+
+    <table class="table table-bordered table-sm table-responsive">
+      <thead class="table-primary">
+        <tr>
+          <th>Academic Year</th>
+          <th>Class</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <% current_user.school_classes.each do |school_class| %>
+        <tr>
+          <td data-for="academic_year"><%= school_class.academic_year %></td>
+          <td data-for="class"><%= link_to "#{school_class.name}", admin_school_class_path(school_class) %></td>
+
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
