@@ -1,1 +1,7 @@
-<p><%= DateTime.now.strftime('%a, %-d %b %Y') %></p>
+<% if user_signed_in? && is_admin? %>
+  <p><%= DateTime.now.strftime('%a, %-d %b %Y') %></p>
+<% end %>
+
+<% if current_user.role.name == "teacher" %>
+  <%= render :partial => 'shared/teacher_dashboard' %>
+<% end %>

@@ -38,7 +38,7 @@ describe 'assign students to classes', type: :feature do
 
     expect(find('table[data-for="students"]')).to have_content 'Smith, John'
 
-    click_link 'Edit'
+    click_link 'Edit Class'
 
     within('.edit_school_class') do
       unselect 'Smith, John', from: 'Students'

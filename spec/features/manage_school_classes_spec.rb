@@ -74,10 +74,7 @@ describe 'manage school classes', type: :feature do
         find_link('View').click
       end
 
-      expect(find('h3')).to have_content 'Year 2 Food & Beverages'
-      expect(find('dd[data-for="academic_year"]')).to have_content '2017'
-      expect(find('dd[data-for="year"]')).to have_content '2'
-      expect(find('dd[data-for="form_teacher"]')).to have_content 'Good Teacher'
+      expect(find('h1')).to have_content 'Year 2 Food & Beverages (2017), Good Teacher (Form Teacher)'
     end
   end
 
