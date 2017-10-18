@@ -3,34 +3,5 @@
 <% end %>
 
 <% if current_user.role.name == "teacher" %>
-  <div class="container mt-5">
-    <h1 class="display-4">Hello, <%= current_user.name %>!</h1>
-    <h5 class="pt-2 pb-2 d-inline">Access your class details below.</h5>
-    <%= link_to '<i class="fa fa-plus"></i> Register New Student'.html_safe, new_student_path(@student),
-                  class: "new_student btn btn-primary float-right d-inline mb-3" %>
-
-    <table class="table table-bordered table-sm table-responsive">
-      <thead class="table-primary">
-        <tr>
-          <th>Academic Year</th>
-          <th>Class</th>
-          <th>Form Class</th>
-        </tr>
-      </thead>
-      <tbody class="bg-white">
-        <% current_user.school_classes.each do |school_class| %>
-        <tr id="school-class-<%= school_class.id %>">
-          <td data-for="academic_year"><%= school_class.academic_year %></td>
-          <td data-for="class"><%= link_to "#{school_class.name}", admin_school_class_path(school_class),
-                                          class: 'school_class-name' %></td>
-          <td data-for="form_class">
-            <% if current_user.school_classes.where(form_teacher_id: true) %>
-              <i class="fa fa-check-circle"></i>
-            <% end %>
-          </td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+  <%= render :partial => 'shared/teacher_dashboard' %>
 <% end %>
