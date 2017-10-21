@@ -28,6 +28,31 @@
       <br>
         <%= render '/students/shared/medical_history', f: f %>
       <br>
+      <h4 class="card-title">Attachments</h4>
+      <div id="student-attachments">
+      <div class="form-group row">
+        <table class="table">
+          <thead>
+          <tr>
+            <th><%= f.label :type, 'Type' %></th>
+            <th><%= f.label :filename, 'Filename' %></th>
+            <th><%= f.label :notes, 'Notes' %></th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody class="attachments">
+          <%= f.fields_for :attachments do |attachment| %>
+              <%= render '/students/shared/attachments', f: attachment %>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <%= link_to_add_association 'Attach Files', f, :attachments,
+                            data: {"association-insertion-node" => "tbody.attachments", "association-insertion-method" => "append"},
+                            partial: '/students/shared/attachments', class: 'btn btn-primary' %>
+
     </div>
 
     <div class="tab-pane fade" id="admin" role="tabpanel" aria-labelledby="admin-tab">
