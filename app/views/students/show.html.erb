@@ -90,9 +90,6 @@
           <dt class="col-5">Date of Registration</dt>
           <dd class="col-7" data-for="registered_at"><%= @student.registered_at %></dd>
 
-          <dt class="col-5">Status</dt>
-          <dd class="col-7" data-for="status"><%= @student.status %></dd>
-
           <dt class="col-5">Referred By</dt>
           <dd class="col-7" data-for="referred_by"><%= @student.referred_by %></dd>
 
@@ -101,6 +98,37 @@
         </dl>
       </div>
 
+      <h4 class="card-header">Status Changes <span class="badge badge-warning float-right">
+        Current Status: <%= @student.status.titleize %></span></h4>
+      <div class="card-body">
+        <table class="table table-sm status-changes">
+          <thead>
+            <tr>
+              <th>Modified by</th>
+              <th>Status</th>
+              <th>Modified on</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @student.versions.each do |version| %>
+            <tr id="version-<%= version.id %>">
+              <td data-for="status_change_name"><%= version.whodunnit %></td>
+              <td data-for="status_change">
+                <% version.changeset.each do |k, v| %>
+                  From <%= "#{v[0]}" %> to <%= "#{v[1]}" %>
+                <% end %>
+              </td>
+              <td data-for="status_change_date"><%= version.created_at %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-deck">
+    <div class="card bg-light mb-3">
       <h4 class="card-header">Past Education Records</h4>
       <div class="card-body">
         <table class="table table-sm">
