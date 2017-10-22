@@ -164,15 +164,13 @@
   <div class="card-deck">
     <% @student.point_of_contacts.each do |contact| %>
     <div class="card bg-light mb-3">
-      <h4 class="card-header">Parent/Guardian Particulars <span class="badge badge-secondary float-right"><%= contact.relationship %></span></h4>
+      <h4 class="card-header">Parent/Guardian Particulars <span class="badge badge-warning float-right"><%= contact.relationship %></span></h4>
       <div class="card-body">
 
-        <ul class="list-inline h4">
-          <li class="list-inline-item" data-for="given_name"><%= contact.given_name %></li>
-          <li class="list-inline-item" data-for="surname"><u><%= contact.surname %></u></li>
-        </ul>
-
         <dl class="row" id="contact-<%= contact.id %>">
+          <dt class="col-5">Full Name</dt>
+          <dd class="col-7" data-for="home_number"><%= contact.given_name %> <u><%= contact.surname %></u></dd>
+
           <dt class="col-5">Home Number</dt>
           <dd class="col-7" data-for="home_number"><%= contact.home_number %></dd>
 
@@ -221,8 +219,7 @@
     <% end %>
   </div>
 
-  <div class="row">
-    <div class="col-12">
+  <div class="card-deck">
       <div class="card bg-light mb-3">
         <h4 class="card-header">Financial Assistance</h4>
         <div class="card-body">
@@ -247,10 +244,38 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-12">
+    <div class="card-deck">
+      <div class="card bg-light mb-3">
+        <h4 class="card-header">Internship Records</h4>
+        <div class="card-body">
+          <table class="table table-sm">
+            <thead>
+              <tr class="d-flex">
+                <th class="col-2">Internship Company</th>
+                <th class="col-2">Internship Supervisor</th>
+                <th class="col-1">From Date</th>
+                <th class="col-1">To Date</th>
+                <th class="col-6">Comments</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @student.internship_records.each do |internship_record| %>
+              <tr id="internship_record-<%= internship_record.id %>" class="d-flex">
+                <td class="col-2" data-for="event_date"><%= internship_record.internship_company.name %></td>
+                <td class="col-2" data-for="category"><%= internship_record.internship_supervisor.name %></td>
+                <td class="col-1" data-for="details"><%= internship_record.from_date %></td>
+                <td class="col-1" data-for="user"><%= internship_record.to_date %></td>
+                <td class="col-6" data-for="user"><%= internship_record.comments %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-deck">
       <div class="card bg-light mb-3">
         <h4 class="card-header">Remarks</h4>
         <div class="card-body">
@@ -277,6 +302,5 @@
         </div>
       </div>
     </div>
-  </div>
 
 </div>
