@@ -1,33 +1,35 @@
-<div class="row">
-  <div class="form-group col-md-4">
-    <%= f.label :admission_year, 'Admission Year', class: 'col-form-label required-field' %>
-    <%= f.text_field :admission_year, class: 'form-control form-control-sm' %>
-  </div>
+<div id="student-admission">
+  <div class="row">
+    <div class="form-group col-md-4">
+      <%= f.label :admission_year, 'Admission Year', class: 'col-form-label required-field' %>
+      <%= f.text_field :admission_year, class: 'form-control form-control-sm' %>
+    </div>
 
-  <div class="form-group col-md-4">
-    <%= f.label :admission_no, 'Admission No.', class: 'col-form-label' %>
-    <%= f.text_field :admission_no, class: 'form-control form-control-sm' %>
-  </div>
+    <div class="form-group col-md-4">
+      <%= f.label :admission_no, 'Admission No.', class: 'col-form-label' %>
+      <%= f.text_field :admission_no, class: 'form-control form-control-sm' %>
+    </div>
 
-  <div class="form-group col-md-4">
-    <%= f.label :registered_at, 'Date of Registration', class: 'col-form-label required-field' %>
-    <%= f.text_field :registered_at, value: Date.today, :data =>
-                    {:provide => 'datepicker', 'date-format' => 'dd/mm/yyyy', 'date-autoclose' => 'true', 'date-orientation' => 'bottom auto'},
-                    class: 'form-control form-control-sm' %>
-  </div>
+    <div class="form-group col-md-4">
+      <%= f.label :registered_at, 'Date of Registration', class: 'col-form-label required-field' %>
+      <%= f.text_field :registered_at, value: Date.today, :data =>
+                      {:provide => 'datepicker', 'date-format' => 'dd/mm/yyyy', 'date-autoclose' => 'true', 'date-orientation' => 'bottom auto'},
+                      class: 'form-control form-control-sm' %>
+    </div>
 
-  <div class="form-group col-md-4">
-    <%= f.label :status, class: 'col-form-label required-field' %>
-    <%= f.select :status, Student.statuses.keys, {selected: 'new_admission'}, class: 'form-control form-control-sm' %>
-  </div>
+    <div class="form-group col-md-4">
+      <%= f.label :status, class: 'col-form-label required-field' %>
+      <%= f.select :status, Student.statuses.keys, {prompt: 'Select Status'}, class: 'form-control form-control-sm' %>
+    </div>
 
-  <div class="form-group col-md-4">
-    <%= f.label :referred_by, 'Referred By', class: 'col-form-label required-field' %>
-    <%= f.select :referred_by, Student.institutions.keys, {prompt: 'Select Institution'}, class: 'form-control form-control-sm' %>
-  </div>
+    <div class="form-group col-md-4">
+      <%= f.label :referred_by, 'Referred By', class: 'col-form-label required-field' %>
+      <%= f.select :referred_by, Student.institutions.keys, {prompt: 'Select Institution'}, class: 'form-control form-control-sm' %>
+    </div>
 
-  <div class="form-group col-md-4">
-    <%= f.label :referral_notes, 'Name of Referee', class: 'col-form-label' %>
-    <%= f.text_field :referral_notes, class: 'form-control form-control-sm' %>
+    <div class="form-group col-md-4">
+      <%= f.label :referral_notes, 'Name of Referee', class: 'col-form-label' %>
+      <%= f.text_field :referral_notes, class: 'form-control form-control-sm' %>
+    </div>
   </div>
 </div>
