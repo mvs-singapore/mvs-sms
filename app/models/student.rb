@@ -1,6 +1,7 @@
 class Student < ApplicationRecord
   include PgSearch
   pg_search_scope :search_by_full_name, :against => [:given_name, :surname]
+  has_paper_trail on: [:update], only: [:status]
 
   enum status: {
     new_admission: 'New Admission',
