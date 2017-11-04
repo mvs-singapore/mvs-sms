@@ -2,6 +2,7 @@ class Student < ApplicationRecord
   include PgSearch
   pg_search_scope :search_by_full_name, :against => [:given_name, :surname]
   has_paper_trail on: [:update], only: [:status]
+  after_initialize :default_status
 
   enum status: {
     new_admission: 'New Admission',
@@ -53,6 +54,10 @@ class Student < ApplicationRecord
 
 
   scope :sorted, -> { order(surname: :asc) }
+
+  def default_status
+    self.status ||= 'new_admission'
+  end
 
   def full_name
     "#{surname}, #{given_name}"
