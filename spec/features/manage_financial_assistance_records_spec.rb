@@ -9,7 +9,7 @@ describe 'financial assistance records', type: :feature do
   before do
     sign_in yammy
     visit edit_student_path(ali)
-    #click_link 'Past Education Records'
+    click_link 'Administrative Details'
   end
 
   it 'edit financial assistance record', js: true do

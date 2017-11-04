@@ -19,17 +19,17 @@ describe 'manage internship records', type: :feature do
   before do
     sign_in yammy
     visit edit_student_path(ali)
-    click_link 'Internship Records'
+    click_link 'Current Info'
   end
 
   it 'add a record', js: true do
     click_link 'Add Internship Record'
     within("#internship-records .nested-fields:nth-of-type(2)") do
-      select('Hilton Hotel', from: 'Internship company')
-      select('aaaa', from: 'Internship supervisor')
-      fill_in 'From date', with: '01/02/2017'
-      fill_in 'To date', with: '03/02/2017'
-      fill_in 'Add comments', with: 'Good boy'
+      select('Hilton Hotel', from: 'Internship Company')
+      select('aaaa', from: 'Internship Supervisor')
+      fill_in 'From Date', with: '01/02/2017'
+      fill_in 'To Date', with: '03/02/2017'
+      fill_in 'Add Comments', with: 'Good boy'
     end
 
     page.execute_script "window.scrollBy(0,1000)"
@@ -41,7 +41,7 @@ describe 'manage internship records', type: :feature do
 
   it 'edit a record', js: true do
     within("#internship-records .nested-fields:nth-of-type(1)") do
-      fill_in 'Add comments', with: 'Student slapped another student'
+      fill_in 'Add Comments', with: 'Student slapped another student'
     end
 
     page.execute_script "window.scrollBy(0,1000)"
