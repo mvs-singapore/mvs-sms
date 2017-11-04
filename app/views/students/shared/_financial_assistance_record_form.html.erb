@@ -2,7 +2,7 @@
   <td data-for="assistance_type"><%= f.text_field :assistance_type, class: 'form-control form-control-sm' %></td>
   <td data-for="year_obtained"><%= f.text_field :year_obtained, class: 'form-control form-control-sm' %></td>
   <td data-for="duration"><%= f.text_field :duration, class: 'form-control form-control-sm' %></td>
-  <td><%= link_to_remove_association "Delete Record", f, class: 'delete_financial_assistance_record btn btn-danger btn-sm',
+  <td><%= link_to_remove_association "Delete Record", f, class: 'delete_financial_assistance_record btn btn-danger btn-sm float-right',
   data: {confirm:
 'Should you proceed to delete, you will lose this Financial Assistance Record of the student. This action is not reversible.
 Please confirm that you would like to delete by clicking OK.'}%></td>
