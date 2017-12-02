@@ -1,5 +1,5 @@
 <div class="container">
-  <h3 class="text-center">Edit Student</h3>
+  <h3 class="text-center mt-5 mb-4">Edit Student</h3>
   <%= form_for(@student, url: student_path(@student)) do |f| %>
     <%= render :partial => 'students/shared/student_form', :locals => {:f => f} %>
   <% end %>

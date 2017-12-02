@@ -10,10 +10,8 @@ describe 'track student status', type: :feature do
   end
 
   it 'displays history of student status', js: true do
-    page.execute_script "window.scrollBy(0,500)"
-    within('#student-admission') do
-      select('internship', from: 'Status')
-    end
+    click_link 'Current Info'
+    select('internship', from: 'Status')
 
     click_button 'Update Student'
     expect(page).to have_text 'Successfully updated student'

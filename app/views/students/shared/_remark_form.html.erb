@@ -1,39 +1,36 @@
 <div class="nested-fields">
-  <div class="card border-secondary mb-3">
-    <div class="card-body">
-      <div class="form-row">
-        <%= f.hidden_field :user_id %>
-        <div class="form-group col-md-4">
-          <%= f.label :event_date, 'Event Date', class: 'col-form-label' %>
-          <%= f.text_field :event_date, value: Date.today, :data =>
-              {:provide => 'datepicker', 'date-format' => 'dd/mm/yyyy', 'date-autoclose' => 'true', 'date-orientation' => 'bottom auto'},
-                           class: 'form-control form-control-sm' %>
-        </div>
+  <div class="form-row">
+    <%= f.hidden_field :user_id %>
+    <div class="form-group col-6">
+      <%= f.label :event_date, 'Event Date' %>
+      <%= f.text_field :event_date, value: Date.today, :data =>
+          {:provide => 'datepicker', 'date-format' => 'dd/mm/yyyy', 'date-autoclose' => 'true', 'date-orientation' => 'bottom auto'},
+                       class: 'form-control form-control-sm' %>
+    </div>
 
-        <div class="form-group col-md-4">
-          <%= f.label :category, 'Category', class: 'col-form-label' %>
-          <%= f.select :category, Remark.categories.invert, {include_blank: true, required: true}, class: 'form-control form-control-sm' %>
-        </div>
+    <div class="form-group col-6">
+      <%= f.label :category, 'Category' %>
+      <%= f.select :category, Remark.categories.invert, {include_blank: true, required: true}, class: 'form-control form-control-sm' %>
+    </div>
 
-        <div class="form-group col-md-4">
-          <%= f.label :user_id, 'Posted by', class: 'col-form-label' %><br>
-          <%= f.text_field :user_id, value: f.object.try(:user).try(:name), class: 'form-control-plaintext form-control-sm', readonly: true %>
-        </div>
+    <div class="form-group col-12">
+      <%= f.label :user_id, 'Posted by' %><br>
+      <%= f.text_field :user_id, value: f.object.try(:user).try(:name), class: 'form-control-plaintext form-control-sm', readonly: true %>
+    </div>
 
-        <div class="form-group col-md-12">
-          <%= f.label :details, class: 'col-form-label' %>
-          <%= f.text_area :details, autofocus: true, class: 'form-control', rows: 3 %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-12">
-          <%= link_to_remove_association "Delete Remark", f, class: 'delete_remark btn btn-danger btn-sm float-right',
-          data: {confirm:
-'Should you proceed to delete, you will lose this Student Remark. This action is not reversible.
-Please confirm that you would like to delete by clicking OK.'} %>
-        </div>
-      </div>
+    <div class="form-group col-12">
+      <%= f.label :details %>
+      <%= f.text_area :details, class: 'form-control form-control-sm', rows: 7 %>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-12">
+      <%= link_to_remove_association "Delete Remark", f, class: 'delete_remark btn btn-danger btn-sm float-right',
+      data: {confirm:
+'Should you proceed to delete, you will lose this Student Remark. This action is not reversible.
+Please confirm that you would like to delete by clicking OK.'} %>
+    </div>
+  </div>
+  <br><hr>
 </div>

@@ -10,7 +10,7 @@ describe 'manage past education records', type: :feature do
   before do
     sign_in yammy
     visit edit_student_path(ali)
-    click_link 'Past Education Records'
+    click_link 'Administrative Details'
   end
 
   it 'edit student past education record', js: true do

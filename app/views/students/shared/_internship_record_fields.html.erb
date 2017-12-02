@@ -1,41 +1,40 @@
 <div class="nested-fields">
-  <div class="card border-secondary mb-3">
-    <div class="card-body">
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <%= f.label :internship_company_id, 'Internship company', class: 'col-form-label' %>
-          <%= f.collection_select :internship_company_id, InternshipCompany.all, :id, :name,
-                                                                    {prompt: "Select a company..."}, class: 'form-control form-control-sm'%>
-        </div>
+  <div class="form-row">
+    <div class="form-group col-12">
+      <%= f.label :internship_company_id, 'Internship Company', class: 'col-form-label' %>
+      <%= f.collection_select :internship_company_id, InternshipCompany.all, :id, :name,
+                                                                {prompt: "Select a company..."}, class: 'form-control form-control-sm'%>
+    </div>
 
-        <div class="form-group col-md-6">
-          <%= f.label :internship_supervisor_id, 'Internship supervisor', class: 'col-form-label' %>
-          <%= f.collection_select :internship_supervisor_id, InternshipSupervisor.all, :id, :name,
-                                                                       {prompt: "Select a supervisor..."}, class: 'form-control form-control-sm'%>
-        </div>
+    <div class="form-group col-12">
+      <%= f.label :internship_supervisor_id, 'Internship Supervisor', class: 'col-form-label' %>
+      <%= f.collection_select :internship_supervisor_id, InternshipSupervisor.all, :id, :name,
+                                                                   {prompt: "Select a supervisor..."}, class: 'form-control form-control-sm'%>
+    </div>
 
-        <div class="form-group col-md-6">
-          <%= f.label :from_date, class: 'col-form-label' %>
-          <%= datepicker_input f, :from_date %>
-        </div>
+    <div class="form-group col-6">
+      <%= f.label :from_date, 'From Date', class: 'col-form-label' %>
+      <%= datepicker_input f, :from_date %>
+    </div>
 
-        <div class="form-group col-md-6">
-          <%= f.label :to_date, class: 'col-form-label' %>
-          <%= datepicker_input f, :to_date %>
-        </div>
+    <div class="form-group col-6">
+      <%= f.label :to_date, 'To Date', class: 'col-form-label' %>
+      <%= datepicker_input f, :to_date %>
+    </div>
 
-        <div class="form-group col-md-12">
-          <%= f.label :comments, 'Add comments', class: 'col-form-label' %>
-          <%= f.text_area :comments, class: 'form-control form-control-sm', rows: 3 %>
-        </div>
-
-        <div class="form-group col-md-12">
-          <%= link_to_remove_association "Delete Internship", f, class: 'delete_internship_record btn btn-danger btn-sm float-right',
-          data: {confirm:
-'Should you proceed to delete, you will lose this Internship Record of the student. This action is not reversible.
-Please confirm that you would like to delete by clicking OK.'} %>
-        </div>
-      </div>
+    <div class="form-group col-12">
+      <%= f.label :comments, 'Add Comments', class: 'col-form-label' %>
+      <%= f.text_area :comments, class: 'form-control form-control-sm', rows: 7 %>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-12">
+      <%= link_to_remove_association "Delete Internship", f, class: 'delete_internship_record btn btn-danger btn-sm float-right',
+      data: {confirm:
+  'Should you proceed to delete, you will lose this Internship Record of the student. This action is not reversible.
+  Please confirm that you would like to delete by clicking OK.'} %>
+    </div>
+  </div>
+  <br><hr>
 </div>

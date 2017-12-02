@@ -1,23 +1,17 @@
 require 'rails_helper'
 
 describe 'new student admissions', type: :feature do
-  let!(:teacher_role) { Role.create(name: 'teacher', super_admin: false) }
-  let!(:teacher_user) { User.create(email: 'teacher1@example.com', password: 'password', name: 'Good Teacher', role: teacher_role) }
-  let!(:student) { Student.create(admission_year: 2016, admission_no: '16006/2016', registered_at: Date.parse('09/09/2017'), current_class: 'Food & Beverage',
-                                  status: 'new_admission', referred_by: 'association_of_persons_with_special_needs', referral_notes: 'Mdm Referee',
-                                  surname: 'Lee', given_name: 'Ali', date_of_birth: Date.parse('09/09/1997'), place_of_birth: 'Singapore', race: 'Chinese',
-                                  nric: 'S8888888D', citizenship: 'Singaporean', gender: 'female', sadeaf_client_reg_no: '12345/234',
-                                  medication_needed: 'Antihistamines', allergies: 'Peanuts')
-  }
+  let!(:yammy) { create(:yammy) }
+  let!(:ali) { create(:student) }
   let!(:autistic_disability) { Disability.create(title: "Autistic")}
   let!(:disability) { Disability.create(title: "Down's Syndrome")}
   let!(:epilepsy_medical_condition) {MedicalCondition.create(title: "Epilepsy")}
   let!(:medical_condition) {MedicalCondition.create(title: "Asthma")}
-  let!(:cohort) {SchoolClass.create(academic_year: 2016, name: 'Class 1.1', year: 1, form_teacher_id: teacher_user.id)}
-  let!(:student_class) {StudentClass.create(student_id: student.id, school_class_id: cohort.id)}
+  let!(:cohort) { create(:school_class, form_teacher_id: yammy.id) }
+  let!(:student_class) {StudentClass.create(student_id: ali.id, school_class_id: cohort.id)}
 
   before do
-    sign_in teacher_user
+    sign_in yammy
   end
 
   describe 'create student', js: true do
@@ -26,19 +20,12 @@ describe 'new student admissions', type: :feature do
       click_link 'Students'
       click_link 'Add New Student'
 
-      fill_in 'Admission Year', with: '2017'
-      fill_in 'Admission No.', with: '16006/2016'
-      fill_in 'Date of Registration', with: '09/09/2017'
-      select('new_admission', from: 'Status')
-      select('association_of_persons_with_special_needs', from: 'Referred By')
-      fill_in 'Name of Referee', with: 'Mdm Referee'
-
       page.execute_script "window.scrollTo(0,0)"
 
       within('#student-particulars') do
         fill_in 'Surname', with: 'Lee'
         fill_in 'Given Name', with: 'Ali'
-        fill_in 'Date of Birth', with: '09/09/1997'
+        fill_in 'Date of Birth', with: '1997-09-09'
         fill_in 'Place of Birth', with: 'Singapore'
         fill_in 'Race', with: 'Chinese'
         fill_in 'NRIC', with: 'S8888888D'
@@ -49,8 +36,6 @@ describe 'new student admissions', type: :feature do
         find('#student_place_of_birth').click
       end
 
-      page.execute_script "window.scrollBy(0,400)"
-
       within('#student-medical-history') do
         fill_in 'Medication Needed', with: 'Antihistamines'
         fill_in 'Allergies', with: 'Peanuts'
@@ -58,26 +43,34 @@ describe 'new student admissions', type: :feature do
         chosen_select('Epilepsy', "Asthma", from: 'Medical Conditions')
       end
 
-      page.execute_script "window.scrollBy(0,1000)"
+      page.execute_script "window.scrollTo(0,0)"
+      click_link 'Administrative Details'
 
-      click_link 'Add Remark'
-      within('#student-remarks') do
-        select('Incident', from: 'Category')
-        fill_in 'Details', with: 'Student pushed another student'
+      within('#admission-details') do
+        fill_in 'Admission Year', with: '2017'
+        fill_in 'Admission No.', with: '16006/2016'
+        fill_in 'Date of Registration', with: '2017-09-09'
+        select('association_of_persons_with_special_needs', from: 'Referred By')
+        fill_in 'Name of Referee', with: 'Mdm Referee'
       end
 
-      page.execute_script "window.scrollTo(0,0)"
-
-      click_link 'Past Education Records'
       within('#past-educations .nested-fields:nth-of-type(1)') do
         find('td[data-for="school_name"] input').set('Northlight')
-        find('td[data-for="from_date"] input').set('02/03/2016')
-        find('td[data-for="to_date"] input').set('02/03/2017')
+        find('td[data-for="from_date"] input').set('2016-03-02')
+        find('td[data-for="to_date"] input').set('2017-03-02')
         find('td[data-for="qualification"] input').set('GCE O Levels')
         find('td[data-for="highest_qualification"] input').set(true)
       end
 
+      within('#student-financial-assistance .nested-fields:nth-of-type(1)') do
+        find('td[data-for="assistance_type"] input').set('Pocket Fund')
+        find('td[data-for="year_obtained"] input').set('2017')
+        find('td[data-for="duration"] input').set('1 year')
+      end
+
+      page.execute_script "window.scrollTo(0,0)"
       click_link 'Parent/Guardian Particulars'
+
       within('#contacts .nested-fields:nth-of-type(1)') do
         fill_in 'Surname', with: 'Ong'
         fill_in 'Given Name', with: 'Pearly'
@@ -88,7 +81,7 @@ describe 'new student admissions', type: :feature do
         fill_in 'Languages Spoken', with: 'English'
         fill_in 'ID Number', with: 'S8888888D'
         select('blue', from: 'ID Type')
-        fill_in 'Date of Birth', with: '01/01/2000'
+        fill_in 'Date of Birth', with: '2000-01-01'
         fill_in 'Place of Birth', with: 'Singapore'
         fill_in 'Nationality', with: 'Singaporean'
         fill_in 'Occupation', with: 'Clerk'
@@ -98,7 +91,6 @@ describe 'new student admissions', type: :feature do
         fill_in 'Relationship', with: 'Mother'
       end
 
-      page.execute_script "window.scrollBy(0,10000)"
       click_button 'Create Student'
 
       expect(page).to have_text 'Successfully created student'
@@ -108,7 +100,7 @@ describe 'new student admissions', type: :feature do
       within("#student-#{new_student.id}") do
         expect(find('td[data-for="given_name"]')).to have_content 'Ali'
         expect(find('td[data-for="surname"]')).to have_content 'Lee'
-        expect(find('td[data-for="date_of_birth"]')).to have_content Date.new(1997,9,9)
+        expect(find('td[data-for="date_of_birth"]')).to have_content '1997-09-09'
         expect(find('td[data-for="gender"]')).to have_content 'female'
         expect(find('td[data-for="status"]')).to have_content 'new_admission'
         expect(find('td[data-for="disabilities"]')).to have_content("Autistic")
@@ -136,6 +128,7 @@ describe 'new student admissions', type: :feature do
       expect(new_student.registered_at).to eq Date.parse('09/09/2017')
       expect(new_student.referred_by).to eq 'association_of_persons_with_special_needs'
       expect(new_student.referral_notes).to eq 'Mdm Referee'
+      expect(new_student.status).to eq 'new_admission'
       expect(new_student.place_of_birth).to eq 'Singapore'
       expect(new_student.race).to eq 'Chinese'
       expect(new_student.nric).to eq 'S8888888D'
@@ -167,50 +160,32 @@ describe 'new student admissions', type: :feature do
       expect(new_student.disability_ids).to include(autistic_disability.id, disability.id)
       expect(new_student.medical_conditions.first.title).to eq 'Epilepsy'
       expect(new_student.medical_condition_ids).to include(medical_condition.id, epilepsy_medical_condition.id)
-
-      expect(new_student.remarks.last.category).to eq 'incident'
-      expect(new_student.remarks.last.details).to eq 'Student pushed another student'
     end
   end
 
   describe 'edit student', js: true do
     before do
-      student.student_disabilities.create(disability: disability)
-      student.student_disabilities.create(disability: autistic_disability)
-      student.student_medical_conditions.create(medical_condition: medical_condition)
-      student.student_medical_conditions.create(medical_condition: epilepsy_medical_condition)
+      ali.student_disabilities.create(disability: disability)
+      ali.student_disabilities.create(disability: autistic_disability)
+      ali.student_medical_conditions.create(medical_condition: medical_condition)
+      ali.student_medical_conditions.create(medical_condition: epilepsy_medical_condition)
     end
 
     it 'edits admission details' do
-      visit students_path
+      visit edit_student_path(ali)
 
-      within("#student-#{student.id}") do
-        find('td[data-for="view"]').find(".fa").click
-      end
-      within("#student-details-#{student.id}") do
-        find_link('Edit').click
-      end
       within('.edit_student') do
+        click_link 'Administrative Details'
         fill_in 'Admission Year', with: 2017
       end
-      page.execute_script "window.scrollBy(0,10000)"
       click_button 'Update Student'
 
       expect(page).to have_text 'Successfully updated student'
-      expect(student.reload.admission_year).to eq 2017
+      expect(ali.reload.admission_year).to eq 2017
     end
 
     it 'edits medical conditions in student details' do
-      visit students_path
-
-      within("#student-#{student.id}") do
-        find('td[data-for="view"]').find(".fa").click
-      end
-      within("#student-details-#{student.id}") do
-        find_link('Edit').click
-      end
-
-      page.execute_script "window.scrollTo(0,400)"
+      visit edit_student_path(ali)
 
       within('#student-medical-history') do
         chosen_unselect('Autistic', from: 'Disabilities')
@@ -221,21 +196,17 @@ describe 'new student admissions', type: :feature do
       click_button 'Update Student'
 
       expect(page).to have_text 'Successfully updated student'
-      expect(student.reload.disabilities.first.title).to eq "Down's Syndrome"
-      expect(student.reload.disability_ids).to include(disability.id, disability.id)
+      expect(ali.reload.disabilities.first.title).to eq "Down's Syndrome"
+      expect(ali.reload.disability_ids).to include(disability.id, disability.id)
 
-      expect(student.reload.medical_conditions.first.title).to eq 'Asthma'
-      expect(student.reload.medical_condition_ids).to include(medical_condition.id, medical_condition.id)
+      expect(ali.reload.medical_conditions.first.title).to eq 'Asthma'
+      expect(ali.reload.medical_condition_ids).to include(medical_condition.id, medical_condition.id)
     end
   end
 
   describe 'view student' do
     it 'displays the details of a student' do
-      visit students_path
-
-      within("#student-#{student.id}") do
-        find('td[data-for="given_name"]').find(".student-given-name").click
-      end
+      visit student_path(ali)
 
       expect(page).to have_link 'Edit'
 
@@ -256,10 +227,10 @@ describe 'new student admissions', type: :feature do
     it 'deletes an existing student' do
       visit students_path
 
-      within("#student-#{student.id}") do
+      within("#student-#{ali.id}") do
         find('td[data-for="view"]').find(".fa").click
       end
-      within("#student-details-#{student.id}") do
+      within("#student-details-#{ali.id}") do
         accept_confirm_dialog {
           find('.delete_student', visible: true).click
         }
@@ -271,17 +242,12 @@ describe 'new student admissions', type: :feature do
   end
 
   describe 'search student', js: true do
-    let!(:student2) { Student.create(admission_year: 2016, admission_no: '16006/2016', registered_at: Date.parse('09/09/2017'), current_class: 'Food & Beverage',
-                                status: 'new_admission', referred_by: 'association_of_persons_with_special_needs', referral_notes: 'Mdm Referee',
-                                surname: 'Lee', given_name: 'Robin', date_of_birth: Date.parse('09/09/1997'), place_of_birth: 'Singapore', race: 'Chinese',
-                                nric: 'S8888888D', citizenship: 'Singaporean', gender: 'female', sadeaf_client_reg_no: '12345/234',
-                                medication_needed: 'Antihistamines', allergies: 'Peanuts')
-    }
+    let!(:robin) { create(:student, given_name: 'Robin') }
 
     it 'searches students by academic year and class' do
       visit students_path
-      select('2016', from: 'academic_year')
-      select('Class 1.1', from: 'class_name')
+      select('2017', from: 'academic_year')
+      select('Year 2 Food & Beverages', from: 'class_name')
       click_on 'Search by Academic Year or Class'
 
       expect(find('td[data-for="given_name"]')).to have_content 'Ali'

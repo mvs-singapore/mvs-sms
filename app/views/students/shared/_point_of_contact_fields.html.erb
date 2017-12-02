@@ -1,8 +1,9 @@
 <div class="nested-fields col-md-6">
-  <div class="card border-secondary mb-3">
+  <div class="card bg-light">
+    <h4 class="card-header">Parent/Guardian</h4>
     <div class="card-body">
       <div class="form-row">
-        
+
         <div class="form-group col-md-12">
           <%= f.label :relationship, class: 'col-form-label required-field' %>
           <%= f.text_field :relationship, class: 'form-control form-control-sm' %>
@@ -32,7 +33,7 @@
           <%= f.label :office_number, 'Office Number', class: 'col-form-label' %>
           <%= f.text_field :office_number, class: 'form-control form-control-sm' %>
         </div>
-      
+
         <div class="form-group col-md-12">
           <%= f.label :address, class: 'col-form-label' %>
           <%= f.text_area :address, rows: 3, class: 'form-control form-control-sm' %>
@@ -100,5 +101,5 @@ Please confirm that you would like to delete by clicking OK.'} %>
         </div>
       </div>
     </div>
-  </div>
+  </div><br>
 </div>

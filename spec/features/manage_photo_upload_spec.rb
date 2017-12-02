@@ -1,16 +1,11 @@
 require 'rails_helper'
 
 describe 'student photo upload', type: :feature do
-  let!(:teacher_role) { Role.create(name: 'teacher', super_admin: false) }
-  let!(:teacher_user) { User.create(email: 'teacher1@example.com', password: 'password', name: 'Good Teacher', role: teacher_role) }
-  let!(:student) { Student.create(admission_year: 2016, registered_at: Date.parse('09/09/2017'),
-                                  status: 'new_admission', referred_by: 'association_of_persons_with_special_needs', surname: 'Lee',
-                                  given_name: 'Ali', date_of_birth: Date.parse('09/09/1997'), place_of_birth: 'Singapore', race: 'Chinese',
-                                  nric: 'S8888888D', citizenship: 'Singaporean', gender: 'female')
-  }
+  let!(:yammy) { create(:yammy) }
+  let!(:ali) { create(:student) }
 
   before do
-    sign_in teacher_user
+    sign_in yammy
   end
 
   describe 'create student', js: true do
@@ -34,16 +29,12 @@ describe 'student photo upload', type: :feature do
         select('female', from: 'Gender')
       end
 
-      page.execute_script "window.scrollBy(0,200)"
+      click_link 'Administrative Details'
 
       fill_in 'Admission Year', with: '2017'
       fill_in 'Date of Registration', with: '09/09/2017'
-      select('new_admission', from: 'Status')
       select('association_of_persons_with_special_needs', from: 'Referred By')
 
-      page.execute_script "window.scrollTo(0,0)"
-
-      click_link 'Past Education Records'
       within('#past-educations .nested-fields:nth-of-type(1)') do
         find('td[data-for="school_name"] input').set('Northlight')
         find('td[data-for="from_date"] input').set('02/03/2016')
