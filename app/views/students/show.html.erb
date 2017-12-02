@@ -129,6 +129,32 @@
 
   <div class="card-deck">
     <div class="card bg-light mb-3">
+      <h4 class="card-header">Attachment Details</h4>
+      <div class="card-body">
+        <table class="table table-sm">
+          <thead>
+            <tr class="d-flex">
+              <th class="col-3">Document Type</th>
+              <th class="col-3">Filename</th>
+              <th class="col-6">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @student.attachments.each do |attachment_record| %>
+            <tr id="attachment_record-<%= attachment_record.id %>" class="d-flex">
+              <td class="col-3" data-for="document_type"><%= Attachment.document_types[attachment_record.document_type] %></td>
+              <td class="col-3" data-for="filename"><%= link_to attachment_record.filename.file.file_data.first.name, attachment_record.filename.try(:url) %></td>
+              <td class="col-6" data-for="notes"><%= attachment_record.notes %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-deck">
+    <div class="card bg-light mb-3">
       <h4 class="card-header">Past Education Records</h4>
       <div class="card-body">
         <table class="table table-sm">

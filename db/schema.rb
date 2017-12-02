@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171018113201) do
+ActiveRecord::Schema.define(version: 20171018113202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "attachments", force: :cascade do |t|
+    t.string "document_type"
+    t.string "filename"
+    t.string "notes"
+    t.bigint "student_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_attachments_on_student_id"
+  end
 
   create_table "disabilities", force: :cascade do |t|
     t.string "title"
@@ -107,7 +117,7 @@ ActiveRecord::Schema.define(version: 20171018113201) do
     t.string "home_number"
     t.string "handphone_number"
     t.string "office_number"
-    t.string "relationship", null: false
+    t.string "relationship"
     t.bigint "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -217,7 +227,7 @@ ActiveRecord::Schema.define(version: 20171018113201) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name", default: "MVS User", null: false
+    t.string "name", null: false
     t.bigint "role_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -235,6 +245,7 @@ ActiveRecord::Schema.define(version: 20171018113201) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
+  add_foreign_key "attachments", "students"
   add_foreign_key "financial_assistance_records", "students"
   add_foreign_key "internship_records", "internship_companies"
   add_foreign_key "internship_records", "internship_supervisors"

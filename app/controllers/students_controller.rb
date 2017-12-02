@@ -26,6 +26,7 @@ class StudentsController < ApplicationController
     @student.internship_records.new
     # @student.remarks.new
     @student.financial_assistance_records.new
+    @student.attachments.new
   end
 
   def create
@@ -97,6 +98,7 @@ class StudentsController < ApplicationController
                                     internship_records_attributes: [:id, :student_id, :internship_company_id, :internship_supervisor_id, :from_date,
                                     :to_date, :comments, :_destroy],
                                     financial_assistance_records_attributes: [:id, :assistance_type, :year_obtained, :duration, :_destroy],
+                                    attachments_attributes: [:id, :document_type, :filename, :notes, :_destroy],
                                     remarks_attributes: [:id, :student_id, :user_id, :event_date, :category, :details, :created_at, :updated_at, :_destroy])
 
     if student_params[:remarks_attributes].present?
