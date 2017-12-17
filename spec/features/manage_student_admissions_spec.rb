@@ -243,10 +243,12 @@ describe 'new student admissions', type: :feature do
 
   describe 'search student', js: true do
     let!(:robin) { create(:student, given_name: 'Robin') }
+    let!(:cohort2) {SchoolClass.create(academic_year: 2016, name: 'Class 1.1', year: 1, form_teacher_id: yammy.id)}
 
     it 'searches students by academic year and class' do
       visit students_path
       select('2017', from: 'academic_year')
+      expect(find('select#class_name')).to_not have_content 'Class 1.1'
       select('Year 2 Food & Beverages', from: 'class_name')
       click_on 'Search by Academic Year or Class'
 
