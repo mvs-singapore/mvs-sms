@@ -15,6 +15,7 @@ class StudentsController < ApplicationController
     end
     respond_to do |format|
       format.html
+      format.js {}
       format.csv { send_data Student.as_csv(@students), filename: "students-#{Date.today}.csv" }
     end
   end
