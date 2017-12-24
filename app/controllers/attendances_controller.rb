@@ -1,6 +1,6 @@
 class AttendancesController < ApplicationController
 
-  before_action :fetch_cohort_classes, only: [:index, :new, :update]
+  before_action :fetch_cohort_classes, only: [:index, :new, :create, :update]
 
   def index
 
@@ -23,9 +23,9 @@ class AttendancesController < ApplicationController
 
   def create
     @attendance = Attendance.new(attendance_params)
-
+byebug
     if @attendance.save
-      redirect_to new_attendance_path, flash: {notice: 'Successfully updated attendance'}
+      redirect_to attendances_path, flash: {notice: 'Successfully updated attendance'}
     else
       flash.now[:alert] = @attendance.errors.full_messages.join("<br/>").html_safe
       render :new
@@ -46,7 +46,7 @@ class AttendancesController < ApplicationController
   private
 
   def attendance_params
-    params.require(:attendance).permit(:attendance_status, :reason, :remark, :date)
+    params.require(:attendance).permit(:student_id, :school_class_id, :attendance_status, :reason)
   end
 
     def fetch_cohort_classes
