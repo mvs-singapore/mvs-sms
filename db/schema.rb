@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171018113202) do
+ActiveRecord::Schema.define(version: 20171224055548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,19 @@ ActiveRecord::Schema.define(version: 20171018113202) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_attachments_on_student_id"
+  end
+
+  create_table "attendances", force: :cascade do |t|
+    t.date "date"
+    t.string "attendance_status"
+    t.string "reason"
+    t.string "remark"
+    t.bigint "student_id"
+    t.bigint "school_class_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["school_class_id"], name: "index_attendances_on_school_class_id"
+    t.index ["student_id"], name: "index_attendances_on_student_id"
   end
 
   create_table "disabilities", force: :cascade do |t|
@@ -246,6 +259,8 @@ ActiveRecord::Schema.define(version: 20171018113202) do
   end
 
   add_foreign_key "attachments", "students"
+  add_foreign_key "attendances", "school_classes"
+  add_foreign_key "attendances", "students"
   add_foreign_key "financial_assistance_records", "students"
   add_foreign_key "internship_records", "internship_companies"
   add_foreign_key "internship_records", "internship_supervisors"

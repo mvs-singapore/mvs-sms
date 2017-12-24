@@ -1,0 +1,35 @@
+<div class="form-row justify-content-center">
+    <%= form_tag(students_path, :method => "get", id: "search-cohort-class", class: 'form-group row justify-content-center') do %>
+    <%= select_tag :academic_year, options_for_select(@cohorts, params[:academic_year]), prompt: "Select Academic Year", class: 'custom-select mb-2 mr-2 mb-sm-0' %>
+    <%= select_tag :class_name, options_for_select(@class_names, params[:class_name]), prompt: "Select Class", class: 'custom-select mb-2 mr-sm-2 mb-sm-0' %>
+    <% end %>
+</div>
+
+<table class="table table-bordered">
+  <thead class="table-primary">
+    <tr>
+      <th>Reg. No</th>
+      <th>Student Name</th>
+      <th>Present</th>
+      <th>Absent</th>
+      <th>Late</th>
+      <th>Reason</th>
+      <th>Remark</th>
+    </tr>
+  </thead>
+
+  <tbody class="bg-white">
+    <% @students.each do |student| %>
+      <tr id="student-<%= student.id %>">
+        <td data-for="admission_no"><%= student.admission_no %></td>
+        <td data-for="given_name"><%= link_to "#{student.given_name}", student_path(student), class: 'student-given-name' %></td>
+        <td data-for="present"><input class="form-check-input" name="attendance_status-<%= student.id %>" type="radio" id="presentCheckbox" value="present"> </td>
+        <td data-for="absent"><input class="form-check-input" name="attendance_status-<%= student.id %>" type="radio" id="absentCheckbox" value="absent"> </td>
+        <td data-for="late"><input class="form-check-input" name="attendance_status-<%= student.id %>" type="radio" id="lateCheckbox" value="late"> </td>
+        <td data-for="reason"><%= select_tag :reason, options_for_select(Attendance.reasons.values), prompt: "Select Reason", class: 'custom-select mb-2 mr-sm-2 mb-sm-0' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= f.submit :class => 'btn btn-primary' %>

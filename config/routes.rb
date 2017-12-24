@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :medical_conditions
   resources :disabilities
 	resources :internship_companies
+  resources :attendances
 
   root to: 'pages#index'
   get 'pages/index'

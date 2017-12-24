@@ -1,0 +1,4 @@
+<h3 class="text-center">Add New Attendance</h3>
+<%= form_for(@attendance, url: attendances_path) do |f| %>
+    <%= render :partial => 'attendances/shared/attendance_form', :locals => {:f => f} %>
+<% end %>

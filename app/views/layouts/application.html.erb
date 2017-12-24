@@ -60,6 +60,16 @@
               </div>
             </li>
           <% end %>
+
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarAdminDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Attendance
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="navbarAdminDropdownMenuLink">
+                <%= link_to 'Add Attendance', new_attendance_path, class: 'dropdown-item' %>
+              </div>
+            </li>
         </ul>
 
         <span class="navbar-text">
