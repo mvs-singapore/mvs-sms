@@ -23,7 +23,16 @@
 
 
 $(document).ready(function() {
+  var academic = $('#academic_year');
+  if (academic.val() === '') {
+    $('#class_name').attr('disabled',true);
+  }
+  else {
+    $('#class_name').removeAttr('disabled');
+  };
+
   $(document).on("change", "#academic_year", function(e){
+  $('#class_name').removeAttr('disabled');
   var year = e.target.value;
   $.ajax({
     url: "/api/filters/classes_by_year/?academic_year=" + year,
