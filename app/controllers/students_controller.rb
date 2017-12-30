@@ -10,12 +10,12 @@ class StudentsController < ApplicationController
       @students = Student.search(params[:search]).order("created_at DESC")
     elsif params[:academic_year].present?
       @students = Student.filter_by_cohort_and_classes(params[:academic_year], params[:class_name])
+      @class_names = SchoolClass.all.where(academic_year: params[:academic_year]).pluck('name')
     else
       @students = Student.all.order('created_at DESC')
     end
     respond_to do |format|
       format.html
-      format.js {}
       format.csv { send_data Student.as_csv(@students), filename: "students-#{Date.today}.csv" }
     end
   end
