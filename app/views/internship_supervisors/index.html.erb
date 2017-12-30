@@ -1,29 +1,35 @@
-<h3>Manage Internship Supervisors</h3>
+<div class="container">
+  <div class="row justify-content-end mt-5 mb-4">
+    <div class="col-6 offset-md-3">
+      <h3 class="text-center">Manage Internship Supervisors</h3>
+    </div>
+    <div class="col-3 text-right">
+      <%= link_to '<i class="fa fa-plus"></i> Add Internship Supervisor'.html_safe, new_internship_supervisor_path, class: "btn btn-primary" %>
+    </div>
+  </div>
 
-<p><%= link_to('Add Supervisor', new_internship_supervisor_path, class: "btn btn-primary") %></p>
-
-    <table class="table table-bordered table-responsive">
+    <table class="table table-bordered">
       <thead class="table-primary">
         <tr>
           <th>Supervisor Name</th>
           <th>Email</th>
           <th>Contact Number</th>
-          <th>Internship Company Id</th>
+          <th>Internship Company</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody class="bg-white">
         <% @resources.each do |supervisor| %>
           <tr id="supervisor-<%= supervisor.id %>" >
-            <td><%= supervisor.name %></td>
+            <td><%= link_to "#{supervisor.name}", edit_internship_supervisor_path(supervisor), class: 'edit_supervisor' %></td>
             <td><%= supervisor.email %></td>
             <td><%= supervisor.contact_number %></td>
             <td><%= supervisor.internship_company.name %></td>
             <td>
-              <%= link_to 'Edit', edit_internship_supervisor_path(supervisor), class: "edit_supervisor btn btn-primary" %>
               <%= link_to 'Delete', internship_supervisor_path(supervisor), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_user btn btn-danger" %>
             </td>
           </tr>
         <% end %>
       </tbody>
     </table>
+</div>
