@@ -1,8 +1,14 @@
-<h3>Manage Classes</h3>
+<div class="container">
+  <div class="row justify-content-end mt-5 mb-4">
+    <div class="col-4">
+      <h3 class="text-center">Manage Classes</h3>
+    </div>
+    <div class="col-4 text-right">
+      <%= link_to '<i class="fa fa-plus"></i> Add Class'.html_safe, new_admin_school_class_path, class: "btn btn-primary" %>
+    </div>
+  </div>
 
-<p><%= link_to('Add Class', new_admin_school_class_path, class: "btn btn-primary") %></p>
-
-<table class="table table-bordered table-responsive">
+<table class="table table-bordered">
   <thead class="table-primary">
     <tr>
       <th>Academic Year</th>
@@ -16,11 +22,10 @@
   <% @resources.each do |school_class| %>
       <tr id="class-<%= school_class.id %>">
         <td><%= school_class.academic_year %></td>
-        <td><%= school_class.name %></td>
+        <td><%= link_to "#{school_class.name}", admin_school_class_path(school_class), class: 'show_school_class' %></td>
         <td><%= school_class.year %></td>
         <td><%= school_class.form_teacher.name %></td>
         <td>
-          <%= link_to 'View', admin_school_class_path(school_class), class: "show_school_class btn btn-primary" %>
           <%= link_to 'Edit', edit_admin_school_class_path(school_class), class: "edit_school_class btn btn-primary" %>
           <%= link_to 'Delete', admin_school_class_path(school_class), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_school_class btn btn-danger" %>
         </td>
@@ -28,3 +33,4 @@
   <% end %>
   </tbody>
 </table>
+</div>
