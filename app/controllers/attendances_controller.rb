@@ -12,22 +12,25 @@ class AttendancesController < ApplicationController
 
   def new
     @attendance = Attendance.new
-    if params[:search].present?
-      @students = Student.search(params[:search]).order("created_at DESC")
-    elsif params[:academic_year].present?
-      @students = Student.filter_by_cohort_and_classes(params[:academic_year], params[:class_name])
-    else
-      @students = Student.all.order('created_at DESC')
-    end
+    @students = Student.all.order('created_at DESC')
+    # if params[:search].present?
+    #   @students = Student.search(params[:search]).order("created_at DESC")
+    # elsif params[:academic_year].present?
+    #   @students = Student.filter_by_cohort_and_classes(params[:academic_year], params[:class_name])
+    # else
+    #   @students = Student.all.order('created_at DESC')
+    #end
   end
 
   def create
     @attendance = Attendance.new(attendance_params)
 byebug
     if @attendance.save
+      byebug
       redirect_to attendances_path, flash: {notice: 'Successfully updated attendance'}
     else
       flash.now[:alert] = @attendance.errors.full_messages.join("<br/>").html_safe
+      byebug
       render :new
     end
   end
@@ -46,7 +49,7 @@ byebug
   private
 
   def attendance_params
-    params.require(:attendance).permit(:student_id, :school_class_id, :attendance_status, :reason)
+    params.require(:attendance).permit(:attendance_status,:reason, :school_class_id, student_ids: [])
   end
 
     def fetch_cohort_classes

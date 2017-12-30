@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171224055548) do
+ActiveRecord::Schema.define(version: 20171230032803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,10 +26,10 @@ ActiveRecord::Schema.define(version: 20171224055548) do
   end
 
   create_table "attendances", force: :cascade do |t|
-    t.date "date"
+    t.date "attendance_date"
     t.string "attendance_status"
     t.string "reason"
-    t.string "remark"
+    t.string "attendance_remark"
     t.bigint "student_id"
     t.bigint "school_class_id"
     t.datetime "created_at", null: false
