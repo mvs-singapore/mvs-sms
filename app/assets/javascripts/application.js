@@ -23,6 +23,32 @@
 
 
 $(document).ready(function() {
+  var academic = $('#academic_year');
+  if (academic.val() === '') {
+    $('#class_name').attr('disabled',true);
+  }
+  else {
+    $('#class_name').removeAttr('disabled');
+  };
+
+  $(document).on("change", "#academic_year", function(e){
+  $('#class_name').removeAttr('disabled');
+  var year = e.target.value;
+  $.ajax({
+    url: "/api/filters/classes_by_year/?academic_year=" + year,
+    type: "GET",
+    dataType: "json",
+    success: function(data) {
+        $('#class_name').html('');
+        $('#class_name').append($("<option>Select Class</option>"));
+          $.each(data, function(index, value){
+            $('#class_name').append('<option value="'+ value +'">'+ value +'</option>');
+          });
+          console.log(data);
+        }
+    });
+  });
+
   $('.collapse').on('show.bs.collapse', function () {
     $('.collapse').collapse('hide');
   });

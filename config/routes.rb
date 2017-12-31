@@ -15,6 +15,14 @@ Rails.application.routes.draw do
   resources :disabilities
 	resources :internship_companies
 
+  namespace :api do
+    resources :filters, only: [] do
+      collection do
+        get '/classes_by_year', :to => 'filters#classes_by_year'
+      end
+    end
+  end
+
   root to: 'pages#index'
   get 'pages/index'
 
