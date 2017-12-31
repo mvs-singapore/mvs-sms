@@ -35,6 +35,7 @@
     </tr>
   </thead>
   <tbody class="bg-white student-list">
+    <% @students.each do |student| %>
     <tr id="student-<%= student.id %>">
       <% if params[:academic_year].present?
         student_academic_year = student.class_for_year(params[:academic_year]).academic_year
@@ -109,6 +110,7 @@
         </div>
       </td>
     </tr>
+    <% end %>
   </tbody>
 </table>
 <p><%= link_to("Download CSV", students_path(csv_download_options(params)), class: "btn btn-primary btn-sm",) %></p>
