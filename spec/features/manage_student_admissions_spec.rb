@@ -99,8 +99,7 @@ describe 'new student admissions', type: :feature do
       new_student = Student.last
 
       within("#student-#{new_student.id}") do
-        expect(find('td[data-for="given_name"]')).to have_content 'Ali'
-        expect(find('td[data-for="surname"]')).to have_content 'Lee'
+        expect(find('td[data-for="full_name"]')).to have_content 'Lee, Ali'
         expect(find('td[data-for="date_of_birth"]')).to have_content '1997-09-09'
         expect(find('td[data-for="gender"]')).to have_content 'female'
         expect(find('td[data-for="status"]')).to have_content 'new_admission'
@@ -265,8 +264,8 @@ describe 'new student admissions', type: :feature do
       select('Year 2 Food & Beverages', from: 'class_name')
       click_on 'Search by Academic Year or Class'
 
-      expect(find('td[data-for="given_name"]')).to have_content 'Ali'
-      expect(find('td[data-for="given_name"]')).to_not have_content 'Robin'
+      expect(find('td[data-for="full_name"]')).to have_content 'Ali'
+      expect(find('td[data-for="full_name"]')).to_not have_content 'Robin'
     end
 
     it 'searches students by name' do
@@ -274,7 +273,7 @@ describe 'new student admissions', type: :feature do
       fill_in "search", with: "Robin"
       click_on 'Search by Name'
 
-      expect(find('td[data-for="given_name"]')).to have_content 'Robin'
+      expect(find('td[data-for="full_name"]')).to have_content 'Robin'
     end
   end
 end
