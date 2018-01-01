@@ -15,7 +15,7 @@ describe 'track student status', type: :feature do
 
     click_button 'Update Student'
     expect(page).to have_text 'Successfully updated student'
-    expect(ali.versions.last.created_at).to be_within(1).of(Time.now)
+    expect(ali.versions.last.created_at).to be_within(2).of(Time.now)
 
     within("#version-1") do
       expect(find('td[data-for="status_change_name"]')).to have_content 'yammy'
