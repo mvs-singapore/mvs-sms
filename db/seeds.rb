@@ -47,4 +47,102 @@ if Rails.env.development?
   end
 end
 
+puts "Seeding school classes"
+4.times do
+  SchoolClass.create(
+    academic_year: Faker::Number.between(2016, 2017),
+    name: ['Class 1.1 Food & Beverage', 'Class 1.2 Housekeeping', 'Class 2.1 Food Preparation', 'Class 2.2 F&B Service'].sample,
+    year: ['1', '2'].sample,
+    form_teacher_id: 2
+    )
+end
+
+puts "Seeding internship supervisors"
+InternshipSupervisor.create(
+  name: Faker::Name.name,
+  email: Faker::Internet.free_email,
+  contact_number: Faker::Number.number(8),
+  internship_company_id: 1
+)
+
+puts "Seeding students"
+5.times do
+  student = Student.create({
+    admission_year: Faker::Number.between(2014, 2017),
+    admission_no: "12345/123",
+    registered_at: Date.today,
+    status: ['New Admission', 'Year 1', 'Year 2'].sample,
+    referred_by: "Association of Persons with Special Needs",
+    referral_notes: Faker::Name.name,
+    surname: Faker::Name.last_name,
+    given_name: Faker::Name.first_name,
+    date_of_birth: Faker::Date.birthday(15, 18),
+    place_of_birth: Faker::Address.country,
+    race: Faker::Demographic.race,
+    nric: "S9874563D",
+    citizenship: Faker::Demographic.demonym,
+    gender: ['female', 'male'].sample,
+    sadeaf_client_reg_no: "45678/456",
+    medication_needed: "Antihistamines",
+    allergies: "Peanuts",
+    tshirt_size: "M",
+    image_id: Faker::LoremPixel.image("300x300", false, 'cats')
+  })
+  student.past_education_records.create(
+    school_name: Faker::Educator.secondary_school,
+    from_date: Faker::Date.backward(365),
+    to_date: Date.today,
+    qualification: ['PSLE', 'Certificate'].sample,
+    highest_qualification: true
+  )
+  2.times do
+    student.point_of_contacts.create(
+      surname: Faker::Name.last_name,
+      given_name: Faker::Name.first_name,
+      address: Faker::Address.street_address,
+      postal_code: Faker::Address.postcode,
+      race: Faker::Demographic.race,
+      dialect: "Cantonese",
+      languages_spoken: "English, Mandarin",
+      id_number: "S9874563D",
+      id_type: "pink",
+      date_of_birth: Faker::Date.birthday(50, 60),
+      place_of_birth: Faker::Address.country,
+      nationality: Faker::Demographic.race,
+      occupation: Faker::Job.title,
+      home_number: Faker::Number.number(8),
+      handphone_number: Faker::Number.number(8),
+      office_number: Faker::Number.number(8),
+      relationship: ['Mother', 'Father', 'Guardian'].sample
+    )
+  end
+  student.medical_conditions.create(
+    title: ['Schizophrenia', 'ASD', 'Allergies', 'Hyperactive', 'Epilepsy', "Down's Syndrome", 'ADHD', 'Schizophrenia'].sample
+  )
+  student.disabilities.create(
+    title: ['Hearing Impaired', 'Intellectual', 'Autism', 'Visually Impaired', 'Mild Learning Disability'].sample
+  )
+  student.financial_assistance_records.create(
+    assistance_type: "Pocket Fund",
+    year_obtained: Faker::Number.between(2014, 2017),
+    duration: "1 Year"
+  )
+  student.internship_records.create(
+    internship_company_id: 1,
+    internship_supervisor_id: 1,
+    from_date: Faker::Date.backward(365),
+    to_date: Date.today,
+    comments: Faker::Lorem.paragraph(2)
+  )
+  student.remarks.create(
+    event_date: Date.today,
+    user_id: 1,
+    details: Faker::Lorem.paragraphs(2),
+    category: ['Incident', 'New Admission', 'Promoted', 'Retained', 'Internship Notes'].sample
+  )
+  student.student_classes.create(
+    school_class_id: [1, 2, 3, 4].sample
+  )
+end
+
 puts "Done seeding."

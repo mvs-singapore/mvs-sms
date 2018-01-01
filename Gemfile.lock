@@ -7,6 +7,14 @@ GIT
       carrierwave (~> 0.10)
       dropbox-sdk-v2 (~> 0.0.3)
 
+GIT
+  remote: https://github.com/stympy/faker.git
+  revision: 679fd508c9f41f41b6df62024d67bc2281953395
+  branch: master
+  specs:
+    faker (1.8.7)
+      i18n (>= 0.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -341,6 +349,7 @@ DEPENDENCIES
   dotenv-rails
   email_spec
   factory_bot_rails
+  faker!
   font-awesome-rails
   jbuilder (~> 2.5)
   jquery-rails
