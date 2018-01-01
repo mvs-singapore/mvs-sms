@@ -101,7 +101,7 @@ describe 'new student admissions', type: :feature do
       within("#student-#{new_student.id}") do
         expect(find('td[data-for="full_name"]')).to have_content 'Lee, Ali'
         expect(find('td[data-for="date_of_birth"]')).to have_content '1997-09-09'
-        expect(find('td[data-for="gender"]')).to have_content 'female'
+        expect(find('td[data-for="gender"]')).to have_content 'Female'
         expect(find('td[data-for="status"]')).to have_content 'New Admission'
         expect(find('td[data-for="disabilities"]')).to have_content("Autistic")
         expect(find('td[data-for="medical_conditions"]')).to have_content("Asthma")
