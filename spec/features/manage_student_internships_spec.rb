@@ -23,7 +23,9 @@ describe 'manage internship records', type: :feature do
   end
 
   it 'add a record', js: true do
+    page.execute_script "window.scrollBy(0,1000)"
     click_link 'Add Internship Record'
+
     within("#internship-records .nested-fields:nth-of-type(2)") do
       select('Hilton Hotel', from: 'Internship Company')
       select('aaaa', from: 'Internship Supervisor')

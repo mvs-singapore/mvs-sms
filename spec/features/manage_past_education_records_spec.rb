@@ -18,6 +18,7 @@ describe 'manage past education records', type: :feature do
       find('td[data-for="school_name"] input').set('Another School')
     end
 
+    page.execute_script "window.scrollBy(0,1000)"
     click_button 'Update Student'
 
     expect(page).to have_text 'Successfully updated student'
@@ -25,12 +26,17 @@ describe 'manage past education records', type: :feature do
   end
 
   it 'delete student past education record', js: true do
+    page.execute_script "window.scrollBy(0,500)"
+
     within('#past-educations .nested-fields:nth-of-type(1)') do
       accept_confirm_dialog {
         find('.delete_past_education_record', visible: true).click
       }
     end
+
+    page.execute_script "window.scrollBy(0,1000)"
     click_button 'Update Student'
+
     ali.reload
     expect(ali.past_education_records.count).to eq 0
   end

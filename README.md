@@ -89,3 +89,5 @@ If you are using Windows and do development using the Ubuntu Bash, you will have
 - Anukrity Jain
 - Gia Phua
 - Emily Ong
+- Yammy
+- Ernest Toh

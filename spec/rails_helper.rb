@@ -10,7 +10,7 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'selenium/webdriver'
 require 'chosen-rails/rspec'
-require 'support/factory_girl'
+require 'support/factory_bot'
 
 webdriver_options = {
   browser: :chrome

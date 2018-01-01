@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :internship_company do
     name 'Hilton Hotel'
     address 'Raffles Place 145'

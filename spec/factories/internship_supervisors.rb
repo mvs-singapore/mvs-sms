@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :internship_supervisor do
     name 'aaaa'
     email 'some@gmail.com'
