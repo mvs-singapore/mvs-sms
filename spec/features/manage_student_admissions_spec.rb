@@ -226,7 +226,7 @@ describe 'new student admissions', type: :feature do
       expect(find('dd[data-for="surname"]')).to have_content 'Lee'
       expect(find('dd[data-for="gender"]')).to have_content 'Female'
       expect(find('dd[data-for="date_of_birth"]')).to have_content '1997-09-09'
-      expect(find('dd[data-for="age"]')).to have_content '21'
+      expect(find('dd[data-for="age"]')).to have_content '20'
       expect(find('dd[data-for="citizenship"]')).to have_content 'Singaporean'
       expect(find('dd[data-for="race"]')).to have_content 'Chinese'
       expect(find('dd[data-for="nric"]')).to have_content 'S8888888D'
