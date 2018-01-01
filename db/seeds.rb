@@ -38,13 +38,11 @@ puts "Seeding medical conditions"
   MedicalCondition.where(title: medical_condition).first_or_create!
 end
 
-if Rails.env.development?
-  InternshipCompany.where(name: 'Harvard Hotel').first_or_create! do |internship_company|
-    internship_company.address = '1, Merlion Avenue, Singapore'
-    internship_company.postal_code = '123456'
+InternshipCompany.where(name: 'Harvard Hotel').first_or_create! do |internship_company|
+  internship_company.address = '1, Merlion Avenue, Singapore'
+  internship_company.postal_code = '123456'
 
-    puts "Default internship company created."
-  end
+  puts "Default internship company created."
 end
 
 puts "Seeding school classes"
