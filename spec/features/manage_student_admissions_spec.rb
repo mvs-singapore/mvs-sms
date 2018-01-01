@@ -32,7 +32,7 @@ describe 'new student admissions', type: :feature do
         fill_in 'Citizenship', with: 'Singaporean'
         select('female', from: 'Gender')
         select('M', from: 'T-shirt Size')
-        fill_in 'SADeaf Client Registration No.', with: '12345/234'
+        fill_in 'SADeaf Client Registration No.', with: '12445/244'
         find('#student_place_of_birth').click
       end
 
@@ -91,6 +91,7 @@ describe 'new student admissions', type: :feature do
         fill_in 'Relationship', with: 'Mother'
       end
 
+      page.execute_script "window.scrollBy(0,1000)"
       click_button 'Create Student'
 
       expect(page).to have_text 'Successfully created student'
@@ -133,7 +134,7 @@ describe 'new student admissions', type: :feature do
       expect(new_student.race).to eq 'Chinese'
       expect(new_student.nric).to eq 'S8888888D'
       expect(new_student.citizenship).to eq 'Singaporean'
-      expect(new_student.sadeaf_client_reg_no).to eq '12345/234'
+      expect(new_student.sadeaf_client_reg_no).to eq '12445/244'
       expect(new_student.medication_needed).to eq 'Antihistamines'
       expect(new_student.allergies).to eq 'Peanuts'
       expect(new_student.tshirt_size).to eq 'M'
@@ -178,6 +179,8 @@ describe 'new student admissions', type: :feature do
         click_link 'Administrative Details'
         fill_in 'Admission Year', with: 2017
       end
+
+      page.execute_script "window.scrollBy(0,10000)"
       click_button 'Update Student'
 
       expect(page).to have_text 'Successfully updated student'
@@ -187,6 +190,7 @@ describe 'new student admissions', type: :feature do
     it 'edits medical conditions in student details' do
       visit edit_student_path(ali)
 
+      page.execute_script "window.scrollBy(0,600)"
       within('#student-medical-history') do
         chosen_unselect('Autistic', from: 'Disabilities')
         chosen_unselect('Epilepsy', from: 'Medical Conditions')
@@ -215,7 +219,7 @@ describe 'new student admissions', type: :feature do
       expect(find('dd[data-for="gender"]')).to have_content 'female'
       expect(find('dd[data-for="date_of_birth"]')).to have_content '1997-09-09'
       expect(find('dd[data-for="gender"]')).to have_content 'female'
-      expect(find('dd[data-for="age"]')).to have_content '20'
+      # expect(find('dd[data-for="age"]')).to have_content '21' # This number will keep increasing & will fail every new year.
       expect(find('dd[data-for="citizenship"]')).to have_content 'Singaporean'
       expect(find('dd[data-for="race"]')).to have_content 'Chinese'
       expect(find('dd[data-for="nric"]')).to have_content 'S8888888D'
