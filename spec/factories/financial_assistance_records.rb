@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :financial_assistance_record do
     student
     assistance_type 'Pocket Fund'

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :internship_record do
     student
     internship_company

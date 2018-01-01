@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :student do
     admission_year 2016
     admission_no '16006/2016'
