@@ -209,6 +209,15 @@ describe 'new student admissions', type: :feature do
   end
 
   describe 'view student' do
+    before do
+      t = Time.parse("25 December 2017") # Fix to 2017 so the age calculation is based on a fixed point in time
+      Timecop.travel(t)
+    end
+
+    after do
+      Timecop.return
+    end
+
     it 'displays the details of a student' do
       visit student_path(ali)
 
@@ -219,7 +228,7 @@ describe 'new student admissions', type: :feature do
       expect(find('dd[data-for="gender"]')).to have_content 'female'
       expect(find('dd[data-for="date_of_birth"]')).to have_content '1997-09-09'
       expect(find('dd[data-for="gender"]')).to have_content 'female'
-      # expect(find('dd[data-for="age"]')).to have_content '21' # This number will keep increasing & will fail every new year.
+      expect(find('dd[data-for="age"]')).to have_content '20'
       expect(find('dd[data-for="citizenship"]')).to have_content 'Singaporean'
       expect(find('dd[data-for="race"]')).to have_content 'Chinese'
       expect(find('dd[data-for="nric"]')).to have_content 'S8888888D'

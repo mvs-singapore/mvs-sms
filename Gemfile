@@ -57,6 +57,7 @@ group :development, :test do
   gem 'email_spec'
   gem 'shoulda-matchers', '~> 3.1'
   gem "factory_bot_rails"
+  gem "timecop"
 end
 
 group :test do
