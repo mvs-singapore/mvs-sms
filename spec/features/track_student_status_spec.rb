@@ -17,7 +17,7 @@ describe 'track student status', type: :feature do
 
   it 'displays history of student status', js: true do
     click_link 'Current Info'
-    select('internship', from: 'Status')
+    select('Internship', from: 'Status')
 
     click_button 'Update Student'
     expect(page).to have_text 'Successfully updated student'

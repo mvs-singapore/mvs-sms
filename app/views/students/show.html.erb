@@ -14,7 +14,7 @@
             <li class="list-inline-item small text-muted" data-for="current_class"><%= @student.current_class.try(:name) %></li>
           </ul>
           <ul class="list-inline">
-            <li class="list-inline-item" data-for="gender"><%= @student.gender %></li>
+            <li class="list-inline-item" data-for="gender"><%= @student.gender.titlecase %></li>
             <li class="list-inline-item" data-for="age"><%= @student.age %> years old</li>
             <li class="list-inline-item" data-for="disabilities"><%= @student.disabilities.map(&:title).join(', ') %></li>
           </ul>
@@ -51,7 +51,7 @@
           <dd class="col-7" data-for="citizenship"><%= @student.citizenship %></dd>
 
           <dt class="col-5">Gender</dt>
-          <dd class="col-7" data-for="gender"><%= @student.gender %></dd>
+          <dd class="col-7" data-for="gender"><%= @student.gender.titlecase %></dd>
 
           <dt class="col-5">T-shirt Size</dt>
           <dd class="col-7" data-for="tshirt_size"><%= @student.tshirt_size %></dd>
@@ -91,7 +91,7 @@
           <dd class="col-7" data-for="registered_at"><%= @student.registered_at %></dd>
 
           <dt class="col-5">Referred By</dt>
-          <dd class="col-7" data-for="referred_by"><%= @student.referred_by %></dd>
+          <dd class="col-7" data-for="referred_by"><%= @student.referred_by.titlecase %></dd>
 
           <dt class="col-5">Name of Referee</dt>
           <dd class="col-7" data-for="referral_notes"><%= @student.referral_notes %></dd>
@@ -99,7 +99,7 @@
       </div>
 
       <h4 class="card-header">Status Changes <span class="badge badge-warning float-right">
-        Current Status: <%= @student.status.titleize %></span></h4>
+        Current Status: <%= @student.status.titlecase %></span></h4>
       <div class="card-body">
         <table class="table table-sm status-changes">
           <thead>

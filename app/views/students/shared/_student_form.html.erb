@@ -133,7 +133,7 @@
         <div class="form-group row justify-content-center">
           <div class="col-4 my-4">
             <%= f.label :status, 'Current Status', class: 'h5 required-field' %>
-            <%= f.select :status, Student.statuses.keys, {prompt: 'Select Status'}, class: 'form-control' %>
+            <%= f.select :status, Student.statuses.values, {prompt: 'Select Status'}, class: 'form-control' %>
           </div>
         </div>
 

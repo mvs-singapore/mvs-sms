@@ -54,7 +54,7 @@
 
         <div class="form-group col-md-4">
           <%= f.label :gender, class: "col-form-label required-field" %>
-          <%= f.select :gender, Student.genders.keys, {prompt: 'Select Gender'}, class: 'form-control form-control-sm' %>
+          <%= f.select :gender, Student.genders.keys.map {|s| [s.titleize, s]}, {prompt: 'Select Gender'}, class: 'form-control form-control-sm' %>
         </div>
 
         <div class="form-group col-md-4">
