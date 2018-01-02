@@ -64,7 +64,7 @@ InternshipSupervisor.create(
 )
 
 puts "Seeding students"
-5.times do
+30.times do
   student = Student.create({
     admission_year: Faker::Number.between(2014, 2017),
     admission_no: "12345/123",
