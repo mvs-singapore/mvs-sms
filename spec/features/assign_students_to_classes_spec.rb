@@ -33,7 +33,7 @@ describe 'assign students to classes', type: :feature do
     click_button 'Update School class'
 
     within("#class-#{fnb_class.id}") do
-      click_link 'View'
+      click_link 'Year 2 Food & Beverages'
     end
 
     expect(find('table[data-for="students"]')).to have_content 'Smith, John'
@@ -47,7 +47,7 @@ describe 'assign students to classes', type: :feature do
     click_button 'Update School class'
 
     within("#class-#{fnb_class.id}") do
-      click_link 'View'
+      click_link 'Year 2 Food & Beverages'
     end
 
     expect(find('table[data-for="students"]')).to_not have_content 'Smith, John'

@@ -29,7 +29,7 @@ describe 'manage medical conditions', type: :feature do
   describe 'edit medical condition' do
     it 'edits an existing medical condition' do
       within("#medical-condition-#{default_medical_condition.id}") do
-        find_link('Edit').click
+        find_link('Epilepsy').click
       end
 
       within('.edit_medical_condition') do

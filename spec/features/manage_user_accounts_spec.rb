@@ -53,7 +53,7 @@ describe 'manage user accounts', type: :feature do
       sign_in super_user
 
       visit '/admin/users/'
-      find(:xpath, "//tr[td[contains(., 'Teacher 1')]]/td/a", :text => 'Edit').click
+      find(:xpath, "//tr[td[contains(., 'Teacher 1')]]/td/a", :text => 'Teacher 1').click
       within('.edit_user') do
         fill_in 'Name', with: 'Yammy'
         fill_in 'Email', with: 'yammy@example.com'

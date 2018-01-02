@@ -30,7 +30,7 @@ describe 'new student admissions', type: :feature do
         fill_in 'Race', with: 'Chinese'
         fill_in 'NRIC', with: 'S8888888D'
         fill_in 'Citizenship', with: 'Singaporean'
-        select('female', from: 'Gender')
+        select('Female', from: 'Gender')
         select('M', from: 'T-shirt Size')
         fill_in 'SADeaf Client Registration No.', with: '12445/244'
         find('#student_place_of_birth').click
@@ -50,7 +50,7 @@ describe 'new student admissions', type: :feature do
         fill_in 'Admission Year', with: '2017'
         fill_in 'Admission No.', with: '16006/2016'
         fill_in 'Date of Registration', with: '2017-09-09'
-        select('association_of_persons_with_special_needs', from: 'Referred By')
+        select('Association of Persons with Special Needs', from: 'Referred By')
         fill_in 'Name of Referee', with: 'Mdm Referee'
       end
 
@@ -99,11 +99,10 @@ describe 'new student admissions', type: :feature do
       new_student = Student.last
 
       within("#student-#{new_student.id}") do
-        expect(find('td[data-for="given_name"]')).to have_content 'Ali'
-        expect(find('td[data-for="surname"]')).to have_content 'Lee'
+        expect(find('td[data-for="full_name"]')).to have_content 'Lee, Ali'
         expect(find('td[data-for="date_of_birth"]')).to have_content '1997-09-09'
-        expect(find('td[data-for="gender"]')).to have_content 'female'
-        expect(find('td[data-for="status"]')).to have_content 'new_admission'
+        expect(find('td[data-for="gender"]')).to have_content 'Female'
+        expect(find('td[data-for="status"]')).to have_content 'New Admission'
         expect(find('td[data-for="disabilities"]')).to have_content("Autistic")
         expect(find('td[data-for="medical_conditions"]')).to have_content("Asthma")
       end
@@ -127,7 +126,7 @@ describe 'new student admissions', type: :feature do
 
       expect(new_student.admission_no).to eq '16006/2016'
       expect(new_student.registered_at).to eq Date.parse('09/09/2017')
-      expect(new_student.referred_by).to eq 'association_of_persons_with_special_needs'
+      expect(new_student.referred_by).to eq 'Association of Persons with Special Needs'
       expect(new_student.referral_notes).to eq 'Mdm Referee'
       expect(new_student.status).to eq 'new_admission'
       expect(new_student.place_of_birth).to eq 'Singapore'
@@ -225,9 +224,8 @@ describe 'new student admissions', type: :feature do
 
       expect(find('dd[data-for="given_name"]')).to have_content 'Ali'
       expect(find('dd[data-for="surname"]')).to have_content 'Lee'
-      expect(find('dd[data-for="gender"]')).to have_content 'female'
+      expect(find('dd[data-for="gender"]')).to have_content 'Female'
       expect(find('dd[data-for="date_of_birth"]')).to have_content '1997-09-09'
-      expect(find('dd[data-for="gender"]')).to have_content 'female'
       expect(find('dd[data-for="age"]')).to have_content '20'
       expect(find('dd[data-for="citizenship"]')).to have_content 'Singaporean'
       expect(find('dd[data-for="race"]')).to have_content 'Chinese'
@@ -265,8 +263,8 @@ describe 'new student admissions', type: :feature do
       select('Year 2 Food & Beverages', from: 'class_name')
       click_on 'Search by Academic Year or Class'
 
-      expect(find('td[data-for="given_name"]')).to have_content 'Ali'
-      expect(find('td[data-for="given_name"]')).to_not have_content 'Robin'
+      expect(find('td[data-for="full_name"]')).to have_content 'Ali'
+      expect(find('td[data-for="full_name"]')).to_not have_content 'Robin'
     end
 
     it 'searches students by name' do
@@ -274,7 +272,7 @@ describe 'new student admissions', type: :feature do
       fill_in "search", with: "Robin"
       click_on 'Search by Name'
 
-      expect(find('td[data-for="given_name"]')).to have_content 'Robin'
+      expect(find('td[data-for="full_name"]')).to have_content 'Robin'
     end
   end
 end

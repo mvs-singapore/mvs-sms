@@ -1,4 +1,6 @@
-<h3 class="text-center">Add New Disability</h3>
+<div class="container">
+<h3 class="text-center mt-5 mb-4">Add New Disability</h3>
 <%= form_for(@resource, url: disabilities_path) do |f| %>
     <%= render :partial => 'disabilities/shared/disability_form', :locals => {:f => f} %>
 <% end %>
+</div>

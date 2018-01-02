@@ -1,8 +1,14 @@
-<h3>Manage Disabilities</h3>
+<div class="container">
+  <div class="row justify-content-end mt-5 mb-4">
+    <div class="col-6 offset-md-3">
+      <h3 class="text-center">Manage Disabilities</h3>
+    </div>
+    <div class="col-3 text-right">
+      <%= link_to '<i class="fa fa-plus"></i> Add Disability'.html_safe, new_disability_path, class: "btn btn-primary" %>
+    </div>
+  </div>
 
-<p><%= link_to('Add Disability', new_disability_path, class: "btn btn-primary") %></p>
-
-<table class="table table-bordered table-responsive">
+<table class="table table-bordered">
   <thead class="table-primary">
     <tr>
       <th>Disability</th>
@@ -13,13 +19,13 @@
   <tbody class="bg-white">
   <% @resources.each do |disability| %>
     <tr id="disability-<%= disability.id %>">
-      <td><%= disability.title %></td>
+      <td><%= link_to "#{disability.title}", edit_disability_path(disability), class: 'edit_disability' %></td>
       <td><%= disability.created_at %></td>
       <td>
-        <%= link_to 'Edit', edit_disability_path(disability), class: "edit_role btn btn-primary" %>
         <%= link_to 'Delete', disability_path(disability), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_disability btn btn-danger" %>
       </td>
     </tr>
   <% end %>
   </tbody>
 </table>
+</div>

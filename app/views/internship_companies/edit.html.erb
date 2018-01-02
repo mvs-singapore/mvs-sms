@@ -1,4 +1,6 @@
-<h3 class="text-center">Edit Internship Company</h3>
+<h3 class="text-center mt-5 mb-4">Edit Internship Company</h3>
+<div class="container">
 <%= form_for(@resource, url: internship_company_path) do |f| %>
     <%= render :partial => 'shared/internship_company_form', :locals => {:f => f} %>
 <% end %>
+</div>

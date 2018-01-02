@@ -14,7 +14,7 @@ describe 'manage internship supervisors', type: :feature do
 
   describe 'create internship supervisor' do
     it 'creates new internship supervisor' do
-      click_link 'Add Supervisor'
+      click_link 'Add Internship Supervisor'
       within('#new_internship_supervisor') do
         fill_in 'Supervisor Name', with: 'abc'
         fill_in 'Email', with: 'abc@gmail.com'
@@ -32,7 +32,7 @@ describe 'manage internship supervisors', type: :feature do
   describe 'edit internship supervisor' do
     it 'edits an existing internship supervisor' do
       within("#supervisor-#{default_supervisor.id}") do
-        find_link('Edit').click
+        find_link('aaaa').click
       end
 
       within('.edit_internship_supervisor') do
@@ -42,7 +42,7 @@ describe 'manage internship supervisors', type: :feature do
 
       expect(page).to have_text 'Successfully updated internship supervisor'
 
-      expect(default_supervisor.reload.name).to eq 'some supervisor'  
+      expect(default_supervisor.reload.name).to eq 'some supervisor'
     end
   end
 

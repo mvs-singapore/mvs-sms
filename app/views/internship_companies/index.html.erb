@@ -1,8 +1,14 @@
-<h3>Manage Internship Companies</h3>
+<div class="container">
+  <div class="row justify-content-end mt-5 mb-4">
+    <div class="col-6 offset-md-3">
+      <h3 class="text-center">Manage Internship Companies</h3>
+    </div>
+    <div class="col-3 text-right">
+      <%= link_to '<i class="fa fa-plus"></i> Add Internship Company'.html_safe, new_internship_company_path, class: "btn btn-primary" %>
+    </div>
+  </div>
 
-<p><%= link_to('Add Internship Company', new_internship_company_path, class: "btn btn-primary") %></p>
-
-<table class="table table-bordered table-responsive">
+<table class="table table-bordered">
   <thead class="table-primary">
     <tr>
 			<th>Name</th>
@@ -14,11 +20,10 @@
   <tbody class="bg-white">
         <% @resources.each do |internship_company| %>
           <tr id="internship-company-<%= internship_company.id %>">
-            <td><%= internship_company.name %></td>
+            <td><%= link_to "#{internship_company.name}", internship_company_path(internship_company), class: 'show_internship_company' %></td>
             <td><%= internship_company.address %></td>
             <td><%= internship_company.postal_code %></td>
             <td>
-              <%= link_to 'Show', internship_company_path(internship_company), class: "show_internship_company btn btn-primary" %>
               <%= link_to 'Edit', edit_internship_company_path(internship_company), class: "edit_internship_company btn btn-primary" %>
               <%= link_to 'Delete', internship_company_path(internship_company), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_internship_company btn btn-danger" %>
             </td>
@@ -26,3 +31,4 @@
         <% end %>
       </tbody>
 </table>
+</div>

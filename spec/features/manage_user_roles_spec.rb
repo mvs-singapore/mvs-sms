@@ -28,7 +28,7 @@ describe 'manage user roles', type: :feature do
   describe 'edit role' do
     it 'edits an existing role' do
       within("#role-#{social_worker_role.id}") do
-        find_link('Edit').click
+        find_link('socialworker').click
       end
 
       within('.edit_role') do

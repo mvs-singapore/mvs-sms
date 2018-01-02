@@ -27,32 +27,6 @@
         <%= render '/students/shared/student_particulars', f: f %>
       <br>
         <%= render '/students/shared/medical_history', f: f %>
-      <br>
-      <h4 class="card-title">Attachments</h4>
-      <div id="student-attachments">
-      <div class="form-group row">
-        <table class="table">
-          <thead>
-          <tr>
-            <th><%= f.label :document_type, 'Document Type' %></th>
-            <th><%= f.label :filename, 'Filename' %></th>
-            <th><%= f.label :notes, 'Notes' %></th>
-            <th></th>
-          </tr>
-          </thead>
-          <tbody class="attachments">
-          <%= f.fields_for :attachments do |attachment| %>
-              <%= render '/students/shared/attachments', f: attachment %>
-          <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <%= link_to_add_association 'Attach Files', f, :attachments,
-                            data: {"association-insertion-node" => "tbody.attachments", "association-insertion-method" => "append"},
-                            partial: '/students/shared/attachments', class: 'btn btn-primary' %>
-
     </div>
 
     <div class="tab-pane fade" id="admin" role="tabpanel" aria-labelledby="admin-tab">
@@ -82,6 +56,32 @@
           <%= link_to_add_association 'Add Past Education Record', f, :past_education_records,
                                       data: {"association-insertion-node" => "tbody.past_education_record", "association-insertion-method" => "append"},
                                       partial: '/students/shared/past_education_record_fields', class: 'btn btn-outline-primary' %>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="card bg-light" id="student-attachments">
+        <h4 class="card-header">Attachments</h4>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+            <tr>
+              <th><%= f.label :document_type, 'Document Type' %></th>
+              <th><%= f.label :notes %></th>
+              <th><%= f.label :filename %></th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody class="attachments">
+            <%= f.fields_for :attachments do |attachment| %>
+                <%= render '/students/shared/attachments', f: attachment %>
+            <% end %>
+            </tbody>
+          </table>
+          <%= link_to_add_association 'Add File Attachment', f, :attachments,
+                                  data: {"association-insertion-node" => "tbody.attachments", "association-insertion-method" => "append"},
+                                  partial: '/students/shared/attachments', class: 'btn btn-outline-primary' %>
         </div>
       </div>
 
@@ -133,7 +133,7 @@
         <div class="form-group row justify-content-center">
           <div class="col-4 my-4">
             <%= f.label :status, 'Current Status', class: 'h5 required-field' %>
-            <%= f.select :status, Student.statuses.keys, {prompt: 'Select Status'}, class: 'form-control' %>
+            <%= f.select :status, Student.statuses.values, {prompt: 'Select Status'}, class: 'form-control' %>
           </div>
         </div>
 

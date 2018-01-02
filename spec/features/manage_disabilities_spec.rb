@@ -29,7 +29,7 @@ describe 'manage disabilities', type: :feature do
   describe 'edit disability' do
     it 'edits an existing disability' do
       within("#disability-#{default_disability.id}") do
-        find_link('Edit').click
+        find_link('Autistic').click
       end
 
       within('.edit_disability') do

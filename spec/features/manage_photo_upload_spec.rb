@@ -26,14 +26,14 @@ describe 'student photo upload', type: :feature do
         fill_in 'Race', with: 'Chinese'
         fill_in 'NRIC', with: 'S8888888D'
         fill_in 'Citizenship', with: 'Singaporean'
-        select('female', from: 'Gender')
+        select('Female', from: 'Gender')
       end
 
       click_link 'Administrative Details'
 
       fill_in 'Admission Year', with: '2017'
       fill_in 'Date of Registration', with: '09/09/2017'
-      select('association_of_persons_with_special_needs', from: 'Referred By')
+      select('Association of Persons with Special Needs', from: 'Referred By')
 
       within('#past-educations .nested-fields:nth-of-type(1)') do
         find('td[data-for="school_name"] input').set('Northlight')

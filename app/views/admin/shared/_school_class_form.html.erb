@@ -1,41 +1,30 @@
-<div class="form-group row justify-content-center">
-  <div class="col-4">
+<div class="row">
+  <div class="form-group col-6">
     <%= f.label :academic_year, 'Academic Year' %>
     <%= f.text_field :academic_year, autofocus: true, class: 'form-control' %>
   </div>
-</div>
 
-<div class="form-group row justify-content-center">
-  <div class="col-4">
+  <div class="form-group col-6">
     <%= f.label :name %>
     <%= f.text_field :name, autofocus: true, class: 'form-control', placeholder: 'eg. Class 1.1'  %>
   </div>
-</div>
 
-<div class="form-group row justify-content-center">
-  <div class="col-4">
+  <div class="form-group col-6">
     <%= f.label :year %>
     <%= f.select :year, options_for_select((1..2).map{|s| ["Year #{s}", s]}), {prompt: 'Select Year'}, class: 'form-control' %>
-
   </div>
-</div>
 
-<div class="form-group row justify-content-center">
-  <div class="col-4">
+  <div class="form-group col-6">
     <%= f.label :form_teacher_id, 'Form Teacher' %>
     <%= f.collection_select :form_teacher_id, User.teachers, :id, :name, {prompt: 'Select Teacher'}, class: 'form-control'%>
   </div>
-</div>
 
-<div class="form-group row justify-content-center">
-  <div class="col-4">
-    <%= f.label :student_ids, 'Students' %>
-    <%= f.collection_select :student_ids, Student.all.sorted, :id, :full_name, {prompt: 'Select Teacher'}, {class: 'form-control', multiple: true} %>
+  <div class="form-group col-12">
+    <%= f.label :student_ids, 'Assign Students' %>
+    <%= f.collection_select :student_ids, Student.all.sorted, :id, :full_name, {prompt: "Select Students"}, {class: 'form-control', multiple: true, size: 15} %>
   </div>
-</div>
 
-<div class="form-group row justify-content-center">
-  <div class="col-4">
+  <div class="form-group col-12">
     <%= f.submit :class => 'btn btn-primary' %>
-  </div>
+    </div>
 </div>

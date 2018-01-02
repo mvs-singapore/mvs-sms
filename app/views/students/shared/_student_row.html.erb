@@ -8,15 +8,14 @@
      end %>
   <td data-for="academic_year"><%= student_academic_year %></td>
   <td data-for="class"><%= student_class_name %></td>
-  <td data-for="given_name"><%= link_to "#{student.given_name}", student_path(student), class: 'student-given-name' %></td>
-  <td data-for="surname"><%= student.surname %></td>
+  <td data-for="full_name"><%= link_to "#{student.full_name}", student_path(student) %></td>
   <td data-for="date_of_birth"><%= student.date_of_birth %></td>
   <td data-for="age"><%= student.age %></td>
-  <td data-for="gender"><%= student.gender %></td>
+  <td data-for="gender"><%= student.gender.titlecase %></td>
   <td data-for="disabilities"><%= student.disabilities.order('title').pluck('title').first %></td>
   <td data-for="medical_conditions"><%= student.medical_conditions.order('title').pluck('title').first %></td>
   <td data-for="main_contact"><%= student.point_of_contacts.map(&:contact_full_name).first %></td>
-  <td data-for="status"><%= student.status %></td>
+  <td data-for="status"><%= student.status.titlecase %></td>
   <td data-for="view" class="text-center collapsed" data-toggle="collapse" data-target="#student-details-<%= student.id %>"><i class="fa fa-plus"></td>
 </tr>
 <tr>

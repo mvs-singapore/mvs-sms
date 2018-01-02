@@ -71,7 +71,7 @@ describe 'manage school classes', type: :feature do
       visit '/admin/school_classes/'
 
       within("#class-#{fnb_class.id}") do
-        find_link('View').click
+        find_link('Year 2 Food & Beverages').click
       end
 
       expect(find('h1')).to have_content 'Year 2 Food & Beverages (2017), Good Teacher (Form Teacher)'
