@@ -49,7 +49,7 @@ byebug
   private
 
   def attendance_params
-    params.require(:attendance).permit(:attendance_status,:reason, :school_class_id, student_ids: [])
+    params.require(:attendance).permit(:attendance_status, :reason, :attendance_remark, :school_class_id, student_ids: [])
   end
 
     def fetch_cohort_classes

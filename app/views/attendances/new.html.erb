@@ -23,7 +23,7 @@
         <td data-for="present"><input class="form-check-input" name="attendance_status-<%= student.id %>" type="radio" id="presentCheckbox" value="present"> </td>
         <td data-for="absent"><input class="form-check-input" name="attendance_status-<%= student.id %>" type="radio" id="absentCheckbox" value="absent"> </td>
         <td data-for="late"><input class="form-check-input" name="attendance_status-<%= student.id %>" type="radio" id="lateCheckbox" value="late"> </td>
-        <td data-for="reason"><%= select_tag :reason, options_for_select(Attendance.reasons.values), prompt: "Select Reason", class: ' <%= student.id %> custom-select mb-2 mr-sm-2 mb-sm-0' %></td>
+        <td data-for="reason"><%= select_tag :reason, options_for_select(Attendance.reasons.values), prompt: "Select Reason", class: 'custom-select mb-2 mr-sm-2 mb-sm-0' %></td>
         <!-- <td data-for="remark"><%= f.text_field :attendance_remark, class: 'form-control' %></td> -->
       </tr>
     <% end %>
