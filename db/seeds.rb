@@ -15,7 +15,7 @@ end
 User.where(email: 'sms-admin@mvs.edu.sg').first_or_create! do |user|
   user.password = 'password1234'
   user.role = Role.find_by(name: 'super_admin')
-  user.name = 'Super Admin'
+  user.name = 'Ernest'
 
   puts "Default admin account created."
 end
@@ -23,7 +23,7 @@ end
 User.where(email: 'teacher@mvs.edu.sg').first_or_create! do |user|
   user.password = 'password1234'
   user.role = Role.find_by(name: 'teacher')
-  user.name = 'Some Teacher'
+  user.name = 'Yammy'
 
   puts "Default teacher account created."
 end
@@ -46,11 +46,20 @@ InternshipCompany.where(name: 'Harvard Hotel').first_or_create! do |internship_c
 end
 
 puts "Seeding school classes"
-4.times do
+['Class 1.1 Food & Beverage', 'Class 1.2 Housekeeping'].each do |class_name|
   SchoolClass.create(
     academic_year: Faker::Number.between(2016, 2017),
-    name: ['Class 1.1 Food & Beverage', 'Class 1.2 Housekeeping', 'Class 2.1 Food Preparation', 'Class 2.2 F&B Service'].sample,
-    year: ['1', '2'].sample,
+    name: class_name,
+    year: '1',
+    form_teacher_id: 2
+    )
+end
+
+['Class 2.1 Food Preparation', 'Class 2.2 F&B Service'].each do |class_name|
+  SchoolClass.create(
+    academic_year: Faker::Number.between(2016, 2017),
+    name: class_name,
+    year: '2',
     form_teacher_id: 2
     )
 end
@@ -74,7 +83,7 @@ puts "Seeding students"
     referral_notes: Faker::Name.name,
     surname: Faker::Name.last_name,
     given_name: Faker::Name.first_name,
-    date_of_birth: Faker::Date.birthday(15, 18),
+    date_of_birth: Faker::Date.birthday(14, 18),
     place_of_birth: Faker::Address.country,
     race: Faker::Demographic.race,
     nric: "S9874563D",
