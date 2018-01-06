@@ -102,7 +102,7 @@ puts "Seeding students"
     qualification: ['PSLE', 'Certificate'].sample,
     highest_qualification: true
   )
-  2.times do
+  ['Mother', 'Father'].each do |relationship|
     student.point_of_contacts.create(
       surname: Faker::Name.last_name,
       given_name: Faker::Name.first_name,
@@ -120,7 +120,7 @@ puts "Seeding students"
       home_number: Faker::Number.number(8),
       handphone_number: Faker::Number.number(8),
       office_number: Faker::Number.number(8),
-      relationship: ['Mother', 'Father', 'Guardian'].sample
+      relationship: relationship
     )
   end
   student.medical_conditions.create(
