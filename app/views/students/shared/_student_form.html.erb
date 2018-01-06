@@ -75,7 +75,7 @@
             </thead>
             <tbody class="attachments">
             <%= f.fields_for :attachments do |attachment| %>
-                <%= render '/students/shared/attachments', f: attachment %>
+                <%= render '/students/shared/attachments_read_only', f: attachment %>
             <% end %>
             </tbody>
           </table>
