@@ -2,7 +2,7 @@
   <td data-for="document_type"><%= f.select :document_type, Attachment.document_types.to_a.map{|v| v.reverse}, {prompt: 'Select Document Type'}, class: 'form-control form-control-sm' %></td>
   <!-- <td data-for="filename"><%= file_field_tag "file" %></td> -->
   <td data-for="notes"><%= f.text_field :notes, class: 'form-control form-control-sm' %></td>
-  <td data-for="filename"><%= link_to f.object.filename.file.file_data.first.name, f.object.filename.try(:url) %></td>
+  <td data-for="filename"><%= link_to f.object.filename.try(:file).try(:file_data).try(:first).try(:name), f.object.filename.try(:url) %></td>
   <td><%= link_to_remove_association "Delete File", f, class: 'delete_attachment btn btn-danger btn-sm',
   data: {confirm:
 'Should you proceed to delete, you will lose this document of the student. This action is not reversible.
