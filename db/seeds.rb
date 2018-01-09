@@ -12,7 +12,7 @@
   end
 end
 
-User.where(email: 'sms-admin@mvs.edu.sg').first_or_create! do |user|
+User.where(email: 'ernest@mvs.edu.sg').first_or_create! do |user|
   user.password = 'password1234'
   user.role = Role.find_by(name: 'super_admin')
   user.name = 'Ernest'
@@ -20,7 +20,7 @@ User.where(email: 'sms-admin@mvs.edu.sg').first_or_create! do |user|
   puts "Default admin account created."
 end
 
-User.where(email: 'teacher@mvs.edu.sg').first_or_create! do |user|
+User.where(email: 'yammy@mvs.edu.sg').first_or_create! do |user|
   user.password = 'password1234'
   user.role = Role.find_by(name: 'teacher')
   user.name = 'Yammy'
@@ -34,7 +34,7 @@ puts "Seeding disabilities"
 end
 
 puts "Seeding medical conditions"
-['Schizophrenia', 'ASD', 'Allergies', 'Hyperactive', 'Epilepsy', "Down's Syndrome", 'ADHD', 'Schizophrenia'].each do |medical_condition|
+['Schizophrenia', 'ASD', 'Allergies', 'Hyperactive', 'Epilepsy', "Down's Syndrome", 'ADHD'].each do |medical_condition|
   MedicalCondition.where(title: medical_condition).first_or_create!
 end
 
@@ -123,11 +123,11 @@ puts "Seeding students"
       relationship: relationship
     )
   end
-  student.medical_conditions.create(
-    title: ['Schizophrenia', 'ASD', 'Allergies', 'Hyperactive', 'Epilepsy', "Down's Syndrome", 'ADHD', 'Schizophrenia'].sample
+  student.student_medical_conditions.create(
+    medical_condition_id: [1, 2, 3, 4, 5, 6, 7].sample
   )
-  student.disabilities.create(
-    title: ['Hearing Impaired', 'Intellectual', 'Autism', 'Visually Impaired', 'Mild Learning Disability'].sample
+  student.student_disabilities.create(
+    disability_id: [1, 2, 3, 4, 5].sample
   )
   student.financial_assistance_records.create(
     assistance_type: "Pocket Fund",
@@ -144,7 +144,7 @@ puts "Seeding students"
   student.remarks.create(
     event_date: Date.today,
     user_id: 1,
-    details: Faker::Lorem.paragraphs(2),
+    details: Faker::Lorem.paragraph(2),
     category: ['Incident', 'New Admission', 'Promoted', 'Retained', 'Internship Notes'].sample
   )
   student.student_classes.create(
