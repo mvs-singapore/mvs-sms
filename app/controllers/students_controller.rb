@@ -105,7 +105,7 @@ class StudentsController < ApplicationController
 
     if student_params[:remarks_attributes].present?
       student_params[:remarks_attributes].each do |_, remark|
-        remark[:user_id] = remark[:user_id].blank? ? current_user.id : User.find_by(name: remark[:user_id]).id
+        remark[:user_id] = current_user.id if remark[:user_id].blank?
       end
     end
 
