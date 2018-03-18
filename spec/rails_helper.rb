@@ -36,8 +36,8 @@ Capybara.register_driver :headless_chrome do |app|
   Capybara::Selenium::Driver.new(app, webdriver_options)
 end
 
-# Capybara.javascript_driver = :headless_chrome
-Capybara.javascript_driver = :chrome
+Capybara.javascript_driver = :headless_chrome
+# Capybara.javascript_driver = :chrome
 
 def accept_confirm_dialog
   return unless block_given?
