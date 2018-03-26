@@ -76,6 +76,7 @@ class StudentsController < ApplicationController
 
   def fetch_student
     @student = Student.find(params[:id])
+    @remarks_by_current_user = @student.remarks.where(user_id: current_user.id)
   end
 
   def fetch_medical_history_master_list

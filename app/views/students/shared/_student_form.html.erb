@@ -157,7 +157,7 @@
             <h4 class="card-header">Remarks</h4>
             <div class="card-body">
               <div id="student-remarks">
-                <%= f.fields_for :remarks do |remarks| %>
+                <%= f.fields_for :remarks, @remarks_by_current_user do |remarks| %>
                   <%= render '/students/shared/remark_form', f: remarks %>
                 <% end %>
               </div>
@@ -166,7 +166,6 @@
                                           partial: '/students/shared/remark_form', class: 'btn btn-outline-primary' %>
             </div>
           </div>
-
         </div>
       </div>
     <% end %>
