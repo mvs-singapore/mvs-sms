@@ -4,7 +4,7 @@
     <div class="form-group col-6">
       <%= f.label :event_date, 'Event Date' %>
       <%= f.text_field :event_date, value: Date.today, disabled: f.object.persisted?, :data =>
-          {:provide => 'datepicker', 'date-format' => 'dd/mm/yyyy', 'date-autoclose' => 'true', 'date-orientation' => 'bottom auto'},
+          {:provide => 'datepicker', 'date-format' => 'yyyy-mm-dd', 'date-autoclose' => 'true', 'date-orientation' => 'bottom auto'},
                        class: 'form-control form-control-sm' %>
     </div>
 
