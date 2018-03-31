@@ -21,7 +21,7 @@
 
       <div class="form-group col-md-4">
         <%= f.label :referred_by, 'Referred By', class: 'col-form-label required-field' %>
-        <%= f.select :referred_by, Student.institutions.values, {prompt: 'Select Institution'}, class: 'form-control form-control-sm' %>
+        <%= f.select :referred_by, Student.institutions.map{|k,v| [v, k]}, {prompt: 'Select Institution'}, class: 'form-control form-control-sm' %>
       </div>
 
       <div class="form-group col-md-4">
