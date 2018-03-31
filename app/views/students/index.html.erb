@@ -3,15 +3,15 @@
 <div class="container mb-3">
   <div class="form-row justify-content-center">
     <%= form_tag(students_path, :method => "get", id: "search-cohort-class", class: 'form-group row justify-content-center') do %>
-    <%= select_tag :academic_year, options_for_select(@cohorts, params[:academic_year]), prompt: "Select Academic Year", class: 'custom-select mb-2 mr-2 mb-sm-0' %>
-    <%= select_tag :class_name, options_for_select(@class_names, params[:class_name]), disabled: true, prompt: "Select Class", class: 'custom-select mb-2 mr-sm-2 mb-sm-0' %>
+    <%= select_tag :academic_year, options_for_select(@cohorts, params[:academic_year]), prompt: "Select Academic Year", class: 'form-control col mr-2' %>
+    <%= select_tag :class_name, options_for_select(@class_names, params[:class_name]), disabled: true, prompt: "Select Class", class: 'form-control col mr-2' %>
     <%= submit_tag "Search by Academic Year or Class", class: 'btn btn-primary' %>
     <% end %>
   </div>
 
   <div class="form-row justify-content-center">
     <%= form_tag(students_path, :method => "get", id: "search-name", class: 'form-inline') do %>
-    <%= text_field_tag :search, params[:search], placeholder: "Student Name", class: 'form-control mb-2 mr-2 mb-sm-0' %>
+    <%= text_field_tag :search, params[:search], placeholder: "Student Name", class: 'form-control mr-2' %>
     <%= submit_tag "Search by Name", class: 'btn btn-primary' %>
     <% end %>
   </div>
