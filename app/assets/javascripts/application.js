@@ -19,6 +19,7 @@
 //= require bootstrap-datepicker
 //= require cloudinary
 //= require scaffold
+//= require selectize
 //= require_tree .
 
 
@@ -68,5 +69,37 @@ $(document).ready(function() {
   });
   $('.cloudinary-fileupload').bind('fileuploadprogress', function(e, data) {
     $('.progress-bar').css('width', Math.round((data.loaded * 100.0) / data.total) + '%');
+  });
+});
+
+$(document).ready(function () {
+  $('#report-filter #age').selectize({
+    delimiter: ',',
+    persist: false,
+    valueField: 'age',
+    labelField: 'age',
+    options: [
+      {age: '13'},
+      {age: '14'},
+      {age: '15'},
+      {age: '16'},
+      {age: '17'},
+      {age: '18'},
+      {age: '19'},
+      {age: '20'},
+      {age: '21'},
+      {age: '22'},
+      {age: '23'}
+    ]
+  });
+  $('#report-filter #gender').selectize({
+    delimiter: ',',
+    persist: false,
+    valueField: 'gender',
+    labelField: 'gender',
+    options: [
+      {gender: 'male'},
+      {gender: 'female'}
+    ]
   });
 });

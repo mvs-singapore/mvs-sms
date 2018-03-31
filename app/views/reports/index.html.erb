@@ -1,0 +1,39 @@
+<h3 class="text-center m-4">Student Reports</h3>
+
+<div class="container mb-3">
+  <div class="form-row">
+    <%= form_tag(reports_path, :method => 'get', id: 'report-filter', class: 'form-group row justify-content-center') do |f| %>
+      <div class="form-group col-md-1">
+        <%= label_tag :age, 'Age', class: 'col-form-label' %>
+        <%= text_field_tag :age, '', class: 'form-control form-control-sm' %>
+      </div>
+      <div class="form-group col-md-1">
+        <%= label_tag :gender, 'Gender', class: 'col-form-label' %>
+        <%= text_field_tag :gender, params[:gender], class: 'form-control form-control-sm' %>
+      </div>
+      <div class="form-group col-md-2">
+        <%= label_tag :nationality, 'Nationality', class: 'col-form-label' %>
+        <%= text_field_tag :nationality, '', class: 'form-control form-control-sm' %>
+      </div>
+      <div class="form-group col-md-2">
+        <%= label_tag :disability, 'Disability', class: 'col-form-label' %>
+        <%= text_field_tag :disability, '', class: 'form-control form-control-sm' %>
+      </div>
+      <div class="form-group col-md-2">
+        <%= label_tag :status, 'Current Status', class: 'col-form-label' %>
+        <%= text_field_tag :status, '', class: 'form-control form-control-sm' %>
+      </div>
+      <div class="form-group col-md-2">
+        <%= label_tag :financial_assistance, 'Financial Assistance', class: 'col-form-label' %>
+        <%= text_field_tag :financial_assistance, '', class: 'form-control form-control-sm' %>
+      </div>
+      <div class="form-group col-md-2">
+        <%= label_tag :referred_by, 'Referred by', class: 'col-form-label' %>
+        <%= text_field_tag :referred_by, '', class: 'form-control form-control-sm' %>
+      </div>
+      <div class="form-group col-md-12">
+        <%= submit_tag 'Search', :class => 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>
