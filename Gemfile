@@ -68,7 +68,7 @@ group :test do
 end
 
 gem 'devise'
-gem 'bootstrap', '~> 4.0.0.beta'
+gem 'bootstrap', '~> 4.0.0'
 gem 'chosen-rails'
 gem 'jquery-rails'
 gem 'cocoon'
