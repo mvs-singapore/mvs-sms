@@ -3,7 +3,7 @@ addons:
   chrome: stable
 language: ruby
 rvm:
-  - 2.4.1
+  - 2.5.1
 services:
   - postgresql
 bundler_args: "--without production --jobs=3"
