@@ -45,14 +45,13 @@ RSpec.describe Report do
     end
 
     xit 'returns students of a certain status' do
-      FactoryBot.create(:student, admission_no: '16013/2016', status: 'new_admission')
-      FactoryBot.create(:student, admission_no: '16014/2016', status: 'year1')
-      FactoryBot.create(:student, admission_no: '16015/2016', status: 'year2')
+      FactoryBot.create(:student, admission_no: '16013/2016', status: :new_admission)
+      FactoryBot.create(:student, admission_no: '16014/2016', status: :year1)
+      FactoryBot.create(:student, admission_no: '16015/2016', status: :year2)
 
       report = Report.new(status: ['', 'year1'])
 
       result = report.search_students
-
       expect(result.count).to eq 1
       expect(result.first.admission_no).to eq '16014/2016'
     end
