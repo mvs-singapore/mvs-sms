@@ -44,6 +44,19 @@ RSpec.describe Report do
       expect(result.first.admission_no).to eq '16013/2016'
     end
 
+    xit 'returns students of a certain status' do
+      FactoryBot.create(:student, admission_no: '16013/2016', status: 'new_admission')
+      FactoryBot.create(:student, admission_no: '16014/2016', status: 'year1')
+      FactoryBot.create(:student, admission_no: '16015/2016', status: 'year2')
+
+      report = Report.new(status: ['', 'year1'])
+
+      result = report.search_students
+
+      expect(result.count).to eq 1
+      expect(result.first.admission_no).to eq '16014/2016'
+    end
+
     it 'returns a combination of search query' do
       FactoryBot.create(:student, admission_no:  '16013/2016', date_of_birth: DateTime.now - 13.years, gender: 'male')
       FactoryBot.create(:student, admission_no:  '16014/2016', date_of_birth: DateTime.now - 13.years, gender: 'female')

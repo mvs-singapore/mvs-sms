@@ -36,6 +36,11 @@ class Report
       search_query << '( students.citizenship IN (?) )'
     end
 
+    if status && status.count > 1
+      search_params << status.select{ |a| a.length > 0 }
+      search_query << '( students.status IN (?) )'
+    end
+
     unless search_query.empty?
       query_string = 'SELECT * FROM students WHERE ' + search_query.join(' AND ')
       Student.find_by_sql([query_string, *search_params])
