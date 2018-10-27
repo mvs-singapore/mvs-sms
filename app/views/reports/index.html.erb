@@ -33,3 +33,27 @@
     <% end %>
   </div>
 </div>
+
+<%= link_to('<i class="fa fa-download"></i> Download CSV'.html_safe, reports_path(csv_download_options(params)), class: "btn btn-success") %>
+
+
+<table class="table table-bordered table-sm">
+  <thead class="table-primary">
+    <tr>
+      <th>Academic Year</th>
+      <th>Class</th>
+      <th>Full Name</th>
+      <th>Date of Birth</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Disability</th>
+      <th>Medical Condition</th>
+      <th>Main Contact</th>
+      <th>Status</th>
+      <th>View</th>
+    </tr>
+  </thead>
+  <tbody class="bg-white student-list">
+    <%= render partial: "students/shared/student_row", collection: @report.search_students, as: :student %>
+  </tbody>
+</table>

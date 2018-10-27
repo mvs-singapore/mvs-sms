@@ -28,6 +28,8 @@ module ApplicationHelper
       link_options.merge!(search: current_params[:search])
     elsif current_params[:academic_year].present?
       link_options.merge!(academic_year: current_params[:academic_year], class_name: current_params[:class_name])
+    elsif current_params[:report].present?
+      link_options.merge!(current_params.as_json)
     end
 
     link_options

@@ -5,6 +5,11 @@ class ReportsController < ApplicationController
     else
       @report = Report.new
     end
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data Student.as_csv(@report.search_students), filename: "students-#{Date.today}.csv" }
+    end
   end
 
   def report_params
