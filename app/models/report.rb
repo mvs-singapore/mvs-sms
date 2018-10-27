@@ -41,6 +41,11 @@ class Report
       search_query << '( students.status IN (?) )'
     end
 
+    if referred_by && referred_by.count > 1
+      search_params << referred_by.select{ |a| a.length > 0 }
+      search_query << '( students.referred_by IN (?) )'
+    end
+
     unless search_query.empty?
       query_string = 'SELECT * FROM students WHERE ' + search_query.join(' AND ')
       Student.find_by_sql([query_string, *search_params])
