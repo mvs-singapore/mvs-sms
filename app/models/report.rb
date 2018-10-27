@@ -31,6 +31,11 @@ class Report
       search_query << '( students.gender IN (?) )'
     end
 
+    if nationality && nationality.count > 1
+      search_params << nationality.select{ |a| a.length > 0 }
+      search_query << '( students.citizenship IN (?) )'
+    end
+
     unless search_query.empty?
       query_string = 'SELECT * FROM students WHERE ' + search_query.join(' AND ')
       Student.find_by_sql([query_string, *search_params])
