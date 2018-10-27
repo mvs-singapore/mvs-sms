@@ -1,5 +1,13 @@
 class ReportsController < ApplicationController
   def index
-    puts params
+    if params[:report]
+      @report = Report.new(report_params)
+    else
+      @report = Report.new
+    end
+  end
+
+  def report_params
+    params.require(:report).permit(age: [], gender: [], nationality: [], disability: [], status: [], financial_assistance: [], referred_by: [])
   end
 end

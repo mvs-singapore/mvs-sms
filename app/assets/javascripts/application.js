@@ -73,33 +73,11 @@ $(document).ready(function() {
 });
 
 $(document).ready(function () {
-  $('#report-filter #age').selectize({
-    delimiter: ',',
-    persist: false,
-    valueField: 'age',
-    labelField: 'age',
-    options: [
-      {age: '13'},
-      {age: '14'},
-      {age: '15'},
-      {age: '16'},
-      {age: '17'},
-      {age: '18'},
-      {age: '19'},
-      {age: '20'},
-      {age: '21'},
-      {age: '22'},
-      {age: '23'}
-    ]
-  });
-  $('#report-filter #gender').selectize({
-    delimiter: ',',
-    persist: false,
-    valueField: 'gender',
-    labelField: 'gender',
-    options: [
-      {gender: 'male'},
-      {gender: 'female'}
-    ]
-  });
+  $('#new_report #report_age').selectize();
+  $('#new_report #report_gender').selectize();
+  $('#new_report #report_nationality').selectize();
+  $('#new_report #report_disability').selectize();
+  $('#new_report #report_status').selectize();
+  $('#new_report #report_financial_assistance').selectize();
+  $('#new_report #report_referred_by').selectize();
 });

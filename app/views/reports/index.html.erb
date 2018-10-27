@@ -2,37 +2,37 @@
 
 <div class="container mb-3">
   <div class="form-row">
-    <%= form_tag(reports_path, :method => 'get', id: 'report-filter', class: 'form-group row justify-content-center') do |f| %>
+    <%= form_for(@report, path: reports_path, method: 'get',  html: { class: 'form-group row justify-content-center' } ) do |f| %>
       <div class="form-group col-md-1">
-        <%= label_tag :age, 'Age', class: 'col-form-label' %>
-        <%= text_field_tag :age, '', class: 'form-control form-control-sm' %>
+        <%= f.label :age, 'Age', class: 'col-form-label' %>
+        <%= f.select(:age, (13..30).map{|v| [v,v]}, { class: 'form-control form-control-sm' }, { multiple: true }) %>
       </div>
       <div class="form-group col-md-1">
-        <%= label_tag :gender, 'Gender', class: 'col-form-label' %>
-        <%= text_field_tag :gender, params[:gender], class: 'form-control form-control-sm' %>
+        <%= f.label :gender, 'Gender', class: 'col-form-label' %>
+        <%= f.select(:gender, ['Male', 'Female'], { class: 'form-control form-control-sm' }, { multiple: true }) %>
       </div>
       <div class="form-group col-md-2">
-        <%= label_tag :nationality, 'Nationality', class: 'col-form-label' %>
-        <%= text_field_tag :nationality, '', class: 'form-control form-control-sm' %>
+        <%= f.label :nationality, 'Nationality', class: 'col-form-label' %>
+        <%= f.country_select :nationality, {}, class: 'form-control form-control-sm', multiple: true %>
       </div>
       <div class="form-group col-md-2">
-        <%= label_tag :disability, 'Disability', class: 'col-form-label' %>
-        <%= text_field_tag :disability, '', class: 'form-control form-control-sm' %>
+        <%= f.label :disability, 'Disability', class: 'col-form-label' %>
+        <%= f.select(:disability, Disability.all.map{|d| d.title } , { class: 'form-control form-control-sm' }, { multiple: true } ) %>
       </div>
       <div class="form-group col-md-2">
-        <%= label_tag :status, 'Current Status', class: 'col-form-label' %>
-        <%= text_field_tag :status, '', class: 'form-control form-control-sm' %>
+        <%= f.label :status, 'Current Status', class: 'col-form-label' %>
+        <%= f.select(:status, Student.statuses.map{|k,v| [v, k]} , { class: 'form-control form-control-sm' }, { multiple: true } ) %>
       </div>
       <div class="form-group col-md-2">
-        <%= label_tag :financial_assistance, 'Financial Assistance', class: 'col-form-label' %>
-        <%= text_field_tag :financial_assistance, '', class: 'form-control form-control-sm' %>
+        <%= f.label :financial_assistance, 'Financial Assistance', class: 'col-form-label' %>
+        <%= f.select(:financial_assistance, ['Yes', 'No'], { class: 'form-control form-control-sm' }, { multiple: true }) %>
       </div>
       <div class="form-group col-md-2">
-        <%= label_tag :referred_by, 'Referred by', class: 'col-form-label' %>
-        <%= text_field_tag :referred_by, '', class: 'form-control form-control-sm' %>
+        <%= f.label :referred_by, 'Referred by', class: 'col-form-label' %>
+        <%= f.select(:referred_by, Student.institutions.map{|k,v| [v, k]}, { class: 'form-control form-control-sm' }, { multiple: true }) %>
       </div>
       <div class="form-group col-md-12">
-        <%= submit_tag 'Search', :class => 'btn btn-primary' %>
+        <%= f.submit 'Search', :class => 'btn btn-primary' %>
       </div>
     <% end %>
   </div>

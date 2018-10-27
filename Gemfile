@@ -81,4 +81,4 @@ gem 'carrierwave'
 gem 'carrierwave-dropbox', :git => 'https://github.com/hellocompass/carrierwave-dropbox.git', :branch => 'id_storage'
 gem 'faker'
 gem 'selectize-rails'
-
+gem 'country_select'
