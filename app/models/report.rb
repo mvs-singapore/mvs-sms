@@ -25,7 +25,7 @@ class Report
     if gender && gender.count > 1
       search_query << gender.select{ |a| a.length > 0 }
                            .map do |gender|
-        "(students.gender = #{Student.genders[gender]})"
+        "(students.gender = #{Student.genders[gender.downcase]})"
       end.join(" OR ")
     end
 

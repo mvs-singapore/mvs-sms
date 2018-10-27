@@ -38,7 +38,7 @@ RSpec.describe Report do
       FactoryBot.create(:student, admission_no:  '16014/2016', date_of_birth: DateTime.now - 13.years, gender: 'female')
       FactoryBot.create(:student, admission_no:  '16015/2016', date_of_birth: DateTime.now - 14.years, gender: 'female')
 
-      report = Report.new(age: ['', '13'], gender: ['', 'female'])
+      report = Report.new(age: ['', '13'], gender: ['', 'Female'])
 
       result = report.search_students
       expect(result.count).to eq 1
