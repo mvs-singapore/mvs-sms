@@ -21,7 +21,7 @@
       </div>
       <div class="form-group col-md-2">
         <%= f.label :status, 'Current Status', class: 'col-form-label' %>
-        <%= f.select(:status, Student.statuses.map{|k,v| [v, k]} , { class: 'form-control form-control-sm' }, { multiple: true } ) %>
+        <%= f.select(:status, Student.statuses.map{|k,_| v} , { class: 'form-control form-control-sm' }, { multiple: true } ) %>
       </div>
       <div class="form-group col-md-2">
         <%= f.label :financial_assistance, 'Financial Assistance', class: 'col-form-label' %>
