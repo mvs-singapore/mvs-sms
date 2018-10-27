@@ -3,9 +3,9 @@ addons:
   chrome: stable
 language: ruby
 rvm:
-  - 2.5.1
+- 2.5.3
 services:
-  - postgresql
+- postgresql
 bundler_args: "--without production --jobs=3"
 cache: bundler
 before_script:
@@ -18,7 +18,7 @@ notifications:
 deploy:
   provider: heroku
   api_key:
-    secure: XuN7g5p9lCn3I56oCKZjaMTXuLsuTktpJ46XrvGsbdkWEBm01HNmroBkU5tZ9vVmuDysEYv1MA/wKSD1FsL+LzVLGoYuF8+v3JN0wENs+9yLpwPJV/KPCZbp1gg9puCHSl9EU2cSLIm0lfOWdKJisyk9ggAj6Xs9dRsdx+LHno5E6l67taRrpKqa4H+PXO36dBd/fUPeFUn2Ieu8eYsynZHTInEPoYHPqBL4XsMe+ztLrNo07jUHa39LcW2WnWvgYyySGPOqF7+ajxPAgLmlBRIM9w/5KSEbK+tdRHNr+U85VJkqXXHP4XiSTasWIsC+6BAd4kjBcQCYcyix5uLpjYWMmkZj6XdoS/Zhj+owfa+1IkdQK8Ump4ia+nnKiW2s1iR209mU4NR5uWfnSqtYe5PhaJxYkaRjItyItl1q3IucmY2gHLP2+idE+Foqk7bgZ4nMDknFWKbmSDaGQ7MJeUrASA+zFQuEULw19yF0kXYfcYr3dPoXsQg97Rs5cDP8QLlv0upArA4n4/4xM35O/xFPRHMFruDtqXzQQ/H9PFlvKBgRQhs1UzFE5H6d4v5xPa7UTAYIvespAPUxYr73S9w4icD9Qg3EIdji4Vc1BFhTvhJk8+/l4XJRqvptRUqwk3V7NaCk2Hi7xy647D1L17BUmmUU7HbRJP8iAo5xFKU=
+    secure: TRqatDei8zPKpXyB1NQQh3PtGKd/p90aXtyhhXcv8dIhHPw1rv44GKMeVsJxUMGXoq7QFLcoItuW8B+khyqo5OAyy2G/V/NaN11HajachbvvU43Nl2Bhz8CTnpgqMLKjs9gBqX0FggfWNJBw7HkI+Pq6i1hfWgzu0a50P1BNzQ0B538AQ1D5I1erICRGELphPlIWq1zV+gxhbbmNQKS0Dj6TpTQ4O6XJkV46Hyrdp1u7aFdQRzY8kyXjs6unwCAUlbbJTXz+izppjkM9EKvZjMABC6W6W6epCoSnwpVJZ2t1GJSVjJGgjc/GXdm8aX56ZSKooMnCKg/EJohsknvdrgeQSK6HAgV5FYeXbkCH4a7BvVchR0DeMDSp/um+OxHBbuFbqYqlrbPukgt4/oBNsYYFpOn9UN5RONfsCb3kfu5ZKAThTqSWp6i0VO7ZovKNHrycgnr5nEqnr3eEsdyNDXuCWVZ76ESsxsAbhK8J3FVUoHiLRUSB9MVWWWkDKFYXJ6Owx/nZJxzWE710Di4dovgQj3Um/k65sCljc1u3x0Lxm+X7mG14NYeoH9BLUEIOzhAxG9pre2yWE1vb9fKbfHNJmbYubdKV6dy3eS5alzdSQ2Sxadvg0Y87WpjTzhQxl3iERIpTcJBgESN9xaHaG6SfOfBLsLozHxORlGq0dkA=
   run: rake db:migrate
   app:
     master: techladies-mvs
