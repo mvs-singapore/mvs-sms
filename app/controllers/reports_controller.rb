@@ -8,6 +8,6 @@ class ReportsController < ApplicationController
   end
 
   def report_params
-    params.require(:report).permit(age: [], gender: [], nationality: [], disability: [], status: [], financial_assistance: [], referred_by: [])
+    params.require(:report).permit(age: [], gender: [], nationality: [], disability: [], status: [], referred_by: [])
   end
 end
