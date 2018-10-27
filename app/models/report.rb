@@ -11,6 +11,7 @@ class Report
 
   def search_students
     search_query = []
+    search_params = []
 
     if age && age.count > 1
       search_query << age.select{ |a| a.length > 0 }
@@ -18,19 +19,21 @@ class Report
         today = Date.today
         ref_age = age.to_i.years
 
-        "(students.date_of_birth BETWEEN '#{(today.beginning_of_year - ref_age)}' AND '#{(today.end_of_year - ref_age)}')"
-      end.join(" OR ")
+        search_params << (today.beginning_of_year - ref_age)
+        search_params << (today.end_of_year - ref_age)
+
+        '(students.date_of_birth BETWEEN ? AND ?)'
+      end.join(' OR ')
     end
 
     if gender && gender.count > 1
-      search_query << gender.select{ |a| a.length > 0 }
-                           .map do |gender|
-        "(students.gender = #{Student.genders[gender.downcase]})"
-      end.join(" OR ")
+      search_params << gender.select{ |a| a.length > 0 }.map{ |gender| Student.genders[gender.downcase] }
+      search_query << '( students.gender IN (?) )'
     end
 
     unless search_query.empty?
-      Student.find_by_sql("SELECT * FROM students WHERE " + search_query.join(" AND "))
+      query_string = 'SELECT * FROM students WHERE ' + search_query.join(' AND ')
+      Student.find_by_sql([query_string, *search_params])
     else
       []
     end
