@@ -1,7 +1,7 @@
 class Report
   include ActiveModel::Model
 
-  VALID_FIELDS = [:age, :gender, :citizenship, :disability, :status, :referred_by].freeze
+  VALID_FIELDS = [:age, :gender, :citizenship, :disability, :status, :referred_by, :disability].freeze
 
   attr_accessor *VALID_FIELDS
 
@@ -14,10 +14,17 @@ class Report
   def search_students
     search_query = []
     search_params = []
+    search_join = []
+
+    if compact_params[:disability]
+      search_join << 'INNER JOIN student_disabilities ON student_disabilities.student_id = students.id'
+      search_params << compact_params[:disability].map(&:to_i)
+      search_query <<'( student_disabilities.disability_id IN (?) )'
+    end
 
     if compact_params[:age]
       compact_params[:age].each { |age| search_params += date_range_for_age(age).values }
-      search_query << compact_params[:age].map{ '(students.date_of_birth BETWEEN ? AND ?)' }.join(' OR ')
+      search_query << '( ' + compact_params[:age].map{ '(students.date_of_birth BETWEEN ? AND ?)' }.join(' OR ') + ' )'
     end
 
     if compact_params[:gender]
@@ -34,7 +41,7 @@ class Report
 
     return [] if search_query.empty?
 
-    query_string = 'SELECT * FROM students WHERE ' + search_query.join(' AND ')
+    query_string = 'SELECT * FROM students ' + search_join.join(' ') + ' WHERE ' + search_query.join(' AND ')
     Student.find_by_sql([query_string, *search_params])
   end
 
