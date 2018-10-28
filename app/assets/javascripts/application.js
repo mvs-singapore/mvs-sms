@@ -75,7 +75,7 @@ $(document).ready(function() {
 $(document).ready(function () {
   $('#new_report #report_age').selectize();
   $('#new_report #report_gender').selectize();
-  $('#new_report #report_nationality').selectize();
+  $('#new_report #report_citizenship').selectize();
   $('#new_report #report_disability').selectize();
   $('#new_report #report_status').selectize();
   $('#new_report #report_financial_assistance').selectize();

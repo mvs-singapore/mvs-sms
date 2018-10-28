@@ -1,41 +1,41 @@
 <h3 class="text-center m-4">Student Reports</h3>
 
 <div class="container mb-3">
-  <div class="form-row">
-    <%= form_for(@report, path: reports_path, method: 'get',  html: { class: 'form-group row justify-content-center' } ) do |f| %>
-      <div class="form-group col-md-1">
+  <div class="form-row justify-content-center">
+    <%= form_for(@report, path: reports_path, method: 'get',  html: { class: 'form-group row' } ) do |f| %>
+      <div class="form-group col-md-2">
         <%= f.label :age, 'Age', class: 'col-form-label' %>
         <%= f.select(:age, (13..30).map{|v| [v,v]}, { class: 'form-control form-control-sm' }, { multiple: true }) %>
       </div>
-      <div class="form-group col-md-1">
+      <div class="form-group col-md-2">
         <%= f.label :gender, 'Gender', class: 'col-form-label' %>
         <%= f.select(:gender, ['Male', 'Female'], { class: 'form-control form-control-sm' }, { multiple: true }) %>
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-3">
         <%= f.label :citizenship, 'Nationality', class: 'col-form-label' %>
         <%= f.select(:citizenship, options_for_select(Nationality::Nationality.default_option('Singaporean'), :selected => f.object.citizenship), { class: 'form-control form-control-sm' }, { multiple: true }) %>
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-5">
         <%= f.label :disability, 'Disability', class: 'col-form-label' %>
         <%= f.select(:disability, Disability.all.map{|d| [d.title, d.id] } , { class: 'form-control form-control-sm' }, { multiple: true } ) %>
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-4">
         <%= f.label :status, 'Current Status', class: 'col-form-label' %>
         <%= f.select(:status, Student.statuses.map{|k,v| [k, v]}, { class: 'form-control form-control-sm' }, { multiple: true } ) %>
       </div>
-      <div class="form-group col-md-2">
+      <div class="form-group col-md-8">
         <%= f.label :referred_by, 'Referred by', class: 'col-form-label' %>
         <%= f.select(:referred_by, Student.institutions.map{|k,v| [v, k]}, { class: 'form-control form-control-sm' }, { multiple: true }) %>
       </div>
-      <div class="form-group col-md-12">
+      <div class="form-group ml-auto p-2">
         <%= f.submit 'Search', :class => 'btn btn-primary' %>
+      </div>
+      <div class="form-group p-2">
+        <%= link_to('<i class="fa fa-download"></i> Download CSV'.html_safe, reports_path(csv_download_options(params)), class: "btn btn-success") %>
       </div>
     <% end %>
   </div>
 </div>
-
-<%= link_to('<i class="fa fa-download"></i> Download CSV'.html_safe, reports_path(csv_download_options(params)), class: "btn btn-success") %>
-
 
 <table class="table table-bordered table-sm">
   <thead class="table-primary">
