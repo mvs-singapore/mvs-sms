@@ -12,8 +12,8 @@
         <%= f.select(:gender, ['Male', 'Female'], { class: 'form-control form-control-sm' }, { multiple: true }) %>
       </div>
       <div class="form-group col-md-2">
-        <%= f.label :nationality, 'Nationality', class: 'col-form-label' %>
-        <%= f.select(:nationality, options_for_select(Nationality::Nationality.default_option('Singaporean'), :selected => f.object.nationality), { class: 'form-control form-control-sm' }, { multiple: true }) %>
+        <%= f.label :citizenship, 'Nationality', class: 'col-form-label' %>
+        <%= f.select(:citizenship, options_for_select(Nationality::Nationality.default_option('Singaporean'), :selected => f.object.citizenship), { class: 'form-control form-control-sm' }, { multiple: true }) %>
       </div>
       <div class="form-group col-md-2">
         <%= f.label :disability, 'Disability', class: 'col-form-label' %>

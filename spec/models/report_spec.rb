@@ -37,7 +37,7 @@ RSpec.describe Report do
       FactoryBot.create(:student, admission_no:  '16013/2016', citizenship: 'Singaporean')
       FactoryBot.create(:student, admission_no:  '16014/2016', citizenship: 'Malaysian')
 
-      report = Report.new(nationality: ['', 'Singaporean'])
+      report = Report.new(citizenship: ['', 'Singaporean'])
 
       result = report.search_students
       expect(result.count).to eq 1

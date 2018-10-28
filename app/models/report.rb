@@ -1,10 +1,12 @@
 class Report
   include ActiveModel::Model
 
-  attr_accessor :age, :gender, :nationality, :disability, :status, :referred_by
+  VALID_FIELDS = [:age, :gender, :citizenship, :disability, :status, :referred_by].freeze
+
+  attr_accessor *VALID_FIELDS
 
   def initialize(params={})
-    [:age, :gender, :nationality, :disability, :status, :referred_by].each do |field|
+    VALID_FIELDS.each do |field|
       self.send(:"#{field}=", params[field])
     end
   end
@@ -13,44 +15,44 @@ class Report
     search_query = []
     search_params = []
 
-    if age && age.count > 1
-      search_query << age.select{ |a| a.length > 0 }
-                       .map do |age|
-        today = Date.today
-        ref_age = age.to_i.years
-
-        search_params << (today.beginning_of_year - ref_age)
-        search_params << (today.end_of_year - ref_age)
-
-        '(students.date_of_birth BETWEEN ? AND ?)'
-      end.join(' OR ')
+    if compact_params[:age]
+      compact_params[:age].each { |age| search_params += date_range_for_age(age).values }
+      search_query << compact_params[:age].map{ '(students.date_of_birth BETWEEN ? AND ?)' }.join(' OR ')
     end
 
-    if gender && gender.count > 1
-      search_params << gender.select{ |a| a.length > 0 }.map{ |gender| Student.genders[gender.downcase] }
+    if compact_params[:gender]
+      search_params << compact_params[:gender].map{ |gender| Student.genders[gender.downcase] }
       search_query << '( students.gender IN (?) )'
     end
 
-    if nationality && nationality.count > 1
-      search_params << nationality.select{ |a| a.length > 0 }
-      search_query << '( students.citizenship IN (?) )'
+    [:citizenship, :status, :referred_by].each do |field|
+      if compact_params[field]
+        search_params << compact_params[field]
+        search_query << "( students.#{field} IN (?) )"
+      end
     end
 
-    if status && status.count > 1
-      search_params << status.select{ |a| a.length > 0 }
-      search_query << '( students.status IN (?) )'
-    end
+    return [] if search_query.empty?
 
-    if referred_by && referred_by.count > 1
-      search_params << referred_by.select{ |a| a.length > 0 }
-      search_query << '( students.referred_by IN (?) )'
-    end
+    query_string = 'SELECT * FROM students WHERE ' + search_query.join(' AND ')
+    Student.find_by_sql([query_string, *search_params])
+  end
 
-    unless search_query.empty?
-      query_string = 'SELECT * FROM students WHERE ' + search_query.join(' AND ')
-      Student.find_by_sql([query_string, *search_params])
-    else
-      []
+  private
+
+  def date_range_for_age(age)
+    today = Date.today
+    ref_age = age.to_i.years
+
+    {from: (today.beginning_of_year - ref_age), to: (today.end_of_year - ref_age)}
+  end
+
+  def compact_params
+    @compact_params ||= VALID_FIELDS.reduce({}) do |memo, item|
+      value = self.send(:"#{item}")
+      memo[item] = value.select{ |a| a.length > 0 } if value
+
+      memo
     end
   end
 end
