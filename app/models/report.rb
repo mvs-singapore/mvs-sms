@@ -41,7 +41,7 @@ class Report
 
     return [] if search_query.empty?
 
-    query_string = 'SELECT * FROM students ' + search_join.join(' ') + ' WHERE ' + search_query.join(' AND ')
+    query_string = 'SELECT DISTINCT students.* FROM students ' + search_join.join(' ') + ' WHERE ' + search_query.join(' AND ')
     Student.find_by_sql([query_string, *search_params])
   end
 
