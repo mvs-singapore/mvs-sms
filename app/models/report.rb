@@ -50,7 +50,7 @@ class Report
   def compact_params
     @compact_params ||= VALID_FIELDS.reduce({}) do |memo, item|
       value = self.send(:"#{item}")
-      memo[item] = value.select{ |a| a.length > 0 } if value
+      memo[item] = value.select{ |a| a.length > 0 } if value && value.length > 1
 
       memo
     end

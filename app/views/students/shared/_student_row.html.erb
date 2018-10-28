@@ -15,7 +15,7 @@
   <td data-for="disabilities"><%= student.disabilities.order('title').pluck('title').first %></td>
   <td data-for="medical_conditions"><%= student.medical_conditions.order('title').pluck('title').first %></td>
   <td data-for="main_contact"><%= student.point_of_contacts.map(&:contact_full_name).first %></td>
-  <td data-for="status"><%= student.status.titlecase %></td>
+  <td data-for="status"><%= student.status %></td>
   <td data-for="view" class="text-center collapsed" data-toggle="collapse" data-target="#student-details-<%= student.id %>"><i class="fa fa-plus"></td>
 </tr>
 <tr>

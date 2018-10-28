@@ -78,7 +78,7 @@ puts "Seeding students"
     admission_year: Faker::Number.between(2014, 2017),
     admission_no: "#{Faker::Number.between(10000, 50000)}/#{Faker::Number.between(100, 500)}",
     registered_at: Date.today,
-    status: [:new_admission, :year1, :year2].sample,
+    status: ['new_admission', 'year1', 'year2'].sample,
     referred_by: :association_of_persons_with_special_needs,
     referral_notes: Faker::Name.name,
     surname: Faker::Name.last_name,

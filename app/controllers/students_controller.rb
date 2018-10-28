@@ -61,6 +61,19 @@ class StudentsController < ApplicationController
     end
   end
 
+  def show
+    statuses_hash = Student.statuses.to_hash
+    @status_versions = @student.versions.map do |version|
+      { 
+        id: version.id,
+        modified_by: version.whodunnit, 
+        from: statuses_hash.key(version.changeset[:status][0]), 
+        to: statuses_hash.key(version.changeset[:status][1]),
+        created_at: version.created_at
+      }
+    end
+  end
+
   def edit
   end
 
