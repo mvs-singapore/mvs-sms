@@ -2,6 +2,14 @@ class Report
   include ActiveModel::Model
 
   VALID_FIELDS = [:age, :gender, :citizenship, :disability, :status, :referred_by].freeze
+  SEARCH_FIELD_MAPPING = {
+    age: 'students.age',
+    gender: 'students.gender',
+    citizenship: 'students.citizenship',
+    disability: 'student_disabilities.disability_id',
+    status: 'students.status',
+    referred_by: 'students.referred_by'
+  }.freeze
 
   attr_accessor *VALID_FIELDS
 
@@ -12,37 +20,31 @@ class Report
   end
 
   def search_students
-    search_query = []
-    search_params = []
-    search_join = []
-
-    if compact_params[:disability]
-      search_join << 'INNER JOIN student_disabilities ON student_disabilities.student_id = students.id'
-      search_params << compact_params[:disability].map(&:to_i)
-      search_query << '( student_disabilities.disability_id IN (?) )'
-    end
+    query_params = { query: [], args: [], joins: [] }
 
     if compact_params[:age]
-      compact_params[:age].each { |age| search_params += date_range_for_age(age).values }
-      search_query << '( ' + compact_params[:age].map{ '(students.date_of_birth BETWEEN ? AND ?)' }.join(' OR ') + ' )'
+      compact_params[:age].each { |age| query_params[:args] += date_range_for_age(age).values }
+      query_params[:query] << '( ' + compact_params[:age].map{ '(students.date_of_birth BETWEEN ? AND ?)' }.join(' OR ') + ' )'
     end
 
     if compact_params[:gender]
-      search_params << compact_params[:gender].map{ |gender| Student.genders[gender.downcase] }
-      search_query << '( students.gender IN (?) )'
+      query_params[:args] << compact_params[:gender].map{ |gender| Student.genders[gender.downcase] }
+      query_params[:query] << '( students.gender IN (?) )'
     end
 
-    [:citizenship, :status, :referred_by].each do |field|
+    [:citizenship, :status, :referred_by, :disability].each do |field|
       if compact_params[field]
-        search_params << compact_params[field]
-        search_query << "( students.#{field} IN (?) )"
+        query_params[:args] << compact_params[field]
+        query_params[:query] << "( #{SEARCH_FIELD_MAPPING[field]} IN (?) )"
+        if field == :disability
+          query_params[:joins] << 'INNER JOIN student_disabilities ON student_disabilities.student_id = students.id'
+        end
       end
     end
 
-    return [] if search_query.empty?
+    return [] if query_params[:query].empty?
 
-    query_string = 'SELECT DISTINCT students.* FROM students ' + search_join.join(' ') + ' WHERE ' + search_query.join(' AND ')
-    Student.find_by_sql([query_string, *search_params])
+    Student.find_by_sql(build_query(query_params))
   end
 
   private
@@ -61,5 +63,10 @@ class Report
 
       memo
     end
+  end
+
+  def build_query(query:, args:, joins:)
+    query_string = 'SELECT DISTINCT students.* FROM students ' + joins.join(' ') + ' WHERE ' + query.join(' AND ')
+    [query_string, *args]
   end
 end
