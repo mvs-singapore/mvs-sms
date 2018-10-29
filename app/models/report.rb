@@ -1,7 +1,7 @@
 class Report
   include ActiveModel::Model
 
-  VALID_FIELDS = [:age, :gender, :citizenship, :disability, :status, :referred_by, :disability].freeze
+  VALID_FIELDS = [:age, :gender, :citizenship, :disability, :status, :referred_by].freeze
 
   attr_accessor *VALID_FIELDS
 
@@ -19,7 +19,7 @@ class Report
     if compact_params[:disability]
       search_join << 'INNER JOIN student_disabilities ON student_disabilities.student_id = students.id'
       search_params << compact_params[:disability].map(&:to_i)
-      search_query <<'( student_disabilities.disability_id IN (?) )'
+      search_query << '( student_disabilities.disability_id IN (?) )'
     end
 
     if compact_params[:age]

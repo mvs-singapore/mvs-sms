@@ -71,6 +71,25 @@ RSpec.describe Report do
       expect(result.first.admission_no).to eq '16013/2016'
     end
 
+    it 'returns students with disabilities' do
+      student = FactoryBot.create(:student, admission_no:  '16013/2016')
+
+      disabilities_ids = ['Hearing Impaired', 'Intellectual'].map do |disability|
+          d = FactoryBot.create :disability, title: disability
+          student.student_disabilities.create(disability: d)
+
+          d.id.to_s
+        end
+
+      FactoryBot.create(:student, admission_no:  '16014/2016')
+
+      report = Report.new(disability: [''] + disabilities_ids)
+
+      result = report.search_students
+      expect(result.count).to eq 1
+      expect(result.first.admission_no).to eq '16013/2016'
+    end
+
     it 'returns a combination of search query' do
       FactoryBot.create(:student, admission_no:  '16013/2016', date_of_birth: DateTime.now - 13.years, gender: 'male')
       FactoryBot.create(:student, admission_no:  '16014/2016', date_of_birth: DateTime.now - 13.years, gender: 'female')
