@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class Report
   include ActiveModel::Model
 
-  VALID_FIELDS = [:age, :gender, :citizenship, :disability, :status, :referred_by].freeze
+  VALID_FIELDS = %i[age gender citizenship disability status referred_by].freeze
   SEARCH_FIELD_MAPPING = {
     age: 'students.age',
     gender: 'students.gender',
@@ -13,9 +15,9 @@ class Report
 
   attr_accessor *VALID_FIELDS
 
-  def initialize(params={})
+  def initialize(params = {})
     VALID_FIELDS.each do |field|
-      self.send(:"#{field}=", params[field])
+      send(:"#{field}=", params[field])
     end
   end
 
@@ -24,21 +26,21 @@ class Report
 
     if compact_params[:age]
       compact_params[:age].each { |age| query_params[:args] += date_range_for_age(age).values }
-      query_params[:query] << '( ' + compact_params[:age].map{ '(students.date_of_birth BETWEEN ? AND ?)' }.join(' OR ') + ' )'
+      query_params[:query] << '( ' + compact_params[:age].map { '(students.date_of_birth BETWEEN ? AND ?)' }.join(' OR ') + ' )'
     end
 
     if compact_params[:gender]
-      query_params[:args] << compact_params[:gender].map{ |gender| Student.genders[gender.downcase] }
+      query_params[:args] << compact_params[:gender].map { |gender| Student.genders[gender.downcase] }
       query_params[:query] << '( students.gender IN (?) )'
     end
 
-    [:citizenship, :status, :referred_by, :disability].each do |field|
-      if compact_params[field]
-        query_params[:args] << compact_params[field]
-        query_params[:query] << "( #{SEARCH_FIELD_MAPPING[field]} IN (?) )"
-        if field == :disability
-          query_params[:joins] << 'INNER JOIN student_disabilities ON student_disabilities.student_id = students.id'
-        end
+    %i[citizenship status referred_by disability].each do |field|
+      next unless compact_params[field]
+
+      query_params[:args] << compact_params[field]
+      query_params[:query] << "( #{SEARCH_FIELD_MAPPING[field]} IN (?) )"
+      if field == :disability
+        query_params[:joins] << 'INNER JOIN student_disabilities ON student_disabilities.student_id = students.id'
       end
     end
 
@@ -53,15 +55,13 @@ class Report
     today = Date.today
     ref_age = age.to_i.years
 
-    {from: (today.beginning_of_year - ref_age), to: (today.end_of_year - ref_age)}
+    { from: (today.beginning_of_year - ref_age), to: (today.end_of_year - ref_age) }
   end
 
   def compact_params
-    @compact_params ||= VALID_FIELDS.reduce({}) do |memo, item|
-      value = self.send(:"#{item}")
-      memo[item] = value.select{ |a| a.length > 0 } if value && value.length > 1
-
-      memo
+    @compact_params ||= VALID_FIELDS.each_with_object({}) do |item, memo|
+      value = send(:"#{item}")
+      memo[item] = value.reject(&:empty?) if value && value.length > 1
     end
   end
 
