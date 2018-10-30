@@ -4,14 +4,6 @@ class Report
   include ActiveModel::Model
 
   VALID_FIELDS = %i[age gender citizenship disability status referred_by].freeze
-  SEARCH_FIELD_MAPPING = {
-    age: 'students.age',
-    gender: 'students.gender',
-    citizenship: 'students.citizenship',
-    disability: 'student_disabilities.disability_id',
-    status: 'students.status',
-    referred_by: 'students.referred_by'
-  }.freeze
 
   attr_accessor *VALID_FIELDS
 
@@ -35,28 +27,27 @@ class Report
 
   def by_age
     compact_params[:age].each { |age| @query_params[:args] += date_range_for_age(age).values }
-    @query_params[:query] << '( ' + compact_params[:age].map { '(students.date_of_birth BETWEEN ? AND ?)' }.join(' OR ') + ' )'
+    append_params(query: '( ' + compact_params[:age].map { '(students.date_of_birth BETWEEN ? AND ?)' }.join(' OR ') + ' )')
   end
 
   def by_gender
-    @query_params[:args] << compact_params[:gender].map { |gender| Student.genders[gender.downcase] }
-    @query_params[:query] << '( students.gender IN (?) )'
+    append_params(query: '( students.gender IN (?) )',
+                  arg: compact_params[:gender].map { |gender| Student.genders[gender.downcase] })
   end
 
   def by_disability
-    @query_params[:args] << compact_params[:disability]
-    @query_params[:query] << "( student_disabilities.disability_id IN (?) )"
-    @query_params[:joins] << 'INNER JOIN student_disabilities ON student_disabilities.student_id = students.id'
+    append_params(query: '( student_disabilities.disability_id IN (?) )',
+                  arg: compact_params[:disability],
+                  joins: 'INNER JOIN student_disabilities ON student_disabilities.student_id = students.id' )
   end
 
   def method_missing(method, *args, &block)
-    is_matched = method.to_s =~ /^by_([a-z_]+)$/ && %w[citizenship status referred_by].include?(Regexp.last_match[1])
-    if is_matched
-      @query_params[:args] << compact_params[Regexp.last_match[1].to_sym]
-      @query_params[:query] << "( #{SEARCH_FIELD_MAPPING[Regexp.last_match[1].to_sym]} IN (?) )"
-    else
-      super
-    end
+    return super unless %i[by_citizenship by_status by_referred_by].include?(method)
+
+    field = /^by_([a-z_]+)$/.match(method)[1].to_sym
+
+    append_params(query: "( students.#{field} IN (?) )",
+                  arg: compact_params[field])
   end
 
   def respond_to_missing?(method, include_private = false)
@@ -68,6 +59,12 @@ class Report
     ref_age = age.to_i.years
 
     { from: (today.beginning_of_year - ref_age), to: (today.end_of_year - ref_age) }
+  end
+
+  def append_params(query: nil, arg: nil, joins: nil)
+    @query_params[:args] << arg if arg
+    @query_params[:query] << query if query
+    @query_params[:joins] << joins if joins
   end
 
   def compact_params
