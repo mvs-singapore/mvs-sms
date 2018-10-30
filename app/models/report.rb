@@ -22,34 +22,46 @@ class Report
   end
 
   def search_students
-    query_params = { query: [], args: [], joins: [] }
+    @query_params = { query: [], args: [], joins: [] }
 
-    if compact_params[:age]
-      compact_params[:age].each { |age| query_params[:args] += date_range_for_age(age).values }
-      query_params[:query] << '( ' + compact_params[:age].map { '(students.date_of_birth BETWEEN ? AND ?)' }.join(' OR ') + ' )'
-    end
+    compact_params.keys.each { |field| send(:"by_#{field}") }
 
-    if compact_params[:gender]
-      query_params[:args] << compact_params[:gender].map { |gender| Student.genders[gender.downcase] }
-      query_params[:query] << '( students.gender IN (?) )'
-    end
+    return [] if @query_params[:query].empty?
 
-    %i[citizenship status referred_by disability].each do |field|
-      next unless compact_params[field]
-
-      query_params[:args] << compact_params[field]
-      query_params[:query] << "( #{SEARCH_FIELD_MAPPING[field]} IN (?) )"
-      if field == :disability
-        query_params[:joins] << 'INNER JOIN student_disabilities ON student_disabilities.student_id = students.id'
-      end
-    end
-
-    return [] if query_params[:query].empty?
-
-    Student.find_by_sql(build_query(query_params))
+    Student.find_by_sql(build_query(@query_params))
   end
 
   private
+
+  def by_age
+    compact_params[:age].each { |age| @query_params[:args] += date_range_for_age(age).values }
+    @query_params[:query] << '( ' + compact_params[:age].map { '(students.date_of_birth BETWEEN ? AND ?)' }.join(' OR ') + ' )'
+  end
+
+  def by_gender
+    @query_params[:args] << compact_params[:gender].map { |gender| Student.genders[gender.downcase] }
+    @query_params[:query] << '( students.gender IN (?) )'
+  end
+
+  def by_disability
+    @query_params[:args] << compact_params[:disability]
+    @query_params[:query] << "( student_disabilities.disability_id IN (?) )"
+    @query_params[:joins] << 'INNER JOIN student_disabilities ON student_disabilities.student_id = students.id'
+  end
+
+  def method_missing(method, *args, &block)
+    is_matched = method.to_s =~ /^by_([a-z_]+)$/ && %w[citizenship status referred_by].include?(Regexp.last_match[1])
+    if is_matched
+      @query_params[:args] << compact_params[Regexp.last_match[1].to_sym]
+      @query_params[:query] << "( #{SEARCH_FIELD_MAPPING[Regexp.last_match[1].to_sym]} IN (?) )"
+    else
+      super
+    end
+  end
+
+  def respond_to_missing?(method, include_private = false)
+    method.to_s =~ /^by_([a-z_]+)$/ && %w[citizenship status referred_by].include?(Regexp.last_match[1]) || super
+  end
 
   def date_range_for_age(age)
     today = Date.today
