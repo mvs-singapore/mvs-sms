@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Report do
   describe '#search_students' do
     before(:each) do
-      @template = {age: [''], gender: [''], citizenship: [''], status: [''], referred_by: ['']}
+      @template = { age: [''], gender: [''], citizenship: [''], status: [''], referred_by: [''] }
     end
 
     it 'returns no students for empty query' do
@@ -22,8 +22,7 @@ RSpec.describe Report do
 
       result = report.search_students
       expect(result.count).to eq 2
-      expect(result.first.admission_no).to eq '16013/2016'
-      expect(result.last.admission_no).to eq '16015/2016'
+      expect(result.pluck(:admission_no)).to contain_exactly('16013/2016', '16015/2016')
     end
 
     it 'returns students of a certain gender' do
@@ -75,11 +74,11 @@ RSpec.describe Report do
       student = FactoryBot.create(:student, admission_no:  '16013/2016')
 
       disabilities_ids = ['Hearing Impaired', 'Intellectual'].map do |disability|
-          d = FactoryBot.create :disability, title: disability
-          student.student_disabilities.create(disability: d)
+        d = FactoryBot.create :disability, title: disability
+        student.student_disabilities.create(disability: d)
 
-          d.id.to_s
-        end
+        d.id.to_s
+      end
 
       FactoryBot.create(:student, admission_no:  '16014/2016')
 
