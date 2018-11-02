@@ -128,7 +128,7 @@ describe 'new student admissions', type: :feature do
       expect(new_student.registered_at).to eq Date.parse('09/09/2017')
       expect(new_student.referred_by).to eq 'association_of_persons_with_special_needs'
       expect(new_student.referral_notes).to eq 'Mdm Referee'
-      expect(new_student.status).to eq 'new_admission'
+      expect(new_student.status).to eq 'New Admission'
       expect(new_student.place_of_birth).to eq 'Singapore'
       expect(new_student.race).to eq 'Chinese'
       expect(new_student.nric).to eq 'S8888888D'

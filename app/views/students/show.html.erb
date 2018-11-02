@@ -99,7 +99,7 @@
       </div>
 
       <h4 class="card-header">Status Changes <span class="badge badge-warning float-right">
-        Current Status: <%= @student.status.titlecase %></span></h4>
+        Current Status: <%= @student.status %></span></h4>
       <div class="card-body">
         <table class="table table-sm status-changes">
           <thead>
@@ -110,15 +110,11 @@
             </tr>
           </thead>
           <tbody>
-            <% @student.versions.each do |version| %>
-            <tr id="version-<%= version.id %>">
-              <td data-for="status_change_name"><%= version.whodunnit %></td>
-              <td data-for="status_change">
-                <% version.changeset.each do |k, v| %>
-                  From <%= "#{v[0]}" %> to <%= "#{v[1]}" %>
-                <% end %>
-              </td>
-              <td data-for="status_change_date"><%= version.created_at %></td>
+            <% @status_versions.each do |version| %>
+            <tr id="version-<%= version[:id] %>">
+              <td data-for="status_change_name"><%= version[:modified_by] %></td>
+              <td data-for="status_change">From <%= version[:from] %> to <%= version[:to] %></td>
+              <td data-for="status_change_date"><%= version[:created_at] %></td>
             </tr>
             <% end %>
           </tbody>

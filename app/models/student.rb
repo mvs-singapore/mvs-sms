@@ -5,13 +5,13 @@ class Student < ApplicationRecord
   after_initialize :default_status
 
   enum status: {
-    new_admission: 'New Admission',
-    year1: 'Year 1',
-    year2: 'Year 2',
-    internship: 'Internship',
-    graduated: 'Graduated',
-    dropped_out: 'Dropped Out',
-    awarded: 'Awarded ITE Cert'
+    'New Admission' => 'new_admission',
+    'Year 1' => 'year1',
+    'Year 2' => 'year2',
+    'Internship' => 'internship',
+    'Graduated' => 'graduated',
+    'Dropped Out' => 'dropped_out',
+    'Awarded ITE Cert' => 'awarded' 
   }
 
   enum institution: {

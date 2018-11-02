@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :medical_conditions
   resources :disabilities
 	resources :internship_companies
+  resources :reports, only: [:index]
 
   namespace :api do
     resources :filters, only: [] do

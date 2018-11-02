@@ -31,6 +31,9 @@
             <div class="dropdown-menu" aria-labelledby="navbarSettingsDropdownMenuLink">
               <%= link_to 'View All Students', students_path, class: 'dropdown-item' %>
               <%= link_to 'Add New Student', new_student_path, class: 'dropdown-item' %>
+              <% if user_signed_in? && is_admin? %>
+                <%= link_to 'Reports', reports_path, class: 'dropdown-item' %>
+              <% end %>
             </div>
           </li>
 
