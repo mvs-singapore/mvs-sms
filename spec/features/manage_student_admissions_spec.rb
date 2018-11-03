@@ -54,6 +54,7 @@ describe 'new student admissions', type: :feature do
         fill_in 'Name of Referee', with: 'Mdm Referee'
       end
 
+      click_link 'Add Past Education Record'
       within('#past-educations .nested-fields:nth-of-type(1)') do
         find('td[data-for="school_name"] input').set('Northlight')
         find('td[data-for="from_date"] input').set('2016-03-02')
@@ -62,6 +63,7 @@ describe 'new student admissions', type: :feature do
         find('td[data-for="highest_qualification"] input').set(true)
       end
 
+      click_link 'Add Financial Assistance Details'
       within('#student-financial-assistance .nested-fields:nth-of-type(1)') do
         find('td[data-for="assistance_type"] input').set('Pocket Fund')
         find('td[data-for="year_obtained"] input').set('2017')
