@@ -22,12 +22,8 @@ class StudentsController < ApplicationController
 
   def new
     @student = Student.new
-    @student.past_education_records.new
     @student.point_of_contacts.new
     @student.internship_records.new
-    # @student.remarks.new
-    @student.financial_assistance_records.new
-    @student.attachments.new
   end
 
   def create
@@ -44,7 +40,7 @@ class StudentsController < ApplicationController
     fetch_cloudinary
 
     if @student.save
-      redirect_to students_path, flash: {notice: 'Successfully created student'}
+      redirect_to students_path, flash: { notice: 'Successfully created student' }
     else
       flash.now[:alert] = @student.errors.full_messages.join("<br/>").html_safe
       render :new
@@ -56,7 +52,7 @@ class StudentsController < ApplicationController
       update_records(@student.student_disabilities, :disability_id, @student.disability_ids, medical_history_params[:disability_ids])
       update_records(@student.student_medical_conditions, :medical_condition_id, @student.medical_condition_ids, medical_history_params[:medical_condition_ids])
 
-      redirect_to @student, flash: {notice: 'Successfully updated student'}
+      redirect_to @student, flash: { notice: 'Successfully updated student' }
     else
       flash.now[:alert] = @student.errors.full_messages.join("<br/>").html_safe
       render :edit
@@ -66,24 +62,23 @@ class StudentsController < ApplicationController
   def show
     statuses_hash = Student.statuses.to_hash
     @status_versions = @student.versions.map do |version|
-      { 
+      {
         id: version.id,
-        modified_by: version.whodunnit, 
-        from: statuses_hash.key(version.changeset[:status][0]), 
+        modified_by: version.whodunnit,
+        from: statuses_hash.key(version.changeset[:status][0]),
         to: statuses_hash.key(version.changeset[:status][1]),
         created_at: version.created_at
       }
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def destroy
     if @student.destroy
-      redirect_to students_path, flash: {notice: 'Successfully deleted student'}
+      redirect_to students_path, flash: { notice: 'Successfully deleted student' }
     else
-      redirect_to students_path, flash: {alert: @student.errors.full_messages.join("<br/>").html_safe }
+      redirect_to students_path, flash: { alert: @student.errors.full_messages.join("<br/>").html_safe }
     end
   end
 
@@ -105,18 +100,17 @@ class StudentsController < ApplicationController
   end
 
   def student_params
-    student_params = params.require(:student).permit(:admission_year, :admission_no, :registered_at, :current_class, :status, :referred_by, :referral_notes,
-                                    :surname, :given_name, :date_of_birth, :place_of_birth, :race, :nric, :citizenship, :gender, :sadeaf_client_reg_no,
-                                    :tshirt_size, :medication_needed, :allergies, :image_id,
-                                    past_education_records_attributes: [:id, :school_name, :from_date, :to_date, :qualification, :highest_qualification, :_destroy],
-                                    point_of_contacts_attributes: [:id, :surname, :given_name, :address, :postal_code, :race,
-                                    :dialect, :languages_spoken, :id_number, :id_type, :date_of_birth, :place_of_birth,
-                                    :nationality, :occupation, :home_number, :handphone_number, :office_number, :relationship, :_destroy],
-                                    internship_records_attributes: [:id, :student_id, :internship_company_id, :internship_supervisor_id, :from_date,
-                                    :to_date, :comments, :_destroy],
-                                    financial_assistance_records_attributes: [:id, :assistance_type, :year_obtained, :duration, :_destroy],
-                                    attachments_attributes: [:id, :document_type, :filename, :notes, :_destroy],
-                                    remarks_attributes: [:id, :student_id, :user_id, :event_date, :category, :details, :created_at, :updated_at, :_destroy])
+    student_params = params.require(:student)
+                           .permit(:admission_year, :admission_no, :registered_at, :current_class, :status, :referred_by, :referral_notes,
+                                   :surname, :given_name, :date_of_birth, :place_of_birth, :race, :nric, :citizenship, :gender, :sadeaf_client_reg_no,
+                                   :tshirt_size, :medication_needed, :allergies, :image_id,
+                                   past_education_records_attributes: %i[id school_name from_date to_date qualification highest_qualification _destroy],
+                                   point_of_contacts_attributes: %i[id surname given_name address postal_code race dialect languages_spoken id_number id_type date_of_birth place_of_birth nationality occupation home_number handphone_number office_number relationship _destroy],
+                                   internship_records_attributes: %i[id student_id internship_company_id internship_supervisor_id from_date
+                                   to_date comments _destroy],
+                                   financial_assistance_records_attributes: %i[id assistance_type year_obtained duration _destroy],
+                                   attachments_attributes: %i[id document_type filename notes _destroy],
+                                   remarks_attributes: %i[id student_id user_id event_date category details created_at updated_at _destroy])
 
     if student_params[:remarks_attributes].present?
       student_params[:remarks_attributes].each do |_, remark|

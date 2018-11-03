@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'student photo upload', type: :feature do
+xdescribe 'student photo upload', type: :feature do
   let!(:yammy) { create(:yammy) }
   let!(:ali) { create(:student) }
 
@@ -35,6 +35,7 @@ describe 'student photo upload', type: :feature do
       fill_in 'Date of Registration', with: '09/09/2017'
       select('Association of Persons with Special Needs', from: 'Referred By')
 
+      click_link 'Add Past Education Record'
       within('#past-educations .nested-fields:nth-of-type(1)') do
         find('td[data-for="school_name"] input').set('Northlight')
         find('td[data-for="from_date"] input').set('02/03/2016')
