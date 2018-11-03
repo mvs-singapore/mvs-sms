@@ -1,0 +1,7 @@
+<tr id="role-<%= role.id %>">
+  <td><%= link_to "#{role.name}", edit_admin_role_path(role), class: 'edit_role' %></td>
+  <td><%= role.created_at %></td>
+  <td>
+    <%= link_to 'Delete', admin_role_path(role), method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete_role btn btn-danger' %>
+  </td>
+</tr>

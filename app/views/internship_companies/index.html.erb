@@ -11,24 +11,14 @@
 <table class="table table-bordered">
   <thead class="table-primary">
     <tr>
-			<th>Name</th>
+      <th>Name</th>
       <th>Address</th>
-			<th>Postal Code</th>
-			<th>Actions</th>
+      <th>Postal Code</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody class="bg-white">
-        <% @resources.each do |internship_company| %>
-          <tr id="internship-company-<%= internship_company.id %>">
-            <td><%= link_to "#{internship_company.name}", internship_company_path(internship_company), class: 'show_internship_company' %></td>
-            <td><%= internship_company.address %></td>
-            <td><%= internship_company.postal_code %></td>
-            <td>
-              <%= link_to 'Edit', edit_internship_company_path(internship_company), class: "edit_internship_company btn btn-primary" %>
-              <%= link_to 'Delete', internship_company_path(internship_company), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_internship_company btn btn-danger" %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
+    <%= render partial: 'internship_companies/shared/internship_company_row', collection: @resources, as: :internship_company %>
+  </tbody>
 </table>
 </div>

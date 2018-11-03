@@ -1,0 +1,7 @@
+<tr id="medical-condition-<%= condition.id %>">
+  <td><%= link_to "#{condition.title}", edit_medical_condition_path(condition), class: 'edit_medical_condition' %></td>
+  <td><%= condition.created_at %></td>
+  <td>
+    <%= link_to 'Delete', medical_condition_path(condition), method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete_medical_condition btn btn-danger' %>
+  </td>
+</tr>
