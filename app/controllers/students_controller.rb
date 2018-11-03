@@ -22,12 +22,8 @@ class StudentsController < ApplicationController
 
   def new
     @student = Student.new
-    @student.past_education_records.new
     @student.point_of_contacts.new
     @student.internship_records.new
-    # @student.remarks.new
-    @student.financial_assistance_records.new
-    @student.attachments.new
   end
 
   def create
