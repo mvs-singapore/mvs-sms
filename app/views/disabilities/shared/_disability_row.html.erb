@@ -1,0 +1,7 @@
+<tr id="disability-<%= disability.id %>">
+  <td><%= link_to disability.title, edit_disability_path(disability), class: 'edit_disability' %></td>
+  <td><%= disability.created_at %></td>
+  <td>
+    <%= link_to 'Delete', disability_path(disability), method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete_disability btn btn-danger' %>
+  </td>
+</tr>

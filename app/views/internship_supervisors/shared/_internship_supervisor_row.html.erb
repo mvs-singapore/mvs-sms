@@ -1,0 +1,9 @@
+<tr id="supervisor-<%= supervisor.id %>" >
+  <td><%= link_to "#{supervisor.name}", edit_internship_supervisor_path(supervisor), class: 'edit_supervisor' %></td>
+  <td><%= supervisor.email %></td>
+  <td><%= supervisor.contact_number %></td>
+  <td><%= supervisor.internship_company.name %></td>
+  <td>
+    <%= link_to 'Delete', internship_supervisor_path(supervisor), method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete_user btn btn-danger' %>
+  </td>
+</tr>

@@ -4,7 +4,7 @@
       <h3 class="text-center">Manage Classes</h3>
     </div>
     <div class="col-4 text-right">
-      <%= link_to '<i class="fa fa-plus"></i> Add Class'.html_safe, new_admin_school_class_path, class: "btn btn-primary" %>
+      <%= link_to '<i class="fa fa-plus"></i> Add Class'.html_safe, new_admin_school_class_path, class: 'btn btn-primary' %>
     </div>
   </div>
 
@@ -19,18 +19,7 @@
     </tr>
   </thead>
   <tbody class="bg-white">
-  <% @resources.each do |school_class| %>
-      <tr id="class-<%= school_class.id %>">
-        <td><%= school_class.academic_year %></td>
-        <td><%= link_to "#{school_class.name}", admin_school_class_path(school_class), class: 'show_school_class' %></td>
-        <td><%= school_class.year %></td>
-        <td><%= school_class.form_teacher.name %></td>
-        <td>
-          <%= link_to 'Edit', edit_admin_school_class_path(school_class), class: "edit_school_class btn btn-primary" %>
-          <%= link_to 'Delete', admin_school_class_path(school_class), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete_school_class btn btn-danger" %>
-        </td>
-      </tr>
-  <% end %>
+    <%= render partial: 'admin/school_classes/shared/school_class_row', collection: @resources, as: :school_class %>
   </tbody>
 </table>
 </div>
