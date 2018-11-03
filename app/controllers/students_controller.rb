@@ -3,7 +3,7 @@ class StudentsController < ApplicationController
   before_action :fetch_student, only: [:show, :edit, :update, :destroy]
   before_action :fetch_medical_history_master_list, only: [:new, :edit, :create, :update]
   before_action :fetch_cohort_classes, only: [:index]
-  before_action :fetch_cloudinary, only: [:create, :update]
+  before_action :fetch_cloudinary, only: [:update]
 
   def index
     if params[:search].present?
@@ -40,6 +40,8 @@ class StudentsController < ApplicationController
     medical_history_params[:medical_condition_ids].reject(&:blank?).each do |condition_id|
       @student.student_medical_conditions.build(medical_condition_id: condition_id)
     end
+
+    fetch_cloudinary
 
     if @student.save
       redirect_to students_path, flash: {notice: 'Successfully created student'}
