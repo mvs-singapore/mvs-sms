@@ -36,14 +36,17 @@ def split_name(full_name)
   last_name = name_array.shift
   first_name = name_array.join(" ")
 
-  {last_name: last_name, first_name: first_name}
+  { last_name: last_name, first_name: first_name }
 end
 
 def split_parent_name(full_name)
   name_array = full_name.split(" ")
-  name_array.shift
+  salutation = name_array.shift
 
-  split_name(name_array.join(" "))
+  new_full_name = split_name(name_array.join(" "))
+  new_full_name[:salutation] = salutation
+
+  new_full_name
 end
 
 task :import_students do
@@ -73,6 +76,7 @@ task :import_students do
       poc_full_name = split_parent_name(student["Parents/Guardian 1"])
       poc1 = {
         relationship: 'Parent/Guardian',
+        salutation: poc_full_name[:salutation],
         surname: poc_full_name[:last_name],
         given_name: poc_full_name[:first_name],
         home_number: student["Home Phone"],
@@ -84,6 +88,7 @@ task :import_students do
         poc_full_name = split_parent_name(student["Parent/Guardian 2"])
         poc2 = {
           relationship: 'Parent/Guardian',
+          salutation: poc_full_name[:salutation],
           surname: poc_full_name[:last_name],
           given_name: poc_full_name[:first_name],
           home_number: student["Home Phone"],

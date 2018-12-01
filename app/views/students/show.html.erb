@@ -191,7 +191,7 @@
 
         <dl class="row" id="contact-<%= contact.id %>">
           <dt class="col-5">Full Name</dt>
-          <dd class="col-7" data-for="home_number"><%= contact.given_name %> <u><%= contact.surname %></u></dd>
+          <dd class="col-7" data-for="home_number"><%= contact.salutation %> <%= contact.given_name %> <u><%= contact.surname %></u></dd>
 
           <dt class="col-5">Home Number</dt>
           <dd class="col-7" data-for="home_number"><%= contact.home_number %></dd>
