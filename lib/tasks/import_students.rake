@@ -31,17 +31,34 @@ def format_citizenship(citizenship)
   mapper[citizenship]
 end
 
+def split_name(full_name)
+  name_array = full_name.split(" ")
+  last_name = name_array.shift
+  first_name = name_array.join(" ")
+
+  {last_name: last_name, first_name: first_name}
+end
+
+def split_parent_name(full_name)
+  name_array = full_name.split(" ")
+  name_array.shift
+
+  split_name(name_array.join(" "))
+end
+
 task :import_students do
   filename = Rails.root.join('lib/assets/confidential/march_2018.csv')
   File.open(filename, 'r') do |file|
     CSV.foreach(file, headers: true) do |student|
+      full_name = split_name(student["Name"])
+
       student_hash = {
         admission_year: student["Year"],
         admission_no: student["SN"],
         registered_at: '',
         current_class: student["Class"],
-        surname: '',
-        given_name: '',
+        surname: full_name[:last_name],
+        given_name: full_name[:first_name],
         date_of_birth: format_birthdate(student["Birthdate"]),
         place_of_birth: 'Singapore',
         race: '',
@@ -49,32 +66,31 @@ task :import_students do
         citizenship: format_citizenship(student["Nationality"]),
         gender: format_gender(student["Sex"])
       }
-      new_student = Student.new(student_hash)
+      new_student = Student.create(student_hash)
 
-      # disability[:title]
-      # medical_condition[:title]
+      new_student.past_education_records.create(school_name: student["Previous School"])
 
-      # past_education_record[:school_name] = student["Previous School"]
-      # past_education_record[:from_date]
-      # past_education_record[:to_date]
+      poc_full_name = split_parent_name(student["Parents/Guardian 1"])
+      poc1 = {
+        relationship: 'Parent/Guardian',
+        surname: poc_full_name[:last_name],
+        given_name: poc_full_name[:first_name],
+        home_number: student["Home Phone"],
+        handphone_number: student["Parent/Guardian 1 Contact "]
+      }
+      new_student.point_of_contacts.create(poc1)
 
-      # point_of_contact[:surname]
-      # point_of_contact[:given_name]
-      # point_of_contact[:address] = student["Home Address"]
-      # point_of_contact[:postal_code]
-      # point_of_contact[:race]
-      # point_of_contact[:dialect]
-      # point_of_contact[:languages_spoken]
-      # point_of_contact[:id_number]
-      # point_of_contact[:id_type]
-      # point_of_contact[:date_of_birth]
-      # point_of_contact[:place_of_birth]
-      # point_of_contact[:nationality]
-      # point_of_contact[:occupation]
-      # point_of_contact[:home_number]
-      # point_of_contact[:handphone_number]
-      # point_of_contact[:office_number]
-      # point_of_contact[:relationship]
+      if student["Parenet/Guardia 2"]
+        poc_full_name = split_parent_name(student["Parenet/Guardia 2"])
+        poc2 = {
+          relationship: 'Parent/Guardian',
+          surname: poc_full_name[:last_name],
+          given_name: poc_full_name[:first_name],
+          home_number: student["Home Phone"],
+          handphone_number: student["Parent/Guardian 2 Contact"]
+        }
+        new_student.point_of_contacts.create(poc2)
+      end
     end
   end
 end
