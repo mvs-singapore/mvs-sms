@@ -76,12 +76,12 @@ task :import_students do
         surname: poc_full_name[:last_name],
         given_name: poc_full_name[:first_name],
         home_number: student["Home Phone"],
-        handphone_number: student["Parent/Guardian 1 Contact "]
+        handphone_number: student["Parent/Guardian 1 Contact"]
       }
       new_student.point_of_contacts.create(poc1)
 
-      if student["Parenet/Guardia 2"]
-        poc_full_name = split_parent_name(student["Parenet/Guardia 2"])
+      if student["Parent/Guardian 2"]
+        poc_full_name = split_parent_name(student["Parent/Guardian 2"])
         poc2 = {
           relationship: 'Parent/Guardian',
           surname: poc_full_name[:last_name],
