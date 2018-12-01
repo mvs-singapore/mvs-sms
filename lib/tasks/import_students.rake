@@ -1,13 +1,13 @@
 # 1. Name. given_name, first_name format available?
 # 2. Classify disability, medication_needed, medical_condition, allergies
-# 3. Place of birth same as nationality?
-# 4. Admission no generation
+# 3. Place of birth same as nationality? (not in excel sheet)
+# 4. Admission no generation (? not in the excel sheet)
 # 5. Details required:
-#     - registered_at
-#     - referred_by
-#     - race
-#     - duration of previous school
-#     - parent,guardian relationship
+#     - registered_at ()
+#     - @ referred_by (no such data in Excel - can remove valdiation)
+#     - race (need this for validation)
+#     - @ duration of previous school (Remove validation)
+#     - parent,guardian relationship (actual relationship needed)
 
 desc "Import students from CSV"
 
