@@ -35,23 +35,20 @@ task :import_students do
   filename = Rails.root.join('lib/assets/confidential/march_2018.csv')
   File.open(filename, 'r') do |file|
     CSV.foreach(file, headers: true) do |student|
-      student_hash = {}
-      student_hash[:admission_year] = student["Year"]
-      student_hash[:admission_no] = student["SN"]
-      student_hash[:registered_at]
-      student_hash[:current_class] = student["Class"]
-      student_hash[:status]
-      student_hash[:referred_by]
-      student_hash[:surname]
-      student_hash[:given_name]
-      student_hash[:date_of_birth] = format_birthdate(student["Birthdate"])
-      student_hash[:place_of_birth]
-      student_hash[:race]
-      student_hash[:nric] = student["NRIC"]
-      student_hash[:citizenship] = format_citizenship(student["Nationality"])
-      student_hash[:gender] = format_gender(student["Sex"])
-      student_hash[:medication_needed]
-      student_hash[:allergies]
+      student_hash = {
+        admission_year: student["Year"],
+        admission_no: student["SN"],
+        registered_at: '',
+        current_class: student["Class"],
+        surname: '',
+        given_name: '',
+        date_of_birth: format_birthdate(student["Birthdate"]),
+        place_of_birth: 'Singapore',
+        race: '',
+        nric: student["NRIC"],
+        citizenship: format_citizenship(student["Nationality"]),
+        gender: format_gender(student["Sex"])
+      }
       new_student = Student.new(student_hash)
 
       # disability[:title]
