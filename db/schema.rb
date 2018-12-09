@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_02_115430) do
+ActiveRecord::Schema.define(version: 2018_12_09_093110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_115430) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "salutation"
+    t.string "email"
     t.index ["student_id"], name: "index_point_of_contacts_on_student_id"
   end
 

@@ -44,10 +44,12 @@ RSpec.describe StudentsImporter do
       expect(student2.surname).to eq 'Morthy'
       expect(student2.given_name).to eq 'Krishnan'
       expect(student2.date_of_birth.to_s).to eq '1997-02-01'
-      expect(student2.point_of_contacts.count).to eq 2
-      expect(student2.point_of_contacts.pluck(:salutation)).to contain_exactly('Mdm', 'Mr')
-      expect(student2.point_of_contacts.pluck(:given_name)).to contain_exactly('Krishana', 'Krishnan')
-      expect(student2.point_of_contacts.pluck(:surname)).to contain_exactly('Raja', 'Anu')
+      expect(student2.point_of_contacts.count).to eq 3
+      expect(student2.point_of_contacts.pluck(:salutation)).to contain_exactly('Mdm', 'Mr', 'Mdm')
+      expect(student2.point_of_contacts.pluck(:given_name)).to contain_exactly('Krishana', 'Krishnan', 'Marie')
+      expect(student2.point_of_contacts.pluck(:surname)).to contain_exactly('Raja', 'Anu', 'Anne')
+      expect(student2.point_of_contacts.pluck(:relationship)).to contain_exactly('Father', 'Mother', 'Auntie')
+      expect(student2.point_of_contacts.pluck(:email)).to include('anne@gmail.com')
     end
   end
 end
