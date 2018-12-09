@@ -1,9 +1,14 @@
-<%= form_tag(admin_import_students_path, :method => "post", multipart: true, id: "import-student", class: 'form-group row justify-content-center') do %>
-  <div class="custom-file">
-    <input type="file" name="csv_upload_file" class="custom-file-input" id="customFile">
-    <label class="custom-file-label" for="customFile">Choose file</label>
+<div class='row'>
+  <div class='col-6'>
+    <%= form_tag(admin_import_students_path, :method => "post", multipart: true, id: "import-student", class: 'form-group row justify-content-center') do %>
+      <div class="custom-file">
+        <input type="file" name="csv_upload_file" class="custom-file-input" id="customFile">
+        <label class="custom-file-label" for="customFile">Choose file</label>
+      </div>
+      <%= button_tag(type: "submit", class: "btn btn-primary") do %>
+        <i class="fa fa-plus"></i> Upload CSV
+      <%end%>
+    <%end%>
+    <a class="btn btn-success" href="/sample.csv"><i class="fa fa-download"></i> Sample CSV</a>
   </div>
-  <%= submit_tag "Upload CSV", class: 'btn btn-primary' %>
-<%end%>
-
-<button type="button" class="btn btn-primary">Sample CSV</button>
+</div>

@@ -91,7 +91,7 @@
           <dd class="col-7" data-for="registered_at"><%= @student.registered_at %></dd>
 
           <dt class="col-5">Referred By</dt>
-          <dd class="col-7" data-for="referred_by"><%= @student.referred_by.titlecase %></dd>
+          <dd class="col-7" data-for="referred_by"><%= @student.referred_by&.titlecase %></dd>
 
           <dt class="col-5">Name of Referee</dt>
           <dd class="col-7" data-for="referral_notes"><%= @student.referral_notes %></dd>
