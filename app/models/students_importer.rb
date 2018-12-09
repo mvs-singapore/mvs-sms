@@ -6,7 +6,7 @@ class StudentsImporter
   def execute
     File.open(@filepath, 'r') do |file|
       CSV.foreach(file, headers: true) do |student|
-
+        next unless student['Regn No']
         school_class = SchoolClass.first_or_create(
           academic_year: student["Year"],
           name: student["Class"],
@@ -14,48 +14,67 @@ class StudentsImporter
           form_teacher: User.first)
         
         full_name = split_name(student["Name"])
+        nric = student["NRIC"].strip.upcase
+
+        admission_no = student["Regn No"]
 
         student_hash = {
-          admission_year: student["Year"],
-          admission_no: student["SN"],
+          admission_year: admission_no.gsub(/.+?(\/)/, '').strip.to_i,
+          admission_no: admission_no,
           surname: full_name[:last_name],
           given_name: full_name[:first_name],
-          date_of_birth: format_birthdate(student["Birthdate"]),
+          date_of_birth: format_birthdate(student["Birthdate"].strip),
           place_of_birth: 'Singapore',
-          race: '',
-          nric: student["NRIC"],
+          race: student["Race"],
+          nric: nric,
           citizenship: format_citizenship(student["Nationality"]),
           gender: format_gender(student["Sex"])
         }
-        new_student = Student.new(student_hash)
+        new_student = Student.where(nric: nric).first_or_initialize
+        new_student.update_attributes(student_hash)
         new_student.save(validate: false)
 
         new_student.student_classes.create(school_class: school_class)
-
         new_student.past_education_records.create(school_name: student["Previous School"])
 
-        poc_full_name = split_parent_name(student["Parents/Guardian 1"])
-        poc1 = {
-          relationship: 'Parent/Guardian',
-          salutation: poc_full_name[:salutation],
-          surname: poc_full_name[:last_name],
-          given_name: poc_full_name[:first_name],
-          home_number: student["Home Phone"],
-          handphone_number: student["Parent/Guardian 1 Contact"]
-        }
-        new_student.point_of_contacts.create(poc1)
+        ["Father", "Mother"].each do |role|
+          if student["#{role} Name"]
+            poc_full_name = split_parent_name(student["#{role} Name"])
+            poc_details = {
+              relationship: role,
+              salutation: poc_full_name[:salutation],
+              surname: poc_full_name[:last_name],
+              given_name: poc_full_name[:first_name],
+              home_number: student["#{role} Home Number"],
+              handphone_number: student["#{role} Mobile Number"],
+              office_number: student["#{role} Office Number"],
+              id_number: student["#{role} NRIC"],
+              address: student["#{role} Address"],
+              postal_code: student["#{role} Postal Code"],
+              occupation: student["#{role} Occupation"]
+            }
 
-        if student["Parent/Guardian 2"]
-          poc_full_name = split_parent_name(student["Parent/Guardian 2"])
-          poc2 = {
-            relationship: 'Parent/Guardian',
+            poc = new_student.point_of_contacts.where(relationship: role).first_or_initialize
+            poc.update(poc_details)
+          end
+        end
+
+        if student["Guardian Name"]
+          poc_full_name = split_parent_name(student["Guardian Name"])
+          poc_details = {
+            relationship: student["Guardian Relationship"],
             salutation: poc_full_name[:salutation],
             surname: poc_full_name[:last_name],
             given_name: poc_full_name[:first_name],
-            home_number: student["Home Phone"],
-            handphone_number: student["Parent/Guardian 2 Contact"]
+            handphone_number: student["Guardian Mobile Number"],
+            address: student["Guardian Address"],
+            postal_code: student["Guardian Postal Code"],
+            occupation: student["Guardian Occupation"],
+            email: student["Guardian Email"]
           }
-          new_student.point_of_contacts.create(poc2)
+
+          poc = new_student.point_of_contacts.where(relationship: student["Guardian Relationship"]).first_or_initialize
+          poc.update(poc_details)
         end
       end
     end
@@ -65,10 +84,7 @@ class StudentsImporter
 
   def format_birthdate(birthdate)
     return unless birthdate
-    day, month, year = birthdate.split('-')
-    full_year = (year.to_i + 20 > 100) ? "19#{year}" : "20#{year}"
-
-    Date.strptime("#{day}-#{month}-#{full_year}", '%d-%b-%Y')
+    DateTime.strptime(birthdate, '%d-%b-%y').to_date
   end
 
   def format_gender(gender)
@@ -84,14 +100,16 @@ class StudentsImporter
   end
 
   def split_name(full_name)
+    return { last_name: '', first_name: '' } unless full_name
     name_array = full_name.split(" ")
     last_name = name_array.shift
     first_name = name_array.join(" ")
-
+    
     { last_name: last_name, first_name: first_name }
   end
-
+  
   def split_parent_name(full_name)
+    return { salutation: '', last_name: '', first_name: '' } unless full_name
     name_array = full_name.split(" ")
     salutation = name_array.shift
 

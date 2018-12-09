@@ -4,6 +4,7 @@ RSpec.describe StudentsImporter do
   describe 'execute' do
     before do
       FactoryBot.create(:yammy)
+      FactoryBot.create(:student, nric: 'A1234567Z')
     end
 
     it 'raise error when filepath not found' do
@@ -14,16 +15,14 @@ RSpec.describe StudentsImporter do
     end
 
     it 'imports data into db' do
-      path = Rails.root.join('spec/fixtures/march_2018.csv')
+      path = Rails.root.join('spec/fixtures/2018_students.csv')
       importer = StudentsImporter.new(path)
       importer.execute
 
-      student1 = Student.find_by(nric: 'A1234567Z')
-      student2 = Student.find_by(nric: 'A1111111Z')
-      student3 = Student.find_by(nric: 'S9999999A')
+      student1 = Student.find_by(nric: 'T0000000B')
 
-      expect(Student.count).to eq 3
-      expect(student1.admission_no).to eq '1'
+      expect(Student.count).to eq 2
+      expect(student1.admission_no).to eq '18001 / 2018'
       expect(student1.admission_year).to eq 2018
       expect(student1.current_class.name).to eq '1.1'
       expect(student1.surname).to eq 'Tan'
@@ -37,6 +36,18 @@ RSpec.describe StudentsImporter do
       expect(student1.point_of_contacts.pluck(:salutation)).to contain_exactly('Mdm', 'Mr')
       expect(student1.point_of_contacts.pluck(:given_name)).to contain_exactly('B C', 'Li Li')
       expect(student1.point_of_contacts.pluck(:surname)).to contain_exactly('Lau', 'Tan')
+
+      student2 = Student.find_by(nric: 'A1234567Z')
+      expect(student2.admission_no).to eq '18002 / 2018'
+      expect(student2.admission_year).to eq 2018
+      expect(student2.current_class.name).to eq '1.1'
+      expect(student2.surname).to eq 'Morthy'
+      expect(student2.given_name).to eq 'Krishnan'
+      expect(student2.date_of_birth.to_s).to eq '1997-02-01'
+      expect(student2.point_of_contacts.count).to eq 2
+      expect(student2.point_of_contacts.pluck(:salutation)).to contain_exactly('Mdm', 'Mr')
+      expect(student2.point_of_contacts.pluck(:given_name)).to contain_exactly('Krishana', 'Krishnan')
+      expect(student2.point_of_contacts.pluck(:surname)).to contain_exactly('Raja', 'Anu')
     end
   end
 end
