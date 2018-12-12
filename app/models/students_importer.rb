@@ -1,10 +1,6 @@
 class StudentsImporter
-  def initialize(filepath)
-    @filepath = filepath
-  end
-
-  def execute
-    File.open(@filepath, 'r') do |file|
+  def self.execute(filepath)
+    File.open(filepath, 'r') do |file|
       CSV.foreach(file, headers: true) do |student|
         next unless student['Regn No']
         school_class = SchoolClass.first_or_create(
@@ -80,42 +76,44 @@ class StudentsImporter
     end
   end
 
-  private
+  class << self
+    private
 
-  def format_birthdate(birthdate)
-    return unless birthdate
-    DateTime.strptime(birthdate, '%d-%b-%y').to_date
-  end
-
-  def format_gender(gender)
-    return unless gender
-    mapper = { 'F' => 0, 'M' => 1 }
-    mapper[gender]
-  end
-
-  def format_citizenship(citizenship)
-    return unless citizenship
-    return 'Singaporean' if citizenship == "S'porean"
-    citizenship
-  end
-
-  def split_name(full_name)
-    return { last_name: '', first_name: '' } unless full_name
-    name_array = full_name.split(" ")
-    last_name = name_array.shift
-    first_name = name_array.join(" ")
-    
-    { last_name: last_name, first_name: first_name }
-  end
+    def format_birthdate(birthdate)
+      return unless birthdate
+      DateTime.strptime(birthdate, '%d-%b-%y').to_date
+    end
   
-  def split_parent_name(full_name)
-    return { salutation: '', last_name: '', first_name: '' } unless full_name
-    name_array = full_name.split(" ")
-    salutation = name_array.shift
-
-    new_full_name = split_name(name_array.join(" "))
-    new_full_name[:salutation] = salutation
-
-    new_full_name
+    def format_gender(gender)
+      return unless gender
+      mapper = { 'F' => 0, 'M' => 1 }
+      mapper[gender]
+    end
+  
+    def format_citizenship(citizenship)
+      return unless citizenship
+      return 'Singaporean' if citizenship == "S'porean"
+      citizenship
+    end
+  
+    def split_name(full_name)
+      return { last_name: '', first_name: '' } unless full_name
+      name_array = full_name.split(" ")
+      last_name = name_array.shift
+      first_name = name_array.join(" ")
+      
+      { last_name: last_name, first_name: first_name }
+    end
+    
+    def split_parent_name(full_name)
+      return { salutation: '', last_name: '', first_name: '' } unless full_name
+      name_array = full_name.split(" ")
+      salutation = name_array.shift
+  
+      new_full_name = split_name(name_array.join(" "))
+      new_full_name[:salutation] = salutation
+  
+      new_full_name
+    end
   end
 end

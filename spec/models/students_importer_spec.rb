@@ -8,16 +8,14 @@ RSpec.describe StudentsImporter do
     end
 
     it 'raise error when filepath not found' do
-      importer = StudentsImporter.new('/some/non/existence/path')
-      expect { importer.execute }.to raise_error { |error|
+      expect { StudentsImporter.execute('/some/non/existence/path') }.to raise_error { |error|
         expect(error).to be_a(Errno::ENOENT)
       }  
     end
 
     it 'imports data into db' do
       path = Rails.root.join('spec/fixtures/2018_students.csv')
-      importer = StudentsImporter.new(path)
-      importer.execute
+      StudentsImporter.execute(path)
 
       student1 = Student.find_by(nric: 'T0000000B')
 
