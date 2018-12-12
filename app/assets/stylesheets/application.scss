@@ -68,5 +68,7 @@ body {
   height: unset;
   .custom-file-label {
     justify-content: flex-start;
+    white-space: nowrap;
+    overflow: hidden;
   }
 }
