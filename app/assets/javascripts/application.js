@@ -81,3 +81,10 @@ $(document).ready(function () {
   $('#new_report #report_financial_assistance').selectize();
   $('#new_report #report_referred_by').selectize();
 });
+
+$(document).ready(function () {
+  $('#customFile').on('change', function (e) {
+    var fileName = e.target.files[0].name;
+    $(this).next('.custom-file-label').html(fileName);
+  });
+});
