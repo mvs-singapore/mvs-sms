@@ -1,3 +1,15 @@
+<h3 class="text-center mt-5 mb-4">Import Student List</h3>
+
+<h4>Instructions</h4>
+
+<ol>
+  <li>Download this <a href="/sample.csv">sample CSV file</a>.</li>
+  <li>Populate in the student info - one student per row.</li>
+  <li>Click on "Browse" and select the updated CSV file.<li>
+  <li>Click on "Upload CSV". After uploading, the student data will be imported.<li>
+  <li>You can check the imported data in the <%= link_to "Students List", students_path %>.</li>
+</ol>
+
 <%= form_tag(admin_import_students_path, :method => "post", multipart: true, id: "import-student", class: 'form-inline') do %>
   <div class="custom-file">
     <input type="file" name="csv_upload_file" class="custom-file-input mb-2 mr-sm-2" id="customFile">
@@ -6,5 +18,4 @@
   <%= button_tag(type: "submit", class: "btn btn-primary mb-2 mr-sm-2") do %>
     <i class="fa fa-plus"></i> Upload CSV
   <%end%>
-  <a class="btn btn-success mb-2 mr-sm-2" href="/sample.csv"><i class="fa fa-download"></i> Sample CSV</a>
 <%end%>
