@@ -63,3 +63,12 @@ body {
   line-height: 60px;
   background-color: #f5f5f5;
 }
+.custom-file {
+  width: unset;
+  height: unset;
+  .custom-file-label {
+    justify-content: flex-start;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}

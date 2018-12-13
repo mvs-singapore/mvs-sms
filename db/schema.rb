@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2017_10_18_113202) do
+ActiveRecord::Schema.define(version: 2018_12_09_093110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,8 +81,8 @@ ActiveRecord::Schema.define(version: 2017_10_18_113202) do
 
   create_table "past_education_records", force: :cascade do |t|
     t.string "school_name", null: false
-    t.date "from_date", null: false
-    t.date "to_date", null: false
+    t.date "from_date"
+    t.date "to_date"
     t.string "qualification"
     t.integer "student_id"
     t.datetime "created_at", null: false
@@ -121,6 +121,8 @@ ActiveRecord::Schema.define(version: 2017_10_18_113202) do
     t.bigint "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "salutation"
+    t.string "email"
     t.index ["student_id"], name: "index_point_of_contacts_on_student_id"
   end
 
@@ -192,18 +194,18 @@ ActiveRecord::Schema.define(version: 2017_10_18_113202) do
   create_table "students", force: :cascade do |t|
     t.integer "admission_year", null: false
     t.string "admission_no"
-    t.date "registered_at", null: false
+    t.date "registered_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "current_class"
     t.string "status", default: "new_admission", null: false
-    t.string "referred_by", null: false
+    t.string "referred_by"
     t.text "referral_notes"
     t.string "surname", null: false
     t.string "given_name", null: false
     t.date "date_of_birth", null: false
     t.string "place_of_birth", default: "Singapore", null: false
-    t.string "race", null: false
+    t.string "race"
     t.string "nric", null: false
     t.string "citizenship", default: "Singaporean", null: false
     t.integer "gender", null: false

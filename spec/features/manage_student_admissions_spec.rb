@@ -91,6 +91,7 @@ describe 'new student admissions', type: :feature do
         fill_in 'Handphone Number', with: '87778777'
         fill_in 'Office Number', with: '61116111'
         fill_in 'Relationship', with: 'Mother'
+        fill_in 'Salutation', with: 'Mdm'
       end
 
       page.execute_script "window.scrollBy(0,1000)"
@@ -140,6 +141,7 @@ describe 'new student admissions', type: :feature do
       expect(new_student.allergies).to eq 'Peanuts'
       expect(new_student.tshirt_size).to eq 'M'
       expect(new_student.point_of_contacts.count).to eq 1
+      expect(new_student.point_of_contacts.last.salutation).to eq 'Mdm'
       expect(new_student.point_of_contacts.last.surname).to eq 'Ong'
       expect(new_student.point_of_contacts.last.given_name).to eq 'Pearly'
       expect(new_student.point_of_contacts.last.address).to eq '5 Smith Street'

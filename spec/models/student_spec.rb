@@ -5,7 +5,6 @@ RSpec.describe Student, type: :model do
     it { is_expected.to validate_presence_of(:admission_year) }
     it { is_expected.to validate_presence_of(:registered_at) }
     it { is_expected.to validate_presence_of(:status) }
-    it { is_expected.to validate_presence_of(:referred_by) }
     it { is_expected.to validate_presence_of(:surname) }
     it { is_expected.to validate_presence_of(:given_name) }
     it { is_expected.to validate_presence_of(:date_of_birth) }

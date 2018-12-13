@@ -28,6 +28,7 @@ describe 'manage point of contacts', type: :feature do
       click_link 'Parent/Guardian Particulars'
       within('#contacts .nested-fields:nth-of-type(1)') do
         fill_in 'Given Name', with: 'Joan'
+        fill_in 'Email', with: 'joan@gmail.com'
       end
 
       page.execute_script "window.scrollBy(0,1000)"
@@ -35,6 +36,7 @@ describe 'manage point of contacts', type: :feature do
 
       expect(page).to have_text 'Successfully updated student'
       expect(point_of_contact.reload.given_name).to eq 'Joan'
+      expect(point_of_contact.reload.email).to eq 'joan@gmail.com'
     end
   end
 

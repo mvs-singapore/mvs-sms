@@ -4,7 +4,7 @@ class PointOfContact < ApplicationRecord
   enum id_type: [:pink, :blue]
 
   def contact_full_name
-    "#{given_name} #{surname}"
+    "#{salutation} #{given_name} #{surname}".strip
   end
 
 end

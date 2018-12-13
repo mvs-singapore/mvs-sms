@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :users
     resources :roles
     resources :school_classes
+    resources :import_students, only: [:index, :create]
   end
 
   resources :students do

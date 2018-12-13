@@ -91,7 +91,7 @@
           <dd class="col-7" data-for="registered_at"><%= @student.registered_at %></dd>
 
           <dt class="col-5">Referred By</dt>
-          <dd class="col-7" data-for="referred_by"><%= @student.referred_by.titlecase %></dd>
+          <dd class="col-7" data-for="referred_by"><%= @student.referred_by&.titlecase %></dd>
 
           <dt class="col-5">Name of Referee</dt>
           <dd class="col-7" data-for="referral_notes"><%= @student.referral_notes %></dd>
@@ -191,7 +191,7 @@
 
         <dl class="row" id="contact-<%= contact.id %>">
           <dt class="col-5">Full Name</dt>
-          <dd class="col-7" data-for="home_number"><%= contact.given_name %> <u><%= contact.surname %></u></dd>
+          <dd class="col-7" data-for="home_number"><%= contact.salutation %> <%= contact.given_name %> <u><%= contact.surname %></u></dd>
 
           <dt class="col-5">Home Number</dt>
           <dd class="col-7" data-for="home_number"><%= contact.home_number %></dd>
@@ -201,6 +201,9 @@
 
           <dt class="col-5">Office Number</dt>
           <dd class="col-7" data-for="office_number"><%= contact.office_number %></dd>
+
+          <dt class="col-5">Email Address</dt>
+          <dd class="col-7" data-for="email"><%= contact.email %></dd>
 
           <dt class="col-5">Address</dt>
           <dd class="col-7" data-for="address"><%= contact.address %></dd>

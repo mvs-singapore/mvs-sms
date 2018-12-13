@@ -1,4 +1,4 @@
 class PastEducationRecord < ApplicationRecord
-  validates :school_name, :from_date, :to_date, presence: true
+  validates :school_name, presence: true
   belongs_to :student
 end
