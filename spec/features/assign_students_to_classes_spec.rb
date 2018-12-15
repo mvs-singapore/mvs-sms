@@ -18,7 +18,7 @@ describe 'assign students to classes', type: :feature do
 
   before do
     sign_in principal_user
-    visit admin_school_classes_path
+    visit school_classes_path
   end
 
   it 'adds/removes student from class' do

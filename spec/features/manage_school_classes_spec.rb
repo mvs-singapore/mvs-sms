@@ -13,7 +13,7 @@ describe 'manage school classes', type: :feature do
 
   describe 'create class' do
     it 'creates new class' do
-      visit '/admin/school_classes/'
+      visit '/school_classes/'
       click_link 'Add Class'
 
       within('#new_school_class') do
@@ -44,7 +44,7 @@ describe 'manage school classes', type: :feature do
     }
 
     it 'edits an existing class' do
-      visit '/admin/school_classes/'
+      visit '/school_classes/'
 
       within("#class-#{fnb_class.id}") do
         find_link('Edit').click
@@ -68,7 +68,7 @@ describe 'manage school classes', type: :feature do
     }
 
     it 'displays class details' do
-      visit '/admin/school_classes/'
+      visit '/school_classes/'
 
       within("#class-#{fnb_class.id}") do
         find_link('Year 2 Food & Beverages').click
@@ -86,7 +86,7 @@ describe 'manage school classes', type: :feature do
     }
 
     it 'deletes an existing class' do
-      visit '/admin/school_classes/'
+      visit '/school_classes/'
 
       within("#class-#{closed_class.id}") do
         accept_confirm_dialog {
