@@ -16,7 +16,7 @@
       <% current_user.school_classes.each do |school_class| %>
       <tr id="school-class-<%= school_class.id %>">
         <td data-for="academic_year"><%= school_class.academic_year %></td>
-        <td data-for="class"><%= link_to "#{school_class.name}", admin_school_class_path(school_class),
+        <td data-for="class"><%= link_to "#{school_class.name}", school_class_path(school_class),
                                         class: 'school_class-name' %></td>
         <td data-for="form_class">
           <% if current_user.school_classes.where(form_teacher_id: true) %>

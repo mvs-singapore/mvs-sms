@@ -1,0 +1,10 @@
+<tr id="class-<%= school_class.id %>">
+  <td><%= school_class.academic_year %></td>
+  <td><%= link_to "#{school_class.name}", school_class_path(school_class), class: 'show_school_class' %></td>
+  <td><%= school_class.year %></td>
+  <td><%= school_class.form_teacher.name %></td>
+  <td>
+    <%= link_to 'Edit', edit_school_class_path(school_class), class: 'edit_school_class btn btn-primary' %>
+    <%= link_to 'Delete', school_class_path(school_class), method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete_school_class btn btn-danger' %>
+  </td>
+</tr>

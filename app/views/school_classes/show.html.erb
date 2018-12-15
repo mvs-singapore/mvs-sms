@@ -4,8 +4,8 @@
       <h3 class="pt-4 pb-1">Students Assigned List</h3>
     </div>
     <div class="col-3 pt-3 pb-2 text-right">
-      <%= link_to '<i class="fa fa-pencil"></i> Edit Class'.html_safe, edit_admin_school_class_path(@resource), class: "edit_school_class btn btn-primary" %>
-      <%= link_to '<i class="fa fa-trash"></i> Delete Class'.html_safe, admin_school_class_path(@resource), method: :delete, data: {confirm: 'Are you sure?'}, class: "delete_school_class btn btn-danger" %>
+      <%= link_to '<i class="fa fa-pencil"></i> Edit Class'.html_safe, edit_school_class_path(@resource), class: "edit_school_class btn btn-primary" %>
+      <%= link_to '<i class="fa fa-trash"></i> Delete Class'.html_safe, school_class_path(@resource), method: :delete, data: {confirm: 'Are you sure?'}, class: "delete_school_class btn btn-danger" %>
     </div>
   </div>
 

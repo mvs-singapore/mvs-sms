@@ -2,10 +2,10 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :roles
-    resources :school_classes
-    resources :import_students, only: [:index, :create]
   end
 
+  resources :school_classes
+  resources :import_students, only: [:index, :create]
   resources :students do
     #resources :past_education_records, except: [:index, :show]
     resources :point_of_contacts, except: [:index, :show]

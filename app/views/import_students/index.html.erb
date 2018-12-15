@@ -10,7 +10,7 @@
   <li>You can check the imported data in the <%= link_to "Students List", students_path %>.</li>
 </ol>
 
-<%= form_tag(admin_import_students_path, :method => "post", multipart: true, id: "import-student", class: 'form-inline') do %>
+<%= form_tag(import_students_path, :method => "post", multipart: true, id: "import-student", class: 'form-inline') do %>
   <div class="custom-file">
     <input type="file" name="csv_upload_file" class="custom-file-input mb-2 mr-sm-2" id="customFile">
     <label class="custom-file-label mb-2 mr-sm-2" for="customFile">Choose file</label>

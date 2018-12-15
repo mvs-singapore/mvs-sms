@@ -1,7 +1,6 @@
-class Admin::SchoolClassesController < ApplicationController
+class SchoolClassesController < ApplicationController
 
   include Crudable
-  before_action :is_admin?
   before_action :fetch_resource, only: [:show, :edit, :update, :destroy]
 
   RESOURCE_CLASS = SchoolClass
@@ -17,7 +16,7 @@ class Admin::SchoolClassesController < ApplicationController
   end
 
   def resources_path
-    admin_school_classes_path
+    school_classes_path
   end
 
 end
