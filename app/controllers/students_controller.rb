@@ -103,7 +103,7 @@ class StudentsController < ApplicationController
     student_params = params.require(:student)
                            .permit(:admission_year, :admission_no, :registered_at, :current_class, :status, :referred_by, :referral_notes,
                                    :surname, :given_name, :date_of_birth, :place_of_birth, :race, :nric, :citizenship, :gender, :sadeaf_client_reg_no,
-                                   :tshirt_size, :medication_needed, :allergies, :image_id,
+                                   :tshirt_size, :medication_needed, :allergies, :image_id, :home_number, :mobile_number, :address, :postal_code,
                                    past_education_records_attributes: %i[id school_name from_date to_date qualification highest_qualification _destroy],
                                    point_of_contacts_attributes: %i[id salutation surname given_name address postal_code race dialect languages_spoken id_number id_type date_of_birth place_of_birth nationality occupation home_number handphone_number office_number email relationship _destroy],
                                    internship_records_attributes: %i[id student_id internship_company_id internship_supervisor_id from_date
