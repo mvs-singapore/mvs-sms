@@ -48,6 +48,7 @@ Rails.application.configure do
       port: ENV['SMTP_PORT'],
       authentication: ENV['SMTP_AUTH'].to_sym
   }
+  config.action_mailer.default_url_options = { host: ENV['DEFAULT_MAILER_HOST'] }
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
